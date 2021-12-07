@@ -1,13 +1,12 @@
 const express = require('express');
-
-const dotenv = require('dotenv');
-
+const dotenv = require('dotenv')
+dotenv.config({ path: './config.env' });
 
 const app = express();
-dotenv.config({ path: './config.env' });
+const connectToMongo = require('./config/mongoose');
 const port = process.env.PORT || 5000;
 
-
+connectToMongo();
 
 app.use(express.json());
 app.use('/',require('./routes'));
