@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Navbar from '../Navbar/Navbar'
 import Particles from "react-tsparticles";
-import Navbar from '../Navbar/Navbar';
 
-const home = (props) => {
+const Interview = () => {
    const particlesInit = (main) => {
       // console.log(main);
    };
@@ -14,7 +13,7 @@ const home = (props) => {
    return (
       <>
          <Particles
-            style={{ "position": "absolute" }}
+            style={{"position": "absolute"}}
             id="tsparticles"
             init={particlesInit}
             loaded={particlesLoaded}
@@ -97,14 +96,8 @@ const home = (props) => {
             }}
          />
          <Navbar />
-         <div style={{ textAlign: "center" }}>
-            <h1>Home Page</h1>
-            {/* <h2>Name: {props.user.name}</h2>
-            <h2>Email: {props.user.email}</h2> */}
-            <Link to='/'>LogOut</Link>
-         </div>
       </>
    )
 }
 
-export default home
+export default Interview
