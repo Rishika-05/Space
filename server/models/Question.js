@@ -5,10 +5,15 @@ const questionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    solution:{
+    answer:{
+        type:String,
+        required:true
+    },
+    testCase:{
         type:String,
         required:true
     }
+
 },{
     timestamps:true,
 });

@@ -32,7 +32,7 @@ export default function SignIn(props) {
                         navigate('/user/home')
                     else
                         navigate('/user/login')
-                })
+                });
         }
         else {
             alert('invalid input');
