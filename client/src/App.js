@@ -15,9 +15,9 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route exact path="/" element={<SignIn setLoginUser={setLoginUser} />} />
-          <Route exact path="/SignUp" element={<SignUp />} />
-          <Route exact path="/home" element={
+          <Route exact path="/user/login" element={<SignIn setLoginUser={setLoginUser} />} />
+          <Route exact path="/user/SignUp" element={<SignUp />} />
+          <Route exact path="/user/home" element={
             user && user._id ? <Home user={user} /> : <SignIn setLoginUser={setLoginUser} />
           } />
         </Routes>

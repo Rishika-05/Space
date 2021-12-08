@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 module.exports.login = (req,res)=>{
     const { email, password } = req.body
@@ -8,6 +8,7 @@ module.exports.login = (req,res)=>{
                 const chk = await bcrypt.compare(password, user.password);
                 if (chk) {
                     res.send({ message: "Login Successfull", user: user })
+                    
                 }
                 else {
                     res.send({ message: "Password didn't match" })
@@ -40,6 +41,7 @@ module.exports.signUp = async (req,res)=>{
                         res.send(err)
                     } else {
                         res.send({ message: 'successfully registered' })
+                        res.redirect('/user/login')
                     }
                 })
             }
