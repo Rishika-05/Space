@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Navbar  (props) {
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white","height":"60px"}}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white","height":"70px"}}>
                 <div className="container-fluid">
                     <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px"}}><img src={Logo} alt="" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
