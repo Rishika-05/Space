@@ -10,12 +10,16 @@ import {
   Route
 } from "react-router-dom";
 import './App.css';
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
   const [user, setLoginUser] = useState({})
   return (
     <>
       <Router>
+        {
+          user && user._id ? <Navbar /> : <></>
+        }
         <Routes>
           <Route exact path="/user/login" element={<SignIn setLoginUser={setLoginUser} />} />
           <Route exact path="/user/SignUp" element={<SignUp />} />
