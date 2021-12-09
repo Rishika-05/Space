@@ -27,6 +27,7 @@ export default function SignIn(props) {
             axios.post("http://localhost:9002/login", user)
                 .then(res => {
                     alert(res.data.message)
+                   
                     props.setLoginUser(res.data.user)
                     if (res.data.user)
                         navigate('/')

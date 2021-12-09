@@ -5,6 +5,7 @@ import SignUp from './components/SignUp/SignUp.jsx'
 import Home from './components/Home/home.jsx'
 import Interview from './components/Interview/Interview'
 import Navbar from './components/Navbar/Navbar.js'
+import Profile from './components/Profile/Profile.jsx'
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,11 +15,13 @@ import './App.css';
 
 function App() {
   const [user, setLoginUser] = useState({})
+  
   return (
     <>
       <Router>
       {
-          user && user._id ? <Navbar setLoginUser={setLoginUser}/> : <></>
+        
+          user && user._id ? <Navbar user = {user} setLoginUser={setLoginUser} /> : <></>
         }
         <Routes>
           <Route exact path="/login" element={<SignIn setLoginUser={setLoginUser} />} />
@@ -27,6 +30,7 @@ function App() {
             user && user._id ? <Home user={user} /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route exact path="/interview" element={<Interview />} />
+          <Route path="/profile/:id"  element={<Profile/>}/>
         </Routes>
       </Router>
     </>

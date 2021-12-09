@@ -24,11 +24,11 @@ const userSchema = new mongoose.Schema({
         {
             day:{
                 type:Number,
-                required:true,
+                required:false,
             },
             value:{
                 type:Number,
-                required:true,
+                required:false,
                 default:0,
             }
         }

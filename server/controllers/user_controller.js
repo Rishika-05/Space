@@ -8,7 +8,6 @@ module.exports.login = (req,res)=>{
                 const chk = await bcrypt.compare(password, user.password);
                 if (chk) {
                     res.send({ message: "Login Successfull", user: user })
-                    
                 }
                 else {
                     res.send({ message: "Password didn't match" })
@@ -36,6 +35,9 @@ module.exports.signUp = async (req,res)=>{
                     email,
                     password: hashedPassword
                 })
+                for(let i=1;i<=365;i++){
+                    user.calender.push({day:i,value:0});
+                }
                 user.save(err => {
                     if (err) {
                         res.send(err)
