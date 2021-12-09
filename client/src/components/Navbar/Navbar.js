@@ -4,7 +4,7 @@ import UserPic from '../../assets/images/user.png'
 import { Link } from 'react-router-dom'
 
 
-const Navbar = () => {
+export default function Navbar  (props) {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white"}}>
@@ -31,7 +31,7 @@ const Navbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "25px" }}>
                                     <li><Link className="dropdown-item" to="/">Profile</Link></li>
                                     <li><hr className="dropdown-divider"/></li>
-                                    <li><Link className="dropdown-item" to="#">Logout</Link></li>
+                                    <li><Link className="dropdown-item" onClick ={()=>{props.setLoginUser(null)}} to="/login">Logout</Link></li>
                                 </ul>
                             </li>
                         </ul>
@@ -46,4 +46,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+

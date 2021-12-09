@@ -25,7 +25,7 @@ export default function SignUp() {
         const { name, email, password, reEnterPassword } = user
         console.log(user);
         if (name && email && password && (password === reEnterPassword)) {
-            axios.post("http://localhost:9002/user/signUp", user)
+            axios.post("http://localhost:9002/signUp", user)
                 .then(res => {
                     alert(res.data.message)
                     navigate('/')

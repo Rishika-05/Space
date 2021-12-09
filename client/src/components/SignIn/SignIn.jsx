@@ -24,14 +24,14 @@ export default function SignIn(props) {
     const signin = () => {
         const { email, password } = user
         if (email && password) {
-            axios.post("http://localhost:9002/user/login", user)
+            axios.post("http://localhost:9002/login", user)
                 .then(res => {
                     alert(res.data.message)
                     props.setLoginUser(res.data.user)
                     if (res.data.user)
-                        navigate('/user/home')
+                        navigate('/')
                     else
-                        navigate('/user/login')
+                        navigate('/login')
                 });
         }
         else {
