@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom'
 export default function Navbar  (props) {
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white"}}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white","height":"60px"}}>
                 <div className="container-fluid">
-                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
+                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px"}}><img src={Logo} alt="" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "25px" }}>
+                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "18px" }}>
                             <li className="nav-item me-4">
                                 <Link className="nav-link active" aria-current="page" to="/practice">Practice</Link>
                             </li>
@@ -26,9 +26,9 @@ export default function Navbar  (props) {
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={UserPic} alt="" style={{"height":"45px", "marginRight":"10px"}} />user_name
+                                    <img src={UserPic} alt="" style={{"height":"25px", "marginRight":"10px"}} />user_name
                                 </Link>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "25px" }}>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "18px" }}>
                                     <li><Link className="dropdown-item" to="/">Profile</Link></li>
                                     <li><hr className="dropdown-divider"/></li>
                                     <li><Link className="dropdown-item" onClick ={()=>{props.setLoginUser(null)}} to="/login">Logout</Link></li>
