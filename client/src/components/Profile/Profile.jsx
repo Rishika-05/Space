@@ -25,7 +25,7 @@ export default function Profile(props) {
     const getAvatar = ()=>{
         const fullName = userProfile.name.split(' ');
         const nameString = fullName[0] +'+'+fullName[fullName.length-1]
-        let avatar = await fetch(`https://ui-avatars.com/api/?${nameString}&background=random`)
+        // let avatar = await fetch(`https://ui-avatars.com/api/?${nameString}&background=random`)
     }
     
     if(userProfile){
