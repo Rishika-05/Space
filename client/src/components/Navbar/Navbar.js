@@ -4,17 +4,17 @@ import UserPic from '../../assets/images/user.png'
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar  (props) {
+export default function Navbar(props) {
     const navigate = useNavigate();
     // console.
-    const userProfile = ()=>{
+    const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
     }
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{"backgroundColor":"white","height":"70px"}}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "70px", zIndex: '2' }}>
                 <div className="container-fluid">
-                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px"}}><img src={Logo} alt="" /> </Link>
+                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -31,12 +31,12 @@ export default function Navbar  (props) {
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={UserPic} alt="" style={{"height":"25px", "marginRight":"10px"}} />user_name
+                                    <img src={UserPic} alt="" style={{ "height": "25px", "marginRight": "10px" }} />user_name
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "18px" }}>
-                                    <li><div className="dropdown-item" onClick = {userProfile}>Profile</div></li>
-                                    <li><hr className="dropdown-divider"/></li>
-                                    <li><Link className="dropdown-item" onClick ={()=>{props.setLoginUser(null)}} to="/login">Logout</Link></li>
+                                    <li><div className="dropdown-item" onClick={userProfile}>Profile</div></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><Link className="dropdown-item" onClick={() => { props.setLoginUser(null) }} to="/login">Logout</Link></li>
                                 </ul>
                             </li>
                         </ul>

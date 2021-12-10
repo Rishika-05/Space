@@ -33,7 +33,7 @@ export default function Home(props) {
                     <h3 className='hh3'>Puzzles</h3>
                     <button class="btnn infoo">Puzzles</button>
                 </div>
-                <div><Link to='/'>LogOut</Link></div>
+                <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div>
             </div>
         </div>
     )
