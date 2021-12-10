@@ -1,7 +1,7 @@
 const patriclesConfig = {
     particles: {
         number: {
-            value: 100,
+            value: 80,
             density: {
                 enable: true,
                 value_area: 800
@@ -72,7 +72,7 @@ const patriclesConfig = {
         events: {
             onhover: {
                 enable: true,
-                mode: "repulse"
+                mode: "grab"
             },
             onclick: {
                 enable: true,
@@ -82,15 +82,15 @@ const patriclesConfig = {
         },
         modes: {
             grab: {
-                distance: 200,
+                distance: 100,
                 line_linked: {
                     opacity: 1
                 }
             },
             bubble: {
                 distance: 279.97565429093146,
-                size: 5,
-                duration: 0.5,
+                size: 7,
+                duration: 0.7,
                 opacity: 0.4057618178129441,
                 speed: 3
             },

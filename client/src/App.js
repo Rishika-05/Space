@@ -12,22 +12,15 @@ import {
   Route
 } from "react-router-dom";
 import './App.css';
-import Navbar from './components/Navbar/Navbar'
 
 function App() {
   const [user, setLoginUser] = useState({})
-  
+
   return (
     <>
       <Router>
-<<<<<<< HEAD
-      {
-        
-          user && user._id ? <Navbar user = {user} setLoginUser={setLoginUser} /> : <></>
-=======
         {
-          user && user._id ? <Navbar /> : <></>
->>>>>>> 76bce121fba1e091388267fe641674362e55bfaf
+          user && user._id ? <Navbar user={user} setLoginUser={setLoginUser} /> : <></>
         }
         <Routes>
           <Route exact path="/login" element={<SignIn setLoginUser={setLoginUser} />} />
@@ -36,7 +29,7 @@ function App() {
             user && user._id ? <Home user={user} /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route exact path="/interview" element={<Interview />} />
-          <Route path="/profile/:id"  element={<Profile/>}/>
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>
     </>
