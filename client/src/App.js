@@ -13,15 +13,14 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-
 function App() {
   const [user, setLoginUser] = useState({})
-  
+
   return (
     <>
       <Router>
         {
-          user && user._id ? <Navbar /> : <></>
+          user && user._id ? <Navbar user={user} setLoginUser={setLoginUser} /> : <></>
         }
         <Routes>
           <Route exact path="/login" element={<SignIn setLoginUser={setLoginUser} />} />
@@ -30,7 +29,7 @@ function App() {
             user && user._id ? <Home user={user} /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route exact path="/interview" element={<Interview />} />
-          <Route path="/profile/:id"  element={<Profile/>}/>
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>
     </>
