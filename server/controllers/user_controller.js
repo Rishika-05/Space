@@ -43,7 +43,7 @@ module.exports.signUp = async (req,res)=>{
                         res.send(err)
                     } else {
                         res.send({ message: 'successfully registered' })
-                        res.redirect('/user/login')
+                        res.redirect('/login')
                     }
                 })
             }

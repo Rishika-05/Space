@@ -1,102 +1,33 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar.js'
-import Particles from "react-tsparticles";
+// import { Link } from 'react-router-dom'
+import Particles from 'react-particles-js'
+import patriclesConfig from './config/particle-config'
+import './Interview.css'
+import schedule from './schedule.svg'
+import join from './join.svg'
 
 const Interview = () => {
-   const particlesInit = (main) => {
-      // console.log(main);
-   };
-
-   const particlesLoaded = (container) => {
-      // console.log(container);
-   };
    return (
-      <>
+      <div className="interview">
          <Particles
-            style={{"position": "absolute"}}
-            id="tsparticles"
-            init={particlesInit}
-            loaded={particlesLoaded}
-            options={{
-               background: {
-                  color: {
-                     value: "#171C3D",
-                  },
-               },
-               fpsLimit: 60,
-               interactivity: {
-                  events: {
-                     onClick: {
-                        enable: true,
-                        mode: "push",
-                     },
-                     onHover: {
-                        enable: true,
-                        mode: "repulse",
-                     },
-                     resize: true,
-                  },
-                  modes: {
-                     bubble: {
-                        distance: 400,
-                        duration: 2,
-                        opacity: 0.8,
-                        size: 40,
-                     },
-                     push: {
-                        quantity: 4,
-                     },
-                     repulse: {
-                        distance: 200,
-                        duration: 0.4,
-                     },
-                  },
-               },
-               particles: {
-                  color: {
-                     value: "#a8e4ea",
-                  },
-                  links: {
-                     color: "#a8e4ea",
-                     distance: 150,
-                     enable: true,
-                     opacity: 0.5,
-                     width: 1,
-                  },
-                  collisions: {
-                     enable: true,
-                  },
-                  move: {
-                     direction: "none",
-                     enable: true,
-                     outMode: "bounce",
-                     random: false,
-                     speed: 3.5,
-                     straight: false,
-                  },
-                  number: {
-                     density: {
-                        enable: true,
-                        value_area: 750,
-                     },
-                     value: 80,
-                  },
-                  opacity: {
-                     value: 0.5,
-                  },
-                  shape: {
-                     type: "triangle",
-                  },
-                  size: {
-                     random: true,
-                     value: 5,
-                  },
-               },
-               detectRetina: true,
-            }}
-         />
-         <Navbar />
-      </>
+            params={patriclesConfig} />
+         <div className="main_content" style={{ textAlign: 'center' }}>
+            <h1 style={{ fontSize: '4vw', fontWeight: 'lighter', color: '#263238' }}>Space Helps You</h1>
+            <h2 style={{ fontSize: '4vw', fontWeight: 'bold', color: '#263238' }}>Improve Your Skills</h2>
+         </div>
+         <div className="bottom_boxx" style={{ textAlign: 'center' }}>
+            <div className="imgContainer">
+               <img src={schedule} alt="Interview" className='imgg' />
+               <h1></h1>
+               <button type="button" style={{ "fontSize":"18px" }}  className="btn btn-dark my-4">Schedule</button>
+            </div>
+            <div className="imgContainer pull">
+               <img src={join} alt="Problem" className='imgg' />
+               <h1></h1>
+               <button type="button" style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button>
+            </div>
+         </div>
+      </div>
    )
 }
 
