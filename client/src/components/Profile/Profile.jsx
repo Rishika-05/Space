@@ -1,15 +1,20 @@
 import React from 'react'
-import {useEffect,useState } from 'react';
+import {useLayoutEffect,useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './profile.css'
 
 export default function Profile(props) {
-    const [userProfile, setUserProfile] = useState(undefined);
-    useEffect(() =>{
+    const [userProfile, setuserProfile] = useState();
+    const [avatar,setAvatar] = useState();
+    useLayoutEffect(() =>{
         getUserProfile();
-        getAvatar();
+            
+        
         
     },[])
+    
+    
+    
     const {id} = useParams();
     
     const getUserProfile = async ()=>{
@@ -19,14 +24,16 @@ export default function Profile(props) {
         
         let userData = await res.json();
         
-        setUserProfile(userData.user);
         
-    }
-    const getAvatar = ()=>{
-        const fullName = userProfile.name.split(' ');
+        setuserProfile(userData.user);
+        
+        const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] +'+'+fullName[fullName.length-1]
-        // let avatar = await fetch(`https://ui-avatars.com/api/?${nameString}&background=random`)
+        let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
+        
+        setAvatar(av);
     }
+    
     
     if(userProfile){
         return (
@@ -34,8 +41,15 @@ export default function Profile(props) {
                 <div id = "outer-div">
                     <div id = "left-profile-data">
                         <div className = "left-card">
-                            
+                            <div id = "profile-summary-card">
+                                <span id = "initials-avatar" className = "d-flex justify-content-between"><img src={(avatar)?avatar.url:""} alt="Avatar" /><button type = "button" className = "summary-edit-button"><i class="fas fa-edit"></i></button></span>
+                                <h1 id = "profile-heading">{userProfile.name}</h1>
+                                <p id = "profile-user-name">{userProfile.email}</p>
+                            </div>
+                            <p id= "profile-user-name">India</p>
+
                         </div>
+                        <hr></hr>
                         <div className = "left-card">
 
                         </div>
