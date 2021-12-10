@@ -1,7 +1,7 @@
 .main_content {
    position: absolute !important;
    width: 100vw;
-   margin-top: 3%;
+   margin-top: 3.2%;
 }
 
 #tsparticles {
@@ -42,9 +42,9 @@
    flex-direction: column;
 }
 
-.btn:hover{
-   background-color:white !important;
-   color:black !important;
+.btn:hover {
+   background-color: white !important;
+   color: black !important;
 }
 
 
@@ -77,3 +77,5 @@
       font-size: 1rem !important;
    }
 }
+
+/* ==================================== */

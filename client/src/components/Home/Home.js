@@ -21,17 +21,17 @@ export default function Home(props) {
                 <div className="imgContainer">
                     <img src={inter} alt="Interview" className='imgg' />
                     <h3 className='hh3'>Interview</h3>
-                    <button class="btnn infoo">Interview</button>
+                    <button className="btnn infoo">Interview</button>
                 </div>
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg' />
                     <h3 className='hh3'>Problem Solving</h3>
-                    <button class="btnn infoo">Problem Solving</button>
+                    <button className="btnn infoo">Problem Solving</button>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />
                     <h3 className='hh3'>Puzzles</h3>
-                    <button class="btnn infoo">Puzzles</button>
+                    <button className="btnn infoo">Puzzles</button>
                 </div>
                 <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div>
             </div>
