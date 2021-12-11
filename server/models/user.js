@@ -14,6 +14,31 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    country:{
+        type:String,
+        required:false,
+        default:"-",
+    },
+    institute:{
+        type:String,
+        required:false,
+        default:"-",
+    },
+    graduation:{
+        type:String,
+        required:false,
+        default:"-",
+    },
+    about:{
+        type:String,
+        required:false,
+        default:"-",
+    },
+    degree:{
+        type:String,
+        required:false,
+        default:"-",
+    },
     questionsSolved:[
         {
             type: mongoose.Schema.Types.ObjectId,

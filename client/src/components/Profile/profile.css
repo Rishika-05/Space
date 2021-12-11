@@ -1,5 +1,5 @@
 #outer-div{
-    background-color:#F1F2FA;
+    
     height:100vw;
     width:100vw;
     padding-top:2%;
@@ -16,7 +16,7 @@
 }
 #right-profile-data{
     
-    flex-basis: 65%;
+    flex-basis: 60%;
 }
 .left-card{
     
@@ -69,4 +69,36 @@
     border:none;
     height:fit-content;
     
+}
+#tsparticles{
+    z-index: -1;
+}
+.profile-about{
+    font-weight: 400;
+    font-family: monaco,Courier,monospace;
+    font-family: var(--font-family-input);
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #576871;
+    font-size: 14px;
+}
+.info-container{
+    margin-bottom: 35px;
+}
+.summary-edit-button i{
+    font-size: 1.1rem;
+    color:#085C8E
+    
+}
+.about-class{
+    
+    
+}
+.about-class[type="text"]::placeholder{
+    text-align:top;
+}
+.right-card{
+    margin-left: 5%;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
+    width:fit-content
 }
