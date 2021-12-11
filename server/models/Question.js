@@ -2,8 +2,19 @@ const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
     problem:{
-        type:String,
-        required:true
+        
+            problemStatement:{
+                type:String,
+                required:true
+            },
+            sampleInput:{
+                type:String,
+                required:true
+            },
+            sampleOutput:{
+                type:String,
+                required:true
+            }
     },
     answer:{
         type:String,

@@ -54,7 +54,7 @@ export default function Profile(props) {
         event.preventDefault()
         
         let data = {about:event.target.about.value,institute:event.target.institute.value,graduation:event.target.graduation.value,degree:event.target.degree.value}
-        console.log(data)
+        
         let res = fetch(`http://localhost:9002/update/about/${id}`,{method:"POST",body: JSON.stringify(data),headers: {
             'Content-Type': 'application/json'
         },});

@@ -27,7 +27,7 @@ module.exports.updateAbout = async (req,res)=>{
         
         let user = await User.findById(req.params.id);
         let updateData = req.body;
-        console.log(updateData);
+        
         if(updateData.about && updateData.about != ''){
             user.about = updateData.about
         }
@@ -40,7 +40,7 @@ module.exports.updateAbout = async (req,res)=>{
         if(updateData.graduation && updateData.graduation != ''){
             user.graduation = updateData.graduation
         }
-        console.log(user);
+        
         user.save();
         
         
