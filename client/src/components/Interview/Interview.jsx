@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {
   Button, Modal, ModalFooter,
   ModalHeader, ModalBody
@@ -9,11 +9,45 @@ import './Interview.css'
 import './Form.css'
 import schedule from './schedule.svg'
 import join from './join.svg'
+import firebase from '../Firebase/firebase'
+import 'firebase/compat/firestore';
+import 'firebase/compat/database';
+
+const SIZE = 10;
+
 const Interview = () => {
   const [modal, setModal] = useState(false);
+  const [IRname, setIRName] = useState(" ");
+  const [IEname, setIEName] = useState(" ");
+  const [IRmail, setIRmail] = useState(" ");
+  const [IEmail, setIEmail] = useState(" ");
+  const [DateTime, setDateTime] = useState();
+
+ 
   const toggle = () => {
     setModal(!modal);
   }
+  const subForm = (e) => {
+    e.preventDefault();
+    console.log(IRname + IEname + IRmail + IEmail + DateTime);
+  }
+
+  const randomize = (len) => {
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+    var key = '';
+    var charsLen = chars.length;
+    for (var i = 0; i < len; i++) {
+      key += chars.charAt(Math.floor(Math.random() * charsLen));
+    }
+    return key;
+  }
+
+  // var database = firebase.database();
+  // var firebaseOrdersCollection = database.ref().child('Interview.Details');
+  // var randKey = randomize(SIZE);
+
+
+
 
   return (
     <>
@@ -49,11 +83,11 @@ const Interview = () => {
                     <h6 style={{ "textAlign": "center" }}>Interviewer Details</h6>
                   </legend>
                   <div className="input-area my-4" style={{ "textAlign": "center" }}>
-                    <input className='modal-in' type="text" autoComplete="off" placeholder="NAME" data-form-field="Name" id="IRname"  required />
+                    <input className='modal-in' type="text" onChange={(e) => setIRName(e.target.value)} autoComplete="off" placeholder="NAME" data-form-field="Name" id="IRname"  required />
                     <label className="label-name"></label>
                   </div>
                   <div className="input-area my-4" style={{ "textAlign": "center" }}>
-                    <input className='modal-in' type="email" autoComplete="off" placeholder="EMAIL" data-form-field="Email" id="IRmail" required />
+                    <input className='modal-in' type="email" onChange={(e) => setIRmail(e.target.value)} autoComplete="off" placeholder="EMAIL" data-form-field="Email" id="IRmail" required />
                     <label className="label-name"></label>
                   </div>
                 </fieldset>
@@ -62,34 +96,37 @@ const Interview = () => {
                     <h6 style={{ "textAlign":"center"}}>Interviewee Details</h6>
                   </legend>
                   <div className="input-area my-4" style={{ "textAlign": "center" }}>
-                    <input className='modal-in' type="text" autoComplete="off" placeholder="NAME" data-form-field="Name" id="IEname" required />
+                    <input className='modal-in' type="text" onChange={(e) => setIEName(e.target.value)} autoComplete="off" placeholder="NAME" data-form-field="Name" id="IEname" required />
                     <label className="label-name"></label>
                   </div>
                   <div className="input-area my-4" style={{ "textAlign": "center" }}>
-                    <input className='modal-in' type="email" autoComplete="off" placeholder="EMAIL" data-form-field="Email" id="IEmail" required />
+                    <input className='modal-in' type="email" onChange={(e) => setIEmail(e.target.value)} autoComplete="off" placeholder="EMAIL" data-form-field="Email" id="IEmail" required />
                     <label className="label-name"></label>
                   </div>
                 </fieldset>
               </div>
-              <div className="row flex-column align-items-center my-4" style={{ "textAlign": "center" }}>
+              <div className="row flex-column align-items-center my-3" style={{ "textAlign": "center" }}>
                 <fieldset className="col-md-6 col-sm-6">
                   <legend>
                     <h6>Date and Time</h6>
                   </legend>
                   <div className="input-area" style={{ "textAlign": "center" }}>
-                    <input type="datetime-local" autoComplete="off" data-form-field="date-time" id="date-time" required />
+                    <input type="datetime-local" onChange={(e) => setDateTime(e.target.value)} autoComplete="off" data-form-field="date-time" id="date-time" required />
                     <label className="label-name"></label>
+                  </div>
+                  <div className="modal-footer border-top-0 d-flex justify-content-center" style={{"marginBottom":"-10px"}}>
+                    <button className="btn submit-btn btn-dark" onClick={subForm} type="submit" id="schedule-submit-btn" >Submit</button>
                   </div>
                 </fieldset>
               </div>
             </div>
           </form>
         </ModalBody>
-        <ModalFooter className="modal-cen">
-          <div style={{"margin": "auto" }}>
-            <Button color="dark" onClick={toggle} id="schedule-submit-btn" >Submit</Button>
+        {/* <ModalFooter className="modal-cen">
+          <div style={{ "margin": "auto" }}>
+            <Button color="dark" onClick={toggle}>Close</Button>
           </div>
-        </ModalFooter>
+        </ModalFooter> */}
         </Modal>
       <style jsx global>{`
       .modal-80w {
