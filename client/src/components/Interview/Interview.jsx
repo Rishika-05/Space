@@ -1,7 +1,6 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import {
-  Button, Modal, ModalFooter,
-  ModalHeader, ModalBody
+  Modal, ModalHeader, ModalBody
 } from "reactstrap"
 import Particles from 'react-particles-js'
 import patriclesConfig from './config/particle-config'
@@ -9,9 +8,8 @@ import './Interview.css'
 import './Form.css'
 import schedule from './schedule.svg'
 import join from './join.svg'
-import firebase from '../Firebase/firebase'
-import 'firebase/compat/firestore';
-import 'firebase/compat/database';
+import firebaseOrdersCollection from '../Firebase/firebase'
+import * as emailjs from 'emailjs-com'
 
 const SIZE = 10;
 
@@ -27,26 +25,64 @@ const Interview = () => {
   const toggle = () => {
     setModal(!modal);
   }
-  const subForm = (e) => {
-    e.preventDefault();
-    console.log(IRname + IEname + IRmail + IEmail + DateTime);
-  }
 
   const randomize = (len) => {
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+    console.log("geting key");
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvxyz";
     var key = '';
     var charsLen = chars.length;
-    for (var i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++)
       key += chars.charAt(Math.floor(Math.random() * charsLen));
-    }
     return key;
   }
 
-  // var database = firebase.database();
-  // var firebaseOrdersCollection = database.ref().child('Interview.Details');
-  // var randKey = randomize(SIZE);
+  const SendMail = () => { 
+    // console.log("sending mail");
+    var randKey = randomize(SIZE);
+    var details = {
+      Interviewer_Name: IRname,
+      Interviewee_Name: IEname,
+      Interviewer_Email: IRmail,
+      Interviewee_Email: IEmail,
+      Date_Time: DateTime,
+      Key: randKey,
+    };
 
+    firebaseOrdersCollection.child(randKey).set(details);
 
+    sendToIE();
+    sendToIR();
+    document.getElementById("schedule-submit-btn").innerHTML = `Sent...`;
+
+    setInterval(() => setModal(!modal), 2000);
+  }
+
+  const sendToIR = () => {
+    let IRparam = {
+      to_name: IRname,
+      to_email: IRmail,
+      message: ``
+    }
+    emailjs.send("service_oofy1gs", "template_hkht4wt", IRparam, 'user_6sFrpuRiP9eIrSA4ZiLM3');
+    // console.log("IR");
+  }
+
+  const sendToIE = () => {
+    let IEparam = {
+      to_name: IEname,
+      to_email: IEmail,
+      message: `Hope you are having a great learning time.\n\nyolo`
+    }
+    emailjs.send("service_oofy1gs", "template_xihzwbd", IEparam, "user_6sFrpuRiP9eIrSA4ZiLM3");
+    // console.log("IE");
+  }
+
+  const subForm = (e) => {
+    e.preventDefault();
+    // console.log(IRname + IEname + IRmail + IEmail + DateTime);
+    document.getElementById("schedule-submit-btn").innerHTML = `Sending...`;
+    SendMail();
+  }
 
 
   return (
