@@ -2,7 +2,7 @@
     flex-direction: row;
 }
 .but-c{
-    margin-top: 90%;
+    margin-top: 100%;
 }
 #problem-container{
     width:100%;
@@ -11,4 +11,7 @@
 }
 #inner-problem-div{
     border:none;
+}
+#button-container{
+    padding-bottom: 2%;
 }

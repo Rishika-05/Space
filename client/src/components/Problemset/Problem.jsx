@@ -6,12 +6,12 @@ export default function Problem(props) {
         <div className = "container" id = "problem-container">
         <div className="card d-flex card-css" id = "inner-problem-div">
                 <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <h5 className="card-title">{props.question.title}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{props.question.difficulty}, {props.question.tag}</h6>
                    
-                    <a href="#" className="card-link">Card link</a>
+                    
                 </div>
-                <div>
+                <div id = "button-container">
                     <button type="button" class="btn btn-dark but-c">Solve</button>
                 </div>
         </div>

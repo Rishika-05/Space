@@ -11,6 +11,22 @@ const questionSchema = new mongoose.Schema({
                 type:String,
                 required:true
             },
+            inputFormat:{
+                type:String,
+                required:false,
+            },
+            outputFormat:{
+                type:String,
+                required:false,
+            },
+            constraints:{
+                type:String,
+                required:false,
+            },
+            explanation:{
+                type:String,
+                required:false,
+            },
             sampleInput:{
                 type:String,
                 required:false

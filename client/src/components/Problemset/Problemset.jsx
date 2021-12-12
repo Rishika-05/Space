@@ -1,8 +1,64 @@
 import React from 'react'
 import Problem from './Problem.jsx'
 import './Problemset.css'
+import {useState,useEffect} from 'react'
 export default function Problemset() {
-    const handleTags = (event)=>{
+    const [filter,setFilter] = useState({
+        status :{solved:true,unsolved:true},
+        difficulty : {easy:true,medium:true,hard:true},
+        tag:{implementation:true,strings:true,sorting:true,greedy:true},
+    });
+    const [questions,setQuestions] = useState();
+    useEffect(()=>{
+        filterData();
+        
+    },[])
+    const parseDifficulty = (data)=>{
+        let parsedDiff = "";
+        if(data.difficulty.easy){
+            parsedDiff = parsedDiff+"difficulty=easy"+'&';
+        }
+        if(data.difficulty.medium){
+            parsedDiff = parsedDiff+"difficulty=medium"+'&';
+        }
+        if(data.difficulty.hard){
+            parsedDiff = parsedDiff+"difficulty=hard"+'&';
+        }
+        if(parsedDiff.length == 0){
+            parsedDiff = "difficulty=easy"+'&'+"difficulty=medium"+'&'+"difficulty=hard"+'&';
+        }
+        return parsedDiff;
+    }
+    const parseTag = (data)=>{
+        let parsedTag = "";
+        if(data.tag.implementation){
+            parsedTag = parsedTag+"tag=implementation"+'&';
+        }
+        if(data.tag.strings){
+            parsedTag = parsedTag+"tag=strings"+'&';
+        }
+        if(data.tag.sorting){
+            parsedTag = parsedTag+"tag=sorting"+'&';
+        }
+        if(data.tag.greedy){
+            parsedTag = parsedTag+"tag=greedy"+'&';
+        }
+        if(parsedTag.length == 0){
+            parsedTag = "tag=implementation"+'&'+"tag=strings"+'&'+"tag=sorting"+'&'+"tag=greedy"+'&';
+        }
+        return parsedTag;
+    }
+    const filterData = async ()=>{
+       
+        let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(filter)+parseTag(filter)}`,{method:"GET",headers: {
+            'Content-Type': 'application/json'
+        },});
+        let data = await res.json();
+        
+        setQuestions(data.questions);
+        
+    }
+    const handleTags = async (event)=>{
         event.preventDefault();
         let status = {solved:true,unsolved:true};
         let difficulty = {easy:true,medium:true,hard:true};
@@ -17,20 +73,30 @@ export default function Problemset() {
         tag.sorting = document.getElementById("tag-sorting").checked;
         tag.greedy = document.getElementById("tag-greedy").checked;
         let data = {status:status,tag:tag,difficulty:difficulty}
-        console.log(data);
+        setFilter(data);
+        let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(data)+parseTag(data) }`,{method:"GET",headers: {
+            'Content-Type': 'application/json'
+        },});
+        let data2 = await res.json();
+        
+        setQuestions(data2.questions);
+        
+        
         
     }
     return (
         <>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light problempage-heading">
-                    <h3 className = "mx-4">Problemset</h3>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark problempage-heading">
+                    <h3 className = "mx-4" style = {{"color":"white"}}>Problemset</h3>
                 </nav>
                 <div id = "problemset-container" className = "container d-flex">
                     <div id = "problems-container">
-                        <Problem/>
-                        <Problem/>
-                        <Problem/>
-                        <Problem/>
+                        {
+                            
+                            questions && questions.map((question)=>{
+                               return  <Problem question={question} key = {question._id}/>
+                            } )
+                        }
                     </div>
                     <div id = "tag-form-container">
                         <form id = "tags-form" onSubmit = {handleTags}>

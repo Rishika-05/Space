@@ -9,7 +9,12 @@ export default function QuestionForm() {
             problem:{
                 problemStatement:event.target.problemStatement.value,
                 sampleInput:event.target.sampleInput.value,
-                sampleOutput:event.target.sampleOutput.value
+                sampleOutput:event.target.sampleOutput.value,
+                inputFormat:event.target.inputFormat.value,
+                outputFormat:event.target.outputFormat.value,
+                constraints:event.target.constraints.value,
+                explanation:event.target.explanation.value,
+                
             },
             answer:event.target.answer.value,
             
@@ -35,6 +40,22 @@ export default function QuestionForm() {
                 <div className="form-group">
                     <label for="problem-statement">Problem Statement</label>
                     <textarea className="form-control" name = "problemStatement" id="problem-statement" rows="6" required></textarea>
+                </div>
+                <div className="form-group">
+                    <label for="input-format">Input Format</label>
+                    <textarea className="form-control" name = "inputFormat" id="input-format" rows="2" required></textarea>
+                </div>
+                <div className="form-group">
+                    <label for="output-format">Output Format</label>
+                    <textarea className="form-control" name = "outputFormat" id="output-format" rows="2" required></textarea>
+                </div>
+                <div className="form-group">
+                    <label for="problem-constraints">Constraints</label>
+                    <textarea className="form-control" name = "constraints" id="problem-constraints" rows="2" required></textarea>
+                </div>
+                <div className="form-group">
+                    <label for="problem-explanation">Explanation</label>
+                    <textarea className="form-control" name = "explanation" id="problem-explanation" rows="2" required></textarea>
                 </div>
                 <div className="form-group">
                     <label for="sample-input">Sample input</label>
