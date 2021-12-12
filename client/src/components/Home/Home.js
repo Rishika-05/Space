@@ -6,9 +6,13 @@ import './home.css'
 import inter from './inter.png'
 import prob from './problem.png'
 import puz from './puzzle.png'
+import {useNavigate} from 'react-router-dom'
 
 export default function Home(props) {
-
+    const navigate = useNavigate();
+    const problemHandle = ()=>{
+        navigate('/problemset');
+    }
     return (
         <div className="home1">
             <Particles
@@ -26,7 +30,7 @@ export default function Home(props) {
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg' />
                     <h3 className='hh3'>Problem Solving</h3>
-                    <button className="btnn infoo">Problem Solving</button>
+                    <button  onClick = {problemHandle}  className ="btnn infoo">Problem Solving</button>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />

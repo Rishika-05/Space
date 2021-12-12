@@ -100,5 +100,6 @@
 .right-card{
     margin-left: 5%;
     box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
-    width:fit-content
+    width:fit-content;
+    background-color:rgb(218, 210, 210);
 }

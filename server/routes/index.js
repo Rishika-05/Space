@@ -5,5 +5,6 @@ router.post('/login',userController.login);
 router.post('/signUp',userController.signUp);
 router.use('/profile',require('./profile'));
 router.use('/update',require('./update'));
+router.use('/admin',require('./admin'));
 
 module.exports = router;

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:true
+    },
     problem:{
         
             problemStatement:{
@@ -9,7 +13,7 @@ const questionSchema = new mongoose.Schema({
             },
             sampleInput:{
                 type:String,
-                required:true
+                required:false
             },
             sampleOutput:{
                 type:String,
@@ -21,6 +25,14 @@ const questionSchema = new mongoose.Schema({
         required:true
     },
     testCase:{
+        type:String,
+        required:false
+    },
+    difficulty:{
+        type:String,
+        required:true
+    },
+    tag:{
         type:String,
         required:true
     }

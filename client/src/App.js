@@ -6,6 +6,8 @@ import Home from './components/Home/Home.js'
 import Interview from './components/Interview/Interview'
 import Navbar from './components/Navbar/Navbar.js'
 import Profile from './components/Profile/Profile.jsx'
+import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
+import Problemset from './components/Problemset/Problemset'
 import {
   BrowserRouter as Router,
   Routes,
@@ -32,6 +34,8 @@ function App() {
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} /> 
           } />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/questionUpload" element={<QuestionForm />} />
+          <Route path="/problemset" element={<Problemset />} />
         </Routes>
       </Router>
     </>
