@@ -8,6 +8,8 @@ import Navbar from './components/Navbar/Navbar.js'
 import Profile from './components/Profile/Profile.jsx'
 import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
 import Problemset from './components/Problemset/Problemset'
+import ProblemPage from './components/ProblemPage/ProblemPage'
+import Ide from './components/ide/Ide'
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,11 +33,13 @@ function App() {
             user && user._id ? <Home user={user} setLoginUser={setLoginUser} /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route exact path="/interview" element={
-            user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} /> 
+            user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/questionUpload" element={<QuestionForm />} />
-          <Route path="/problemset" element={<Problemset />} />
+          <Route exact path="/problemset" element={<Problemset />} />
+          <Route exact path="/problemPage/:id" element={<ProblemPage />} />
+          <Route exact path="/ide" element={<Ide />} />
         </Routes>
       </Router>
     </>

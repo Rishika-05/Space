@@ -33,7 +33,7 @@ return 0;
 }`
     const pyDefault = `print('hello world')`
 
-    const [theme, setTheme] = useState('chrome')
+    const [theme, setTheme] = useState('nord_dark')
     const [language, setLanguage] = useState('c_cpp')
     const [value, setValue] = useState(cDefault)
     const [output, setOutput] = useState('')
@@ -147,11 +147,11 @@ return 0;
                             </li>
                             <li>
                                 <select className="form-select" aria-label="Default select example" onChange={themeChange}>
-                                    <option selected value="chrome">Chrome</option>
+                                    <option selected value="nord_dark">Nord Dark</option>
                                     <option value="github">Github</option>
                                     <option value="eclipse">Eclipse</option>
                                     <option value="monokai">monokai</option>
-                                    <option value="nord_dark">Nord Dark</option>
+                                    <option value="chrome">Chrome</option>
                                     <option value="dreamweaver">Dream Weaver</option>
                                 </select>
                             </li>
@@ -191,7 +191,7 @@ return 0;
                     tabSize: 2,
                 }} />
             <br />
-            <button type="button" className="btn btn-primary" onClick={submitter}>Run</button>
+            <button type="button" className="btn btn-primary" onClick={submitter}>Don't Run😓</button>
             <h5>Output</h5>
             <textarea className="outputBox">{output}</textarea>
         </>

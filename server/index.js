@@ -9,7 +9,8 @@ app.use(cors());
 connectToMongo();
 
 app.use(express.json());
-app.use('/',require('./routes'));
+app.use('/', require('./routes'));
+
 
 app.listen(port, () => {
     console.log(`Space app listening at http://localhost:${port}`);

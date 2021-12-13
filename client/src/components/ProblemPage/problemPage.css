@@ -1,0 +1,28 @@
+.pPage{
+    width: 76vw;
+    height: auto;
+    margin-left: 12vw;
+}
+
+.problem-container{
+    margin-top: 8vh;
+    border: 1px solid rgb(150, 150, 150);
+    box-shadow: 7px 7px 12px rgb(92, 92, 92);
+}
+.ide{
+    margin-top: 5vh;
+}
+.hhh{
+    margin-bottom: 1vh;
+}
+
+.para{
+    margin-bottom: 6vh;
+}
+
+@media screen and (max-width:700px){
+    .pPage{
+        width: 100vw;
+        margin-left: 0vw;
+    }
+}
