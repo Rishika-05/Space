@@ -60,7 +60,7 @@ const Join = () => {
                </div>
             </div>
             <div className="col-sm-4 mx-auto mt-4">
-               <div className="box mt-5">
+               <div className="boxmeet mt-5">
                   <h2 className="mb-5" >Join Meeting</h2>
                   <form id="form" className="valid">
                      <div className="inputBox">
