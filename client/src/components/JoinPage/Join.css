@@ -28,7 +28,7 @@ body {
    outline: none;
 }
 
-.box {
+.boxmeet {
    z-index: 3;
    width: 20rem;
    padding: 2.5rem;
@@ -37,18 +37,18 @@ body {
    border-radius: 0.625rem;
 }
 
-.box h2 {
+.boxmeet h2 {
    margin: 0 0 1.875rem;
    padding: 0;
    color: rgb(0, 0, 0);
    text-align: center;
 }
 
-.box .inputBox {
+.boxmeet .inputBox {
    position: relative;
 }
 
-.box .inputBox input {
+.boxmeet .inputBox input {
    width: 100%;
    padding: 0.625rem 0;
    font-size: 1rem;
@@ -61,7 +61,7 @@ body {
    background: transparent;
 }
 
-.box .inputBox label {
+.boxmeet .inputBox label {
    position: absolute;
    top: 0;
    left: 0;
@@ -72,16 +72,16 @@ body {
    transition: 0.5s;
 }
 
-.box .inputBox input:focus~label,
-.box .inputBox input:valid~label,
-.box .inputBox input:not([value=""])~label {
+.boxmeet .inputBox input:focus~label,
+.boxmeet .inputBox input:valid~label,
+.boxmeet .inputBox input:not([value=""])~label {
    top: -1.125rem;
    left: 0;
    color: #000000;
    font-size: 0.75rem;
 }
 
-.box input[type="submit"] {
+.boxmeet input[type="submit"] {
    border: none;
    outline: none;
    color: rgb(7, 7, 7);
@@ -93,7 +93,7 @@ body {
    font-size: 1rem;
 }
 
-.box input[type="submit"]:hover {
+.boxmeet input[type="submit"]:hover {
    background-color: #000000;
 }
 
