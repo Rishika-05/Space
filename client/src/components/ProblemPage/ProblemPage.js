@@ -19,6 +19,8 @@ export default function ProblemPage(props) {
     useLayoutEffect(() => {
         getQuestion();
     }, [])
+
+
     if (qquestion) {
         return (
             <>
@@ -42,6 +44,7 @@ export default function ProblemPage(props) {
                         <p className='para'>{qquestion.problem.explanation}</p>
                     </div>
                     <div className='ide'>
+                        <hr></hr>
                         <Ide user={props.user} question={qquestion} />
                     </div>
                 </div>

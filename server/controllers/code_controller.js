@@ -7,7 +7,6 @@ const fetch = require("node-fetch");
 // https://api.jdoodle.com/v1/execute
 
 module.exports.getResult = async (req, res) => {
-    console.log('back');
     try {
         const { script, language, stdin, versionIndex } = req.body;
         let script2 = script;
