@@ -10,6 +10,8 @@ import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
 import Problemset from './components/Problemset/Problemset'
 import ProblemPage from './components/ProblemPage/ProblemPage'
 import Ide from './components/ide/Ide'
+import Join from './components/JoinPage/Join'
+import Room from './components/Room/Room'
 import {
   BrowserRouter as Router,
   Routes,
@@ -40,6 +42,8 @@ function App() {
           <Route exact path="/problemset" element={<Problemset />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide />} />
+          <Route exact path="/join" element={<Join />} />
+          <Route exact path="/room/:id" element={ <Room /> } />
         </Routes>
       </Router>
     </>
