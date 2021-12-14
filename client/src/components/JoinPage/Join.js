@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Join.css'
 import db from '../Firebase/firebase'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Join = () => {
@@ -35,7 +37,15 @@ const Join = () => {
             const url = `/room/${ID}`;
             navigate(url);
          } else {
-            alert("Stay calm & enter correct ID!");
+            toast('Stay calm and enter correct ID!', {
+               position: "top-center",
+               autoClose: 3000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+            });
          }
       }
 
@@ -76,6 +86,7 @@ const Join = () => {
                </div>
             </div>
          </div>
+         <ToastContainer />
       </>
    )
 }
