@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {
   Modal, ModalHeader, ModalBody
 } from "reactstrap"
+import { Link } from 'react-router-dom'
 import Particles from 'react-particles-js'
 import patriclesConfig from './config/particle-config'
 import './Interview.css'
@@ -50,31 +51,41 @@ const Interview = () => {
 
     firebaseOrdersCollection.child(randKey).set(details);
 
-    sendToIE();
-    sendToIR();
+    sendToIE(randKey + 'E');
+    sendToIR(randKey + 'R');
     document.getElementById("schedule-submit-btn").innerHTML = `Sent...`;
 
     setInterval(() => setModal(!modal), 2000);
   }
 
-  const sendToIR = () => {
+  const sendToIR = (randKey) => {
     let IRparam = {
       to_name: IRname,
       to_email: IRmail,
-      message: ``
+      ie_name: IEname,
+      date: DateTime.split('T')[0],
+      time: DateTime.split('T')[1],
+      room_id: randKey
     }
     emailjs.send("service_oofy1gs", "template_hkht4wt", IRparam, 'user_6sFrpuRiP9eIrSA4ZiLM3');
     // console.log("IR");
+    setIRName('');
+    setIRmail('');
+    setDateTime('');
   }
 
-  const sendToIE = () => {
+  const sendToIE = (randKey) => {
     let IEparam = {
       to_name: IEname,
       to_email: IEmail,
-      message: `Hope you are having a great learning time.\n\nyolo`
+      date: DateTime.split('T')[0],
+      time: DateTime.split('T')[1],
+      room_id: randKey
     }
     emailjs.send("service_oofy1gs", "template_xihzwbd", IEparam, "user_6sFrpuRiP9eIrSA4ZiLM3");
     // console.log("IE");
+    setIEName('');
+    setIEmail('');
   }
 
   const subForm = (e) => {
@@ -103,7 +114,7 @@ const Interview = () => {
           <div className="imgContainer pull">
             <img src={join} alt="Problem" className='imgg' />
             <h6>...</h6>
-            <button type="button" style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button>
+            <Link to="/join"><button type="button" style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button></Link>
           </div>
         </div>
       </div>

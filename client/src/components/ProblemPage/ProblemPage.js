@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import './problemPage.css'
 import Ide from '../ide/Ide';
-export default function ProblemPage() {
+export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
     const getQuestion = async () => {
@@ -19,6 +19,8 @@ export default function ProblemPage() {
     useLayoutEffect(() => {
         getQuestion();
     }, [])
+
+
     if (qquestion) {
         return (
             <>
@@ -42,7 +44,8 @@ export default function ProblemPage() {
                         <p className='para'>{qquestion.problem.explanation}</p>
                     </div>
                     <div className='ide'>
-                        <Ide />
+                        <hr></hr>
+                        <Ide user={props.user} question={qquestion} />
                     </div>
                 </div>
             </>

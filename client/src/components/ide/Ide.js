@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import reset from './reset.png'
 import AceEditor from 'react-ace';
-import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-python";
@@ -14,7 +15,7 @@ import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
-export default function Ide() {
+export default function Ide(props) {
 
     const cDefault = `#include<bits/stdc++.h>
 using namespace std;
@@ -78,49 +79,89 @@ return 0;
             setValue(kotDefault);
         }
     }
-    //https://codexweb.netlify.app/.netlify/functions/enforceCode
 
     function passlanguage(lan) {
 
         if (lan === 'c_cpp') {
-            return 'cpp';
+            return 'cpp17';
         }
         if (lan === 'python') {
-            return 'py';
+            return 'python3';
         }
         if (lan === 'java') {
             return 'java';
         }
         if (lan === 'kotlin') {
-            return 'kt';
+            return 'kotlin';
         }
     }
 
-    const submitter = () => {
+    function passVersion(lan) {
+        if (lan === 'c_cpp') {
+            return '1';
+        }
+        if (lan === 'python') {
+            return '4';
+        }
+        if (lan === 'java') {
+            return '4';
+        }
+        if (lan === 'kotlin') {
+            return '3';
+        }
+    }
+
+    const submitter = async () => {
+        console.log('submitted')
+        setOutput('Loading result...');
         var data = {
-            code: value,
+            script: value,
             language: passlanguage(language),
-            input: ""
+            stdin: props.question.testCase,
+            versionIndex: passVersion(language),
+            questionID: props.question._id,
+            userID: props.user._id
         }
-        var config = {
-            method: "post",
-            url:
-                "https://codexweb.netlify.app/.netlify/functions/enforceCode",
-            headers: {
-                "Content-Type": "application/json"
+        let res = await fetch(`http://localhost:9002/run`, {
+            method: "POST", body: JSON.stringify(data), headers: {
+                'Content-Type': 'application/json'
             },
-            data: data
-        };
-        axios(config)
-            .then(function (response) {
-                setOutput(response.data.output);
-            })
-            .catch(function (error) {
-                setOutput('network error')
-            });
-        console.log(data);
+        });
+        let res2 = await res.json();
+        setOutput(res2.apiOut.output);
+        checkerToast(res2.apiOut.output);
     }
 
+    const checkerToast = (ou) => {
+        console.log(props.question.answer);
+        if (ou === props.question.answer) {
+            toast.success('Correct answer', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        else {
+            toast.error('Incorrect Answer', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+    const myStyle = {
+        maxWidth: '5vw',
+        marginLeft: '35vw'
+    }
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -191,9 +232,10 @@ return 0;
                     tabSize: 2,
                 }} />
             <br />
-            <button type="button" className="btn btn-primary" onClick={submitter}>Don't Run😓</button>
+            <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run</button>
             <h5>Output</h5>
-            <textarea className="outputBox">{output}</textarea>
+            <textarea className="outputBox" style={{ width: '40vw', height: '20vh' }} value={output}></textarea>
+            <ToastContainer />
         </>
     )
 }

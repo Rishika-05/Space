@@ -3,6 +3,8 @@ import '../login.css'
 import logo from '../../assets/images/space1.gif'
 import logoText from '../../assets/images/Space.png'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 
 
@@ -26,8 +28,16 @@ export default function SignIn(props) {
         if (email && password) {
             axios.post("http://localhost:9002/login", user)
                 .then(res => {
-                    alert(res.data.message)
-                   
+                    toast(res.data.message, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+
                     props.setLoginUser(res.data.user)
                     if (res.data.user)
                         navigate('/')
@@ -36,7 +46,15 @@ export default function SignIn(props) {
                 });
         }
         else {
-            alert('invalid input');
+            toast('invalid input', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setUser({
                 email: "",
                 password: ""
@@ -71,6 +89,7 @@ export default function SignIn(props) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }
