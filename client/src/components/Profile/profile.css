@@ -90,16 +90,19 @@
     color:#085C8E
     
 }
-.about-class{
-    
-    
-}
+
 .about-class[type="text"]::placeholder{
     text-align:top;
 }
 .right-card{
     margin-left: 5%;
-    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 10%);
-    width:fit-content;
-    background-color:rgb(218, 210, 210);
+    
+    box-shadow: 0 3px 9px 0 rgb(131, 129, 129);
+    border-radius:10px;
+    min-height:175px;
+    width:101%;
+    margin-bottom:5%;
+    /* border:1px solid black; */
+    background-color:#FFF;
+    
 }

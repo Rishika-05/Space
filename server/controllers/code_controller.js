@@ -1,4 +1,4 @@
-// const User = require('../models/user')
+const User = require('../models/User.js');
 //const Question = require('../models/Question')
 const fetch = require("node-fetch");
 
@@ -31,6 +31,38 @@ module.exports.getResult = async (req, res) => {
     }
     catch (err) {
         console.log(err)
+    }
+}
+const dayOfYear = function(today){
+    return Math.ceil((today - new Date(today.getFullYear(),0,1)) / 86400000);
+}
+
+
+module.exports.solved = async (req,res)=>{
+    let solData = req.body;
+    try{
+        let user = await User.findById(solData.user);
+        let index = user.questionsSolved.indexOf(solData.question);
+        if(index == -1){
+            user.questionsSolved.push(solData.question);
+        
+            var a = dayOfYear(new Date());
+            console.log(a);
+            if(a == 1){
+                for(let i = 0;i<user.calender.length;i++){
+                    user.calender[i].value = 0;
+                }
+            }
+            for(let i = 0;i<user.calender.length;i++){
+                if(user.calender[i].day == a){
+                    user.calender[i].value++;
+                    break;
+                }
+            }
+        }
+        user.save();
+    }catch(err){
+        console.log(err);
     }
 }
 

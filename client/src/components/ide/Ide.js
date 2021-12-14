@@ -95,7 +95,14 @@ return 0;
             return 'kotlin';
         }
     }
-
+    const questionSolved = async ()=>{
+        let data = {user:props.user._id,question:props.question._id};
+        let res = await fetch(`http://localhost:9002/problemPage/solved`, {
+            method: "POST", body: JSON.stringify(data), headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+    }
     function passVersion(lan) {
         if (lan === 'c_cpp') {
             return '1';
@@ -135,6 +142,7 @@ return 0;
     const checkerToast = (ou) => {
         console.log(props.question.answer);
         if (ou === props.question.answer) {
+            questionSolved();
             toast.success('Correct answer', {
                 position: "top-center",
                 autoClose: 2000,
@@ -144,6 +152,7 @@ return 0;
                 draggable: true,
                 progress: undefined,
             });
+
         }
         else {
             toast.error('Incorrect Answer', {

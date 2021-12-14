@@ -1,6 +1,6 @@
 :root {
-    --square-size: 11px;
-    --square-gap: 3px;
+    --square-size: 10px;
+    --square-gap: 2px;
     --week-width: calc(var(--square-size) + var(--square-gap));
   }
   
@@ -54,11 +54,12 @@
   } */
   
   .graph {
-    padding: 10px;
+    padding: 1px;
     border: 1px #e1e4e8 solid;
     margin: 10px;
     background-color: white;
-    width:inherit;
+    width:97%;
+    
   }
   .graph ul{
     list-style-type: none;

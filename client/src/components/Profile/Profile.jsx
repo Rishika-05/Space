@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLayoutEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate,Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
 import Particles from 'react-particles-js'
 import patriclesConfig from './config/particle-config'
@@ -15,6 +15,7 @@ export default function Profile(props) {
     const [avatar, setAvatar] = useState();
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
+    const [submissions,setSubmissions] = useState(0);
     const navigate = useNavigate();
     const toggle = () => {
         setModal(!modal);
@@ -24,8 +25,17 @@ export default function Profile(props) {
     }
     useLayoutEffect(() => {
         getUserProfile();
+        
     }, [])
     const { id } = useParams();
+    const countSubmissions = (user)=>{
+        let temp = 0;
+        for(let i=0;i<user.calender.length;i++){
+            temp+= user.calender[i].value;
+            
+        }
+        setSubmissions(temp);
+    }
     const getUserProfile = async () => {
         let res = await fetch(`http://localhost:9002/profile/${id}`, {
             method: "GET", headers: {
@@ -35,10 +45,12 @@ export default function Profile(props) {
 
         let userData = await res.json();
         setuserProfile(userData.user);
+        
         const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] + '+' + fullName[fullName.length - 1]
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
         setAvatar(av);
+        countSubmissions(userData.user);
     }
     const handleSubmit = (event) => {
 
@@ -67,6 +79,7 @@ export default function Profile(props) {
         getUserProfile();
 
     }
+    
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(7), (val, index) => index + year);
 
@@ -110,6 +123,16 @@ export default function Profile(props) {
                     </div>
                     <div id="right-profile-data">
                         <div className="right-card">
+                        <h6 className = "px-3 pt-2">Questions Solved</h6>
+                        <hr></hr>
+                            {
+                                userProfile.questionsSolved.map((element)=>{
+                                    return <Link to = {`/problemPage/${element._id}`}><h6 key = {element._id}>{element.title}</h6></Link>
+                                })
+                            }
+                        </div>
+                        <div className="right-card">
+                            <h6 className = "px-3 pt-2">{submissions} Submissions this year</h6>
                             <Calender calender={userProfile.calender}></Calender>
                         </div>
                     </div>
