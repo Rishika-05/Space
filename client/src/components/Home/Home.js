@@ -9,10 +9,6 @@ import puz from './puzzle.png'
 import {useNavigate} from 'react-router-dom'
 
 export default function Home(props) {
-    const navigate = useNavigate();
-    const problemHandle = ()=>{
-        navigate('/problemset');
-    }
     return (
         <div className="home1">
             <Particles
@@ -25,19 +21,19 @@ export default function Home(props) {
                 <div className="imgContainer">
                     <img src={inter} alt="Interview" className='imgg' />
                     <h3 className='hh3'>Interview</h3>
-                    <button className="btnn infoo">Interview</button>
+                    <Link to='/interview' style={{ "textDecoration": "none" }}><button className="btnn infoo">Interview </button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg' />
                     <h3 className='hh3'>Problem Solving</h3>
-                    <button  onClick = {problemHandle}  className ="btnn infoo">Problem Solving</button>
+                    <Link to='/problemset' style={{ "textDecoration": "none" }}><button className ="btnn infoo">Problem Solving</button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />
                     <h3 className='hh3'>Puzzles</h3>
                     <button className="btnn infoo">Puzzles</button>
                 </div>
-                <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div>
+                {/* <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div> */}
             </div>
         </div>
     )
