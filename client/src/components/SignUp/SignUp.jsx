@@ -4,6 +4,8 @@ import logo from '../../assets/images/space1.gif'
 import logoText from '../../assets/images/Space.png'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -27,12 +29,28 @@ export default function SignUp() {
         if (name && email && password && (password === reEnterPassword)) {
             axios.post("http://localhost:9002/signUp", user)
                 .then(res => {
-                    alert(res.data.message)
+                    toast(res.data.message, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
                     navigate('/')
                 })
         }
         else {
-            alert('invalid input');
+            toast('invalid input', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setUser({
                 name: "",
                 email: "",
@@ -73,6 +91,7 @@ export default function SignUp() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

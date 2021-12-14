@@ -10,6 +10,7 @@ import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
 import Problemset from './components/Problemset/Problemset'
 import ProblemPage from './components/ProblemPage/ProblemPage'
 import Ide from './components/ide/Ide'
+import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter as Router,
   Routes,
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide />} />
         </Routes>
+        <ToastContainer />
       </Router>
     </>
   );
