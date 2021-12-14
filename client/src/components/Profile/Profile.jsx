@@ -5,7 +5,7 @@ import Calender from '../Calender/Calender'
 import Particles from 'react-particles-js'
 import patriclesConfig from './config/particle-config'
 import {
-    Button, Modal, ModalFooter,
+    Button, Modal,
     ModalHeader, ModalBody
 } from "reactstrap"
 import './profile.css'

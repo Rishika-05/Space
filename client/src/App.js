@@ -12,6 +12,7 @@ import ProblemPage from './components/ProblemPage/ProblemPage'
 import Ide from './components/ide/Ide'
 import Join from './components/JoinPage/Join'
 import Room from './components/Room/Room'
+import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter as Router,
   Routes,
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/join" element={<Join />} />
           <Route exact path="/room/:id" element={ <Room /> } />
         </Routes>
+        <ToastContainer />
       </Router>
     </>
   );
