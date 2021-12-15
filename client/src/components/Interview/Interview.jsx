@@ -12,9 +12,11 @@ import join from './join.svg'
 import firebaseOrdersCollection from '../Firebase/firebase'
 import * as emailjs from 'emailjs-com'
 
+
 const SIZE = 10;
 
 const Interview = () => {
+
   const [modal, setModal] = useState(false);
   const [IRname, setIRName] = useState(" ");
   const [IEname, setIEName] = useState(" ");
@@ -67,7 +69,7 @@ const Interview = () => {
       time: DateTime.split('T')[1],
       room_id: randKey
     }
-    emailjs.send("service_oofy1gs", "template_hkht4wt", IRparam, 'user_6sFrpuRiP9eIrSA4ZiLM3');
+    emailjs.send(process.env.REACT_APP_SERVICE_KEY, process.env.REACT_APP_IR_KEY, IRparam, process.env.REACT_APP_USER_KEY);
     // console.log("IR");
     setIRName('');
     setIRmail('');
@@ -82,7 +84,7 @@ const Interview = () => {
       time: DateTime.split('T')[1],
       room_id: randKey
     }
-    emailjs.send("service_oofy1gs", "template_xihzwbd", IEparam, "user_6sFrpuRiP9eIrSA4ZiLM3");
+    emailjs.send(process.env.REACT_APP_SERVICE_KEY, process.env.REACT_APP_IE_KEY, IEparam, process.env.REACT_APP_USER_KEY);
     // console.log("IE");
     setIEName('');
     setIEmail('');
