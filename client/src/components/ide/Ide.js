@@ -95,8 +95,8 @@ return 0;
             return 'kotlin';
         }
     }
-    const questionSolved = async ()=>{
-        let data = {user:props.user._id,question:props.question._id};
+    const questionSolved = async () => {
+        let data = { user: props.user._id, question: props.question._id };
         let res = await fetch(`http://localhost:9002/problemPage/solved`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
@@ -119,15 +119,26 @@ return 0;
     }
 
     const submitter = async () => {
-        
+
+        let inn, qID, uID;
+        if (props.question) {
+            inn = props.question.testCase;
+            qID = props.question._id;
+            uID = props.user._id;
+        }
+        else {
+            inn = "";
+            qID = "";
+            uID = "";
+        }
         setOutput('Loading result...');
         var data = {
             script: value,
             language: passlanguage(language),
-            stdin: props.question.testCase,
+            stdin: inn,
             versionIndex: passVersion(language),
-            questionID: props.question._id,
-            userID: props.user._id
+            questionID: qID,
+            userID: uID
         }
         let res = await fetch(`http://localhost:9002/run`, {
             method: "POST", body: JSON.stringify(data), headers: {
@@ -136,9 +147,9 @@ return 0;
         });
         let res2 = await res.json();
         setOutput(res2.apiOut.output);
-        checkerToast(res2.apiOut.output,data);
+        checkerToast(res2.apiOut.output, data);
     }
-    const soluLog = async (solution)=>{
+    const soluLog = async (solution) => {
         let res = await fetch(`http://localhost:9002/solution`, {
             method: "POST", body: JSON.stringify(solution), headers: {
                 'Content-Type': 'application/json'
@@ -147,15 +158,16 @@ return 0;
 
     }
 
-    const checkerToast = (ou,codeObj) => {
+    const checkerToast = (ou, codeObj) => {
         let solution = {
-            code:codeObj.script,
-            language:codeObj.language,
-            question:props.question._id,
-            user:props.user._id,
-            verdict:"",
+            code: codeObj.script,
+            language: codeObj.language,
+            question: props.question ? props.question._id : "",
+            user: props.user ? props.user._id : "",
+            verdict: "",
         }
-        if (ou === props.question.answer) {
+        if (props.question === undefined) { }
+        else if (ou === props.question.answer) {
             questionSolved();
             solution.verdict = "Accepted"
             soluLog(solution)
