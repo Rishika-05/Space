@@ -21,13 +21,15 @@ import {
 import './App.css';
 
 function App() {
+
   const [user, setLoginUser] = useState({})
+  const [interview, setInterview] = useState(true);
 
   return (
     <>
       <Router>
         {
-          user && user._id ? <Navbar user={user} setLoginUser={setLoginUser} /> : <></>
+          (user && user._id) && interview ? <Navbar user={user} setLoginUser={setLoginUser} /> : <></>
         }
         <Routes>
           <Route exact path="/login" element={<SignIn setLoginUser={setLoginUser} />} />
@@ -44,7 +46,7 @@ function App() {
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide />} />
           <Route exact path="/join" element={<Join />} />
-          <Route exact path="/room/:id" element={ <Room /> } />
+          <Route exact path="/room/:id" element={<Room setInterview={setInterview} /> } />
         </Routes>
         <ToastContainer />
       </Router>

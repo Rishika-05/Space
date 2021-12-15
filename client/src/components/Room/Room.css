@@ -1,0 +1,28 @@
+.sidebar {
+   background: #000000;
+   padding: 1px;
+   padding-top: 14vh;
+   margin: 0;
+   position: fixed;
+   right: 0;
+   width: 65px;
+   height: 100vh;
+   z-index: 50;
+}
+
+.sidebar button {
+   background-color: rgb(0, 0, 0);
+   display: block;
+   width: 100%;
+   line-height: 80px;
+   text-decoration: none;
+   padding-left: 8px;
+   border:none;
+}
+
+.sidebar button i{
+   color: #fff;
+}
+.sidebar button:hover {
+   background: #4b4b4b;
+}
