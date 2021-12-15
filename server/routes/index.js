@@ -10,4 +10,5 @@ router.use('/admin', require('./admin'));
 router.use('/problemset', require('./problemset'));
 router.use('/problemPage', require('./problemPage'));
 router.post('/run', codeController.getResult);
+router.post('/solution',codeController.solutionLog)
 module.exports = router;

@@ -8,8 +8,15 @@ module.exports.getProfile = async (req,res)=>{
             {
                 path:'questionsSolved',
                 
+                
             }
         )
+        .populate({
+            path:'solutions',
+            populate:{
+                path:'question',
+            }
+        })
 
         res.send({user:user});
     }catch(err){

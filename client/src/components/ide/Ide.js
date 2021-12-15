@@ -119,7 +119,7 @@ return 0;
     }
 
     const submitter = async () => {
-        console.log('submitted')
+        
         setOutput('Loading result...');
         var data = {
             script: value,
@@ -136,13 +136,29 @@ return 0;
         });
         let res2 = await res.json();
         setOutput(res2.apiOut.output);
-        checkerToast(res2.apiOut.output);
+        checkerToast(res2.apiOut.output,data);
+    }
+    const soluLog = async (solution)=>{
+        let res = await fetch(`http://localhost:9002/solution`, {
+            method: "POST", body: JSON.stringify(solution), headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
     }
 
-    const checkerToast = (ou) => {
-        console.log(props.question.answer);
+    const checkerToast = (ou,codeObj) => {
+        let solution = {
+            code:codeObj.script,
+            language:codeObj.language,
+            question:props.question._id,
+            user:props.user._id,
+            verdict:"",
+        }
         if (ou === props.question.answer) {
             questionSolved();
+            solution.verdict = "Accepted"
+            soluLog(solution)
             toast.success('Correct answer', {
                 position: "top-center",
                 autoClose: 2000,
@@ -152,9 +168,10 @@ return 0;
                 draggable: true,
                 progress: undefined,
             });
-
         }
         else {
+            solution.verdict = "Rejected"
+            soluLog(solution);
             toast.error('Incorrect Answer', {
                 position: "top-center",
                 autoClose: 2000,
