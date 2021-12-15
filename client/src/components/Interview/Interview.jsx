@@ -97,6 +97,10 @@ const Interview = () => {
     SendMail();
   }
 
+  const newTab = () => {
+    window.open('http://localhost:3000/join', "_blank");
+  }
+
 
   return (
     <>
@@ -116,7 +120,7 @@ const Interview = () => {
           <div className="imgContainer pull">
             <img src={join} alt="Problem" className='imgg' />
             <h6>...</h6>
-            <Link to="/join"><button type="button" style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button></Link>
+            <Link to="/interview"><button type="button" onClick={newTab} style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button></Link>
           </div>
         </div>
       </div>
