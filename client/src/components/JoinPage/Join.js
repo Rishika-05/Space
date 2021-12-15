@@ -5,9 +5,6 @@ import db from '../Firebase/firebase'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-let audio = true;
-let video = true;
-
 
 const Join = () => {
 
@@ -18,6 +15,8 @@ const Join = () => {
    const [roomID, setRoomID] = useState('');
    const [mic, setMic] = useState(true);
    const [cam, setCam] = useState(true);
+   const [audio, setAudio] = useState(true);
+   const [video, setVideo] = useState(true);
 
    useEffect(() => {
       getStream();
@@ -37,18 +36,20 @@ const Join = () => {
    }
 
    const toggleCamera = async () => {
-      if (video)
+      if (video) {
          localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
-      video = !video;
+      }
+      setVideo(!video);
       setCam(!cam);
       window.localStorage.setItem('video', video);
       console.log(window.localStorage.getItem('video'));
    }
 
    const toggleMic = async () => {
-      if(audio)
+      if (audio) {
          localStream.getAudioTracks()[0].enabled = !(localStream.getAudioTracks()[0].enabled);
-      audio = !audio;
+      }
+      setAudio(!audio);
       setMic(!mic);
       window.localStorage.setItem('audio', audio);
       console.log(window.localStorage.getItem('audio'));
