@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema({
             ref:'Question',
         }
     ],
+    solutions:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Solution',
+        }
+    ],
     calender:[
         {
             day:{

@@ -9,9 +9,12 @@ const solutionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    questionID:{
+    question:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Question',
+    },
+    verdict:{
+        type: String,
     },
     user:{
         type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +25,6 @@ const solutionSchema = new mongoose.Schema({
 },{
     timestamps:true,
 });
-const Solution =  mongoose.model('Question',solutionSchema);
+const Solution =  mongoose.model('Solution',solutionSchema);
 
 module.exports = Solution;

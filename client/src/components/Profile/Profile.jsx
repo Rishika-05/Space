@@ -45,6 +45,7 @@ export default function Profile(props) {
 
         let userData = await res.json();
         setuserProfile(userData.user);
+        console.log(userData);
         
         const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] + '+' + fullName[fullName.length - 1]
@@ -82,7 +83,13 @@ export default function Profile(props) {
     
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(7), (val, index) => index + year);
-
+    const verdictColor = (element)=>{
+        if(element.verdict == 'Accepted'){
+            return <h6 style = {{"color":"green"}}>{element.verdict}</h6>
+        }else{
+            return <h6 style = {{"color":"red"}}>{element.verdict}</h6>
+        }
+    }
 
     if (userProfile) {
         return (
@@ -123,11 +130,19 @@ export default function Profile(props) {
                     </div>
                     <div id="right-profile-data">
                         <div className="right-card">
-                        <h6 className = "px-3 pt-2">Questions Solved</h6>
+                        <h6 className = "px-3 pt-2">Submissions</h6>
                         <hr></hr>
                             {
-                                userProfile.questionsSolved.map((element)=>{
-                                    return <Link to = {`/problemPage/${element._id}`}><h6 key = {element._id}>{element.title}</h6></Link>
+                                userProfile.solutions.map((element)=>{
+
+                                    return <><div id = "profile-submissions" className = "d-flex justify-content-between">
+                                            <Link to = {`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
+                                            <Link to = {`/problemPage/${element._id}`}><h6>solution</h6></Link>
+                                            {verdictColor(element)}
+                                        </div>
+                                        <hr></hr>  
+                                        </> 
+                                    // console.log(element);
                                 })
                             }
                         </div>

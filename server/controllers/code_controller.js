@@ -1,4 +1,5 @@
 const User = require('../models/User.js');
+const Solution = require('../models/Solution');
 //const Question = require('../models/Question')
 const fetch = require("node-fetch");
 
@@ -65,19 +66,25 @@ module.exports.solved = async (req,res)=>{
         console.log(err);
     }
 }
-
-/*
-{
-    "sourceCode": "print('hello world');",
-    "status": 0,
-    "errorCode": 0,
-    "error": null,
-    "outputType": 0,
-    "output": "hello world\n",
-    "outputStyle": null,
-    "date": "0001-01-01T00:00:00",
-    "language": "py",
-    "input": "",
-    "id": 0
+module.exports.solutionLog = async (req,res)=>{
+    let solData = req.body;
+    try{
+        const solution = new Solution(solData);
+        
+        let user = await User.findById(solData.user);
+        user.solutions.push(solution._id);
+        user.save();
+        solution.save(err => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Solution created successfully");
+            }
+        })
+        
+    }catch(err){
+        console.log(err);
+    }
 }
-*/
+
+
