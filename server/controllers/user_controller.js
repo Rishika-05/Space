@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-module.exports.login = (req,res)=>{
+module.exports.login = (req, res) => {
     const { email, password } = req.body
     User.findOne({ email: email }, async function (err, user) {
         try {
@@ -21,7 +21,7 @@ module.exports.login = (req,res)=>{
         }
     })
 }
-module.exports.signUp = async (req,res)=>{
+module.exports.signUp = async (req, res) => {
     try {
         const { name, email, password } = req.body
         const hashedPassword = await bcrypt.hash(password, 10)
@@ -35,20 +35,19 @@ module.exports.signUp = async (req,res)=>{
                     email,
                     password: hashedPassword
                 })
-                for(let i=1;i<=365;i++){
-                    user.calender.push({day:i,value:0});
+                for (let i = 1; i <= 365; i++) {
+                    user.calender.push({ day: i, value: 0 });
                 }
                 user.save(err => {
                     if (err) {
                         res.send(err)
                     } else {
                         res.send({ message: 'successfully registered' })
-                        res.redirect('/login')
                     }
                 })
             }
         })
-    } catch {
-
+    } catch (err) {
+        console.log(err);
     }
 }
