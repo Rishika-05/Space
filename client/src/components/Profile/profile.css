@@ -1,16 +1,19 @@
 #outer-div{
     
-    height:100vw;
+    
     width:100vw;
     padding-top:2%;
     display: flex;
     flex-direction:row;
+    
+    background-color: #F5F5F5;
 }
 #left-profile-data{
     
     flex-basis: 23%;
-    margin-left: 3%;
+    margin-left: 2%;
     display: flex;
+    
     flex-direction: column;
 
 }
@@ -19,8 +22,14 @@
     flex-basis: 60%;
 }
 .left-card{
-    
+    box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
+    border-radius:10px;
+    padding:4%;
+    margin-bottom:5%;
+    /* border:1px solid black; */
+    background-color:#FFF;
     flex-basis: 20%;
+    width:96%
 }
 #profile-summary-card{
     margin-top:4%;
@@ -95,12 +104,12 @@
     text-align:top;
 }
 .right-card{
-    margin-left: 5%;
+    margin-left: 7%;
     
-    box-shadow: 0 3px 9px 0 rgb(131, 129, 129);
+    box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
     border-radius:10px;
     min-height:175px;
-    width:101%;
+    width:100%;
     margin-bottom:5%;
     /* border:1px solid black; */
     background-color:#FFF;
@@ -109,4 +118,33 @@
 #profile-submissions{
     padding-left:15px;
     padding-right:15px;
+    padding-bottom: 15px;
+}
+#ques-link{
+    flex-basis: 50%;
+    align-self:flex-start;
+    text-decoration:none;
+    color:#302f2f;
+    font-weight:bolder;
+}
+#solu-link{
+    flex-basis: 35%;
+    text-decoration:none;
+    color:rgb(58, 154, 233);
+}
+#verdict-text{
+    
+    align-self:flex-end;
+}
+@media screen and (max-width:740px){
+    #outer-div{
+        flex-direction: column;
+    }
+    .right-card{
+        width:95%;
+        margin-left:2%;
+    }
+    .left-card{
+        margin-left:2%;
+    }
 }

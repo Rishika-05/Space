@@ -21,17 +21,17 @@ export default function Home(props) {
                 <div className="imgContainer">
                     <img src={inter} alt="Interview" className='imgg' />
                     <h3 className='hh3'>Interview</h3>
-                    <Link to='/interview' style={{ "textDecoration": "none" }}><button className="btnn infoo">Interview </button></Link>
+                    <Link to='/interview' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Interview </button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg' />
                     <h3 className='hh3'>Problem Solving</h3>
-                    <Link to='/problemset' style={{ "textDecoration": "none" }}><button className ="btnn infoo">Problem Solving</button></Link>
+                    <Link to='/problemset' style={{ "textDecoration": "none" }}><button className ="btn btn-dark btn-sm">Problem Solving</button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />
                     <h3 className='hh3'>Puzzles</h3>
-                    <button className="btnn infoo">Puzzles</button>
+                    <button className="btn btn-dark btn-sm">Puzzles</button>
                 </div>
                 {/* <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div> */}
             </div>

@@ -31,15 +31,7 @@ export default function Calender(props) {
           <li>Nov</li>
           <li>Dec</li>
         </ul>
-        <ul class="days">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
+        
         <ul class="squares">
             {
                 props.calender.map((element) => {

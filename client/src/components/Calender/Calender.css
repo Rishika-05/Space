@@ -1,12 +1,19 @@
 :root {
-    --square-size: 10px;
-    --square-gap: 2px;
+    --square-size: 0.7vw;
+    --square-gap: 0.2vw;
     --week-width: calc(var(--square-size) + var(--square-gap));
   }
   
-  .months { grid-area: months; }
-  .days { grid-area: days; }
-  .squares { grid-area: squares; }
+  .months { 
+    grid-area: months;
+    padding-left:15px;
+    margin-top:2%;
+   }
+  
+  .squares { 
+    grid-area: squares;
+    padding:10px;
+  }
   
   .graph {
     display: inline-grid;
@@ -17,6 +24,7 @@
   }
   
   .months {
+    
     display: grid;
     grid-template-columns: calc(var(--week-width) * 4) /* Jan */
                            calc(var(--week-width) * 4) /* Feb */
@@ -32,7 +40,9 @@
                            calc(var(--week-width) * 5) /* Dec */;
   }
   
-  .days,
+  .months li{
+    font-size: 0.8rem;
+  }
   .squares {
     display: grid;
     grid-gap: var(--square-gap);
@@ -43,6 +53,7 @@
   .squares {
     grid-auto-flow: column;
     grid-auto-columns: var(--square-size);
+    margin-top:-3%;
   }
   
   
@@ -65,10 +76,7 @@
     list-style-type: none;
   }
   
-  .days li:nth-child(odd) {
-    visibility: hidden;
-  }
-  
+
   .squares li {
     background-color: #ebedf0;
   }
@@ -83,4 +91,11 @@
   
   .squares li[data-level="3"] {
     background-color: #196127;
+  }
+  @media screen and (max-width:740px){
+    :root {
+      --square-size: 1.2vw;
+      --square-gap: 0.3vw;
+      --week-width: calc(var(--square-size) + var(--square-gap));
+    }
   }

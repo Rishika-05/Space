@@ -93,10 +93,9 @@ export default function Profile(props) {
 
     if (userProfile) {
         return (
-            <>
-                <div id="outer-div">
-                    <Particles style={{ "zIndex": "-1" }}
-                        params={patriclesConfig} />
+            <div className="container-fluid" style = {{"backgroundColor":"#F5F5F5"}}>
+                <div id="outer-div" className = "container">
+                   
                     <div id="left-profile-data">
                         <div className="left-card">
                             <div id="profile-summary-card">
@@ -133,21 +132,21 @@ export default function Profile(props) {
                         <h6 className = "px-3 pt-2">Submissions</h6>
                         <hr></hr>
                             {
-                                userProfile.solutions.map((element)=>{
+                                userProfile.solutions.slice(0).reverse().map((element)=>{
 
-                                    return <><div id = "profile-submissions" className = "d-flex justify-content-between">
-                                            <Link to = {`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
-                                            <Link to = {`/problemPage/${element._id}`}><h6>solution</h6></Link>
-                                            {verdictColor(element)}
+                                    return <><div id = "profile-submissions" className = "d-flex">
+                                            <Link id = "ques-link" to = {`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
+                                            <Link id = "solu-link" to = {`/problemPage/${element._id}`}><h6>Your Solution</h6></Link>
+                                            <div id = "verdict-text">{verdictColor(element)}</div>
                                         </div>
-                                        <hr></hr>  
+                                        {/* <hr></hr>   */}
                                         </> 
                                     // console.log(element);
                                 })
                             }
                         </div>
                         <div className="right-card">
-                            <h6 className = "px-3 pt-2">{submissions} Submissions this year</h6>
+                            <h6 className = "px-3 pt-2">{submissions} submissions this year</h6>
                             <Calender calender={userProfile.calender}></Calender>
                         </div>
                     </div>
@@ -235,7 +234,7 @@ export default function Profile(props) {
             }
             `}
                 </style>
-            </>
+            </div>
         )
     } else {
         return (
