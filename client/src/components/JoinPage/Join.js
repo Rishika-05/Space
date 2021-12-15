@@ -64,6 +64,7 @@ const Join = () => {
       console.log(window.localStorage.getItem('Type'));
       const ID = roomID.slice(0, 10);
       console.log(ID);
+      window.localStorage.setItem('ID', ID);
       document.getElementById("form").reset();
 
       const findKey = (data) => {
