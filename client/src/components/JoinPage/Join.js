@@ -1,17 +1,58 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Join.css'
 import db from '../Firebase/firebase'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+let audio = true;
+let video = true;
+
 
 const Join = () => {
 
    const navigate = useNavigate();
+   let localStream;
 
    const [name, setName] = useState('');
    const [roomID, setRoomID] = useState('');
+   const [mic, setMic] = useState(true);
+   const [cam, setCam] = useState(true);
+
+   useEffect(() => {
+      getStream();
+   })
+
+   const getStream = async () => {
+      if(video || audio)
+      localStream = await navigator.mediaDevices.getUserMedia({ video:video, audio:audio });
+      document.querySelector('#localVideo').srcObject = localStream;
+      document.querySelector('#localVideo').play();
+      console.log(localStream);
+      console.log('Stream:', document.getElementById('localVideo').srcObject);
+      document.getElementById('toggleCamera').disabled = false;
+      document.getElementById('toggleMic').disabled = false;
+      window.localStorage.setItem('video', video);
+      window.localStorage.setItem('audio', audio);
+   }
+
+   const toggleCamera = async () => {
+      if (video)
+         localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
+      video = !video;
+      setCam(!cam);
+      window.localStorage.setItem('video', video);
+      console.log(window.localStorage.getItem('video'));
+   }
+
+   const toggleMic = async () => {
+      if(audio)
+         localStream.getAudioTracks()[0].enabled = !(localStream.getAudioTracks()[0].enabled);
+      audio = !audio;
+      setMic(!mic);
+      window.localStorage.setItem('audio', audio);
+      console.log(window.localStorage.getItem('audio'));
+   }
 
    const validateUser = () => {
       console.log('validate');
@@ -54,17 +95,17 @@ const Join = () => {
    }
 
    return (
-      <>
+      <div className="join">
          <div className="row d-flex">
             <div className="col-sm-8 mx-auto">
                <div className="video-mask">
-                  <video id="localVideo" muted autoplay playsinline allowfullscreen=""></video>
+                  <video id="localVideo" muted autoplay playsinline ></video>
                   <div className="buttons">
-                     <button className="button" id="toggleCamera">
-                        <i className="fa fa-video" aria-hidden="true"></i>
+                     <button className="button" id="toggleCamera" onClick={toggleCamera}>
+                        <i className={cam ?"fa fa-video":"fa fa-video-slash"} aria-hidden="true"></i>
                      </button>
-                     <button className="button" id="toggleMic">
-                        <i className="fa fa-microphone" aria-hidden="true"></i>
+                     <button className="button" id="toggleMic" onClick={toggleMic}>
+                        <i className={mic ? "fa fa-microphone" :"fa fa-microphone-slash"} aria-hidden="true"></i>
                      </button>
                   </div>
                </div>
@@ -87,7 +128,7 @@ const Join = () => {
             </div>
          </div>
          <ToastContainer />
-      </>
+      </div>
    )
 }
 
