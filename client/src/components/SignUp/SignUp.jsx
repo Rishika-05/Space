@@ -23,23 +23,68 @@ export default function SignUp() {
         })
     }
 
+    let chkpass = (password) => {
+
+        let parameter = {
+            capital: false,
+            small: false,
+            number: false,
+            len: false
+        }
+        if (password.length >= 8) {
+            parameter.len = true;
+        }
+        for (let i = 0; i < password.length; i++) {
+            let cur = password.charCodeAt(i);
+            if (cur >= 65 && cur <= 90) {
+                parameter.capital = true;
+            }
+            if (cur >= 97 && cur <= 122) {
+                parameter.small = true;
+            }
+            if (cur >= 48 && cur <= 57) {
+                parameter.number = true;
+            }
+        }
+        if (parameter.capital && parameter.small && parameter.number && parameter.len) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     const register = () => {
         const { name, email, password, reEnterPassword } = user
         console.log(user);
         if (name && email && password && (password === reEnterPassword)) {
-            axios.post("http://localhost:9002/signUp", user)
-                .then(res => {
-                    toast(res.data.message, {
-                        position: "top-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    navigate('/')
-                })
+
+            if (chkpass(password)) {
+                axios.post("http://localhost:9002/signUp", user)
+                    .then(res => {
+                        toast(res.data.message, {
+                            position: "top-center",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        navigate('/')
+                    })
+            }
+            else {
+                toast('Weak Password', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         }
         else {
             toast('invalid input', {
