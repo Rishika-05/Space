@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import Logo from '../../assets/images/navLogo.svg'
 import './Join.css'
 import db from '../Firebase/firebase'
+import Unauthorized from '../unauthorized/Unauthorized'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDate } from '../UseDate'
@@ -10,7 +11,7 @@ import { useDate } from '../UseDate'
 let audio = true;
 let video = true;
 
-const Join = () => {
+const Join = (props) => {
 
    const { date, time } = useDate();
 
@@ -97,60 +98,64 @@ const Join = () => {
       db.on("value", findKey);
 
    }
-
-   return (
-      <>
-         <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow": "0px 2px 20px #D6D6D6" }}>
-            <div className="container-fluid">
-               <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
-               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-               </button>
-               <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "18px" }}>
-                     <li className="nav-item me-4">
-                        <p style={{ 'fontSize': '20px' }}>{date}  &emsp; &emsp;{time}</p>
-                     </li>
-                  </ul>
+   if (props.user === undefined) {
+      return (<Unauthorized />)
+   }
+   else {
+      return (
+         <>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow": "0px 2px 20px #D6D6D6" }}>
+               <div className="container-fluid">
+                  <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
+                  <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                     <span className="navbar-toggler-icon"></span>
+                  </button>
+                  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "18px" }}>
+                        <li className="nav-item me-4">
+                           <p style={{ 'fontSize': '20px' }}>{date}  &emsp; &emsp;{time}</p>
+                        </li>
+                     </ul>
+                  </div>
                </div>
-            </div>
-         </nav>
-         <div className="join mt-3">
-            <div className="row d-flex">
-               <div className="col-sm-8 mx-auto">
-                  <div className="video-mask">
-                     <video id="localVideo" muted autoplay playsinline ></video>
-                     <div className="buttons">
-                        <button className="button" id="toggleCamera" onClick={toggleCamera}>
-                           <i className={cam ? "fa fa-video" : "fa fa-video-slash"} aria-hidden="true"></i>
-                        </button>
-                        <button className="button" id="toggleMic" onClick={toggleMic}>
-                           <i className={mic ? "fa fa-microphone" : "fa fa-microphone-slash"} aria-hidden="true"></i>
-                        </button>
+            </nav>
+            <div className="join mt-3">
+               <div className="row d-flex">
+                  <div className="col-sm-8 mx-auto">
+                     <div className="video-mask">
+                        <video id="localVideo" muted autoplay playsinline ></video>
+                        <div className="buttons">
+                           <button className="button" id="toggleCamera" onClick={toggleCamera}>
+                              <i className={cam ? "fa fa-video" : "fa fa-video-slash"} aria-hidden="true"></i>
+                           </button>
+                           <button className="button" id="toggleMic" onClick={toggleMic}>
+                              <i className={mic ? "fa fa-microphone" : "fa fa-microphone-slash"} aria-hidden="true"></i>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="col-sm-4 mx-auto mt-4">
+                     <div className="boxmeet mt-5">
+                        <h2 className="mb-5" >Join Meeting</h2>
+                        <form id="form" className="valid">
+                           <div className="inputBox">
+                              <input type="text" onChange={(e) => setName(e.target.value)} id="room_name" placeholder="Name" name="room_name" />
+                              <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
+                           </div>
+                           <div className="inputBox">
+                              <input type="text" onChange={(e) => setRoomID(e.target.value)} id="room_id" placeholder="Room ID" name="room_id" />
+                              <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
+                           </div>
+                           <button type="button" onClick={validateUser} name="sign-in" style={{ "fontSize": "18px" }} className="btn btn-dark my-4 submit-btn">Join Room</button>
+                        </form>
                      </div>
                   </div>
                </div>
-               <div className="col-sm-4 mx-auto mt-4">
-                  <div className="boxmeet mt-5">
-                     <h2 className="mb-5" >Join Meeting</h2>
-                     <form id="form" className="valid">
-                        <div className="inputBox">
-                           <input type="text" onChange={(e) => setName(e.target.value)} id="room_name" placeholder="Name" name="room_name" />
-                           <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
-                        </div>
-                        <div className="inputBox">
-                           <input type="text" onChange={(e) => setRoomID(e.target.value)} id="room_id" placeholder="Room ID" name="room_id" />
-                           <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
-                        </div>
-                        <button type="button" onClick={validateUser} name="sign-in" style={{ "fontSize": "18px" }} className="btn btn-dark my-4 submit-btn">Join Room</button>
-                     </form>
-                  </div>
-               </div>
             </div>
-         </div>
-         <ToastContainer />
-      </>
-   )
+            <ToastContainer />
+         </>
+      )
+   }
 }
 
 export default Join

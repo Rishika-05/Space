@@ -4,6 +4,7 @@ import SignIn from './components/SignIn/SignIn.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
 import Home from './components/Home/Home.js'
 import Interview from './components/Interview/Interview'
+import Unauthorized from './components/unauthorized/Unauthorized'
 import Navbar from './components/Navbar/Navbar.js'
 import Profile from './components/Profile/Profile.jsx'
 import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
@@ -40,13 +41,14 @@ function App() {
           <Route exact path="/interview" element={
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
           } />
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/questionUpload" element={<QuestionForm />} />
-          <Route exact path="/problemset" element={<Problemset />} />
+          <Route path="/profile/:id" element={<Profile user={user} />} />
+          <Route path="/questionUpload" element={<QuestionForm user={user} />} />
+          <Route exact path="/problemset" element={<Problemset user={user} />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
-          <Route exact path="/ide" element={<Ide />} />
-          <Route exact path="/join" element={<Join />} />
-          <Route exact path="/room/:id" element={<Room setInterview={setInterview} /> } />
+          <Route exact path="/ide" element={<Ide user={user} />} />
+          <Route exact path="/join" element={<Join user={user} />} />
+          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
+          <Route exact path='unauthorized' element={<Unauthorized />} />
         </Routes>
         <ToastContainer />
       </Router>

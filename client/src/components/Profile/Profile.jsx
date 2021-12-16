@@ -2,6 +2,7 @@ import React from 'react'
 import { useLayoutEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
+import Unauthorized from '../unauthorized/Unauthorized';
 import {
     Button, Modal,
     ModalHeader, ModalBody
@@ -88,6 +89,11 @@ export default function Profile(props) {
         }
     }
 
+    if (props.user._id === undefined) {
+        return (
+            <Unauthorized />
+        )
+    }
     if (userProfile) {
         return (
             <div className="container-fluid" style={{ "backgroundColor": "#F5F5F5" }}>

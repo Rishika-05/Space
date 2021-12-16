@@ -4,6 +4,11 @@
     margin-top: 3.5%;
 }
 
+.selectionColor::selection{
+    color: #ffffff;
+    background-color: #2b586d;
+}
+
 #tsparticles {
     width: 100%;
     height: 100%;

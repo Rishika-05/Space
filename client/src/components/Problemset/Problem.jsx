@@ -7,6 +7,7 @@ export default function Problem(props) {
     const problemPage = () => {
         navTo(`/problemPage/${props.question._id}`)
     }
+
     return (
 
         <div className="container" id="problem-container">
@@ -21,4 +22,5 @@ export default function Problem(props) {
             </div>
         </div>
     )
+
 }

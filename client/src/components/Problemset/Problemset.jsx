@@ -2,7 +2,8 @@ import React from 'react'
 import Problem from './Problem.jsx'
 import './Problemset.css'
 import { useState, useEffect } from 'react'
-export default function Problemset() {
+import Unauthorized from '../unauthorized/Unauthorized.js'
+export default function Problemset(props) {
     const [filter, setFilter] = useState({
         status: { solved: true, unsolved: true },
         difficulty: { easy: true, medium: true, hard: true },
@@ -84,108 +85,112 @@ export default function Problemset() {
         let data2 = await res.json();
 
         setQuestions(data2.questions);
-
-
-
     }
-    return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark problempage-heading">
-                <h3 className="mx-4" style={{ "color": "white" }}>Problemset</h3>
-            </nav>
-            <div id="problemset-container" className="container d-flex">
-                <div id="problems-container">
-                    {
+    if (props.user === undefined) {
+        return (
+            <Unauthorized />
+        )
+    }
+    else {
+        return (
+            <>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark problempage-heading">
+                    <h3 className="mx-4" style={{ "color": "white" }}>Problemset</h3>
+                </nav>
+                <div id="problemset-container" className="container d-flex">
+                    <div id="problems-container">
+                        {
 
-                        questions && questions.map((question) => {
-                            return <Problem question={question} key={question._id} />
-                        })
-                    }
+                            questions && questions.map((question) => {
+                                return <Problem question={question} key={question._id} />
+                            })
+                        }
+                    </div>
+                    <div id="tag-form-container">
+                        <form id="tags-form" onSubmit={handleTags}>
+                            <h6>STATUS</h6>
+                            <div id="status-input">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="status" value="solved" id="status-solved" />
+                                    <label className="form-check-label" for="status-solved">
+                                        Solved
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="solved" id="status-unsolved" />
+                                    <label className="form-check-label" for="status-unsolved">
+                                        Unsolved
+                                    </label>
+
+                                </div>
+                            </div>
+                            <hr></hr>
+                            <h6>DIFFICULTY</h6>
+                            <div id="difficulty-input">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="easy" id="difficulty-easy" />
+                                    <label className="form-check-label" for="difficulty-easy">
+                                        Easy
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="medium" id="difficulty-medium" />
+                                    <label className="form-check-label" for="difficulty-medium">
+                                        Medium
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="hard" id="difficulty-hard" />
+                                    <label className="form-check-label" for="difficulty-hard">
+                                        Hard
+                                    </label>
+
+                                </div>
+
+                            </div>
+                            <hr></hr>
+                            <h6>Tags</h6>
+                            <div id="tags-input">
+
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="implementation" id="tag-implementation" />
+                                    <label className="form-check-label" for="tag-implementation">
+                                        Implementation
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="strings" id="tag-strings" />
+                                    <label className="form-check-label" for="tag-strings">
+                                        Strings
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="sorting" id="tag-sorting" />
+                                    <label className="form-check-label" for="tag-sorting">
+                                        Sorting
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="greedy" id="tag-greedy" />
+                                    <label className="form-check-label" for="tag-greedy">
+                                        Greedy
+                                    </label>
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-dark">Apply</button>
+                        </form>
+                    </div>
+
                 </div>
-                <div id="tag-form-container">
-                    <form id="tags-form" onSubmit={handleTags}>
-                        <h6>STATUS</h6>
-                        <div id="status-input">
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" name="status" value="solved" id="status-solved" />
-                                <label className="form-check-label" for="status-solved">
-                                    Solved
-                                </label>
 
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="solved" id="status-unsolved" />
-                                <label className="form-check-label" for="status-unsolved">
-                                    Unsolved
-                                </label>
-
-                            </div>
-                        </div>
-                        <hr></hr>
-                        <h6>DIFFICULTY</h6>
-                        <div id="difficulty-input">
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="easy" id="difficulty-easy" />
-                                <label className="form-check-label" for="difficulty-easy">
-                                    Easy
-                                </label>
-
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="medium" id="difficulty-medium" />
-                                <label className="form-check-label" for="difficulty-medium">
-                                    Medium
-                                </label>
-
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="hard" id="difficulty-hard" />
-                                <label className="form-check-label" for="difficulty-hard">
-                                    Hard
-                                </label>
-
-                            </div>
-
-                        </div>
-                        <hr></hr>
-                        <h6>Tags</h6>
-                        <div id="tags-input">
-
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="implementation" id="tag-implementation" />
-                                <label className="form-check-label" for="tag-implementation">
-                                    Implementation
-                                </label>
-
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="strings" id="tag-strings" />
-                                <label className="form-check-label" for="tag-strings">
-                                    Strings
-                                </label>
-
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="sorting" id="tag-sorting" />
-                                <label className="form-check-label" for="tag-sorting">
-                                    Sorting
-                                </label>
-
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="greedy" id="tag-greedy" />
-                                <label className="form-check-label" for="tag-greedy">
-                                    Greedy
-                                </label>
-                            </div>
-
-                        </div>
-                        <button type="submit" class="btn btn-dark">Apply</button>
-                    </form>
-                </div>
-
-            </div>
-
-        </>
-    )
+            </>
+        )
+    }
 }

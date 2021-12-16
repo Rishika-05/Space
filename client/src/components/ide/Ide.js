@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import reset from './reset.png'
 import AceEditor from 'react-ace';
+import Unauthorized from '../unauthorized/Unauthorized';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
@@ -97,7 +98,7 @@ return 0;
     }
     const questionSolved = async () => {
         let data = { user: props.user._id, question: props.question._id };
-        await fetch(`http://localhost:9002/problemPage/solved`, {
+        let res = await fetch(`http://localhost:9002/problemPage/solved`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -150,7 +151,7 @@ return 0;
         checkerToast(res2.apiOut.output, data);
     }
     const soluLog = async (solution) => {
-        await fetch(`http://localhost:9002/solution`, {
+        let res = await fetch(`http://localhost:9002/solution`, {
             method: "POST", body: JSON.stringify(solution), headers: {
                 'Content-Type': 'application/json'
             },
@@ -200,80 +201,85 @@ return 0;
         maxWidth: '5vw',
         marginLeft: '35vw'
     }
-    return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <text className="navbar-brand">Space Online IDE</text>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <text className="nav-link disabled">Language</text>
-                            </li>
-                            <li>
-                                <select className="form-select" aria-label="Default select example" onChange={lanChange}>
-                                    <option selected value="c_cpp">C++</option>
-                                    <option value="java">Java</option>
-                                    <option value="python">Python</option>
-                                    <option value="kotlin">Kotlin</option>
-                                </select>
-                            </li>
-                            <li className="nav-item">
-                                <text className="nav-link disabled">Theme</text>
-                            </li>
-                            <li>
-                                <select className="form-select" aria-label="Default select example" onChange={themeChange}>
-                                    <option selected value="nord_dark">Nord Dark</option>
-                                    <option value="github">Github</option>
-                                    <option value="eclipse">Eclipse</option>
-                                    <option value="monokai">monokai</option>
-                                    <option value="chrome">Chrome</option>
-                                    <option value="dreamweaver">Dream Weaver</option>
-                                </select>
-                            </li>
-                            <li>
-                                <img src={reset} width="30" height="30" alt="reset"
-                                    style={{ marginLeft: '7px', marginTop: '5px' }}
-                                    onClick={resetClicked}
-                                ></img>
-                            </li>
-                        </ul>
+    if (props.user._id === undefined) {
+        return (<Unauthorized />)
+    }
+    else {
+        return (
+            <>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <text className="navbar-brand">Space Online IDE</text>
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <text className="nav-link disabled">Language</text>
+                                </li>
+                                <li>
+                                    <select className="form-select" aria-label="Default select example" onChange={lanChange}>
+                                        <option selected value="c_cpp">C++</option>
+                                        <option value="java">Java</option>
+                                        <option value="python">Python</option>
+                                        <option value="kotlin">Kotlin</option>
+                                    </select>
+                                </li>
+                                <li className="nav-item">
+                                    <text className="nav-link disabled">Theme</text>
+                                </li>
+                                <li>
+                                    <select className="form-select" aria-label="Default select example" onChange={themeChange}>
+                                        <option selected value="nord_dark">Nord Dark</option>
+                                        <option value="github">Github</option>
+                                        <option value="eclipse">Eclipse</option>
+                                        <option value="monokai">monokai</option>
+                                        <option value="chrome">Chrome</option>
+                                        <option value="dreamweaver">Dream Weaver</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <img src={reset} width="30" height="30" alt="reset"
+                                        style={{ marginLeft: '7px', marginTop: '5px' }}
+                                        onClick={resetClicked}
+                                    ></img>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
 
-            <AceEditor
-                placeholder={`//Write code here`}
-                mode={language}
-                theme={theme}
-                name="editor"
-                width="100%"
-                fontSize={20}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                value={value}
-                onChange={onChange}
-                commands={Beautify.commands}
-                editorProps={{
-                    $blockScrolling: true
-                }}
-                setOptions={{
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true,
-                    enableSnippets: true,
-                    showLineNumbers: true,
-                    tabSize: 2,
-                }} />
-            <br />
-            <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run</button>
-            <h5>Output</h5>
-            <textarea className="outputBox" style={{ width: '40vw', height: '20vh' }} value={output}></textarea>
-            <ToastContainer />
-        </>
-    )
+                <AceEditor
+                    placeholder={`//Write code here`}
+                    mode={language}
+                    theme={theme}
+                    name="editor"
+                    width="100%"
+                    fontSize={20}
+                    showPrintMargin={true}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    value={value}
+                    onChange={onChange}
+                    commands={Beautify.commands}
+                    editorProps={{
+                        $blockScrolling: true
+                    }}
+                    setOptions={{
+                        enableBasicAutocompletion: true,
+                        enableLiveAutocompletion: true,
+                        enableSnippets: true,
+                        showLineNumbers: true,
+                        tabSize: 2,
+                    }} />
+                <br />
+                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run</button>
+                <h5>Output</h5>
+                <textarea className="outputBox" style={{ width: '40vw', height: '20vh' }} value={output}></textarea>
+                <ToastContainer />
+            </>
+        )
+    }
 }

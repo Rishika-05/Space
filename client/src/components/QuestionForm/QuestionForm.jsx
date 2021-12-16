@@ -1,6 +1,6 @@
 import React from 'react'
-
-export default function QuestionForm() {
+import Unauthorized from '../unauthorized/Unauthorized';
+export default function QuestionForm(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(event.target.tag.value)
@@ -31,72 +31,78 @@ export default function QuestionForm() {
 
 
     }
-    return (
-        <>
-            <div>
-                <form className="container" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label for="problem-title">Problem Title</label>
-                        <textarea className="form-control" name="title" id="problem-title" rows="1" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="problem-statement">Problem Statement</label>
-                        <textarea className="form-control" name="problemStatement" id="problem-statement" rows="6" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="input-format">Input Format</label>
-                        <textarea className="form-control" name="inputFormat" id="input-format" rows="2" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="output-format">Output Format</label>
-                        <textarea className="form-control" name="outputFormat" id="output-format" rows="2" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="problem-constraints">Constraints</label>
-                        <textarea className="form-control" name="constraints" id="problem-constraints" rows="2" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="problem-explanation">Explanation</label>
-                        <textarea className="form-control" name="explanation" id="problem-explanation" rows="2" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="sample-input">Sample input</label>
-                        <textarea className="form-control" name="sampleInput" id="sample-input" rows="3"></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="sample-output">Sample output</label>
-                        <textarea className="form-control" name="sampleOutput" id="sample-output" rows="3" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="hidden-input">Hidden input</label>
-                        <textarea className="form-control" name="testCase" id="hidden-input" rows="3" ></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="hidden-output">Hidden output</label>
-                        <textarea className="form-control" name="answer" id="hidden-output" rows="3" required></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label for="difficulty-select">Problem Difficulty</label>
-                        <select className="form-control" name="difficulty" id="difficulty-select">
-                            <option value="easy">Easy </option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label for="tag-select">Problem Tag</label>
-                        <select className="form-control" name="tag" id="tag-select">
-                            <option value="implementation">Implementation</option>
-                            <option value="strings">Strings</option>
-                            <option value="sorting">Sorting</option>
-                            <option value="greedy">Greedy</option>
-                        </select>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Upload</button>
+    if (props.user._id === undefined) {
+        return (
+            <Unauthorized />)
+    }
+    else {
+        return (
+            <>
+                <div>
+                    <form className="container" onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label for="problem-title">Problem Title</label>
+                            <textarea className="form-control" name="title" id="problem-title" rows="1" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="problem-statement">Problem Statement</label>
+                            <textarea className="form-control" name="problemStatement" id="problem-statement" rows="6" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="input-format">Input Format</label>
+                            <textarea className="form-control" name="inputFormat" id="input-format" rows="2" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="output-format">Output Format</label>
+                            <textarea className="form-control" name="outputFormat" id="output-format" rows="2" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="problem-constraints">Constraints</label>
+                            <textarea className="form-control" name="constraints" id="problem-constraints" rows="2" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="problem-explanation">Explanation</label>
+                            <textarea className="form-control" name="explanation" id="problem-explanation" rows="2" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="sample-input">Sample input</label>
+                            <textarea className="form-control" name="sampleInput" id="sample-input" rows="3"></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="sample-output">Sample output</label>
+                            <textarea className="form-control" name="sampleOutput" id="sample-output" rows="3" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="hidden-input">Hidden input</label>
+                            <textarea className="form-control" name="testCase" id="hidden-input" rows="3" ></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="hidden-output">Hidden output</label>
+                            <textarea className="form-control" name="answer" id="hidden-output" rows="3" required></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label for="difficulty-select">Problem Difficulty</label>
+                            <select className="form-control" name="difficulty" id="difficulty-select">
+                                <option value="easy">Easy </option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label for="tag-select">Problem Tag</label>
+                            <select className="form-control" name="tag" id="tag-select">
+                                <option value="implementation">Implementation</option>
+                                <option value="strings">Strings</option>
+                                <option value="sorting">Sorting</option>
+                                <option value="greedy">Greedy</option>
+                            </select>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Upload</button>
 
 
-                </form>
-            </div>
-        </>
-    )
+                    </form>
+                </div>
+            </>
+        )
+    }
 }
