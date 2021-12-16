@@ -104,7 +104,7 @@ const Join = (props) => {
    else {
       return (
          <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow": "0px 2px 20px #D6D6D6" }}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow": "0px 2px 15px #d8d8d8" }}>
                <div className="container-fluid">
                   <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
                   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

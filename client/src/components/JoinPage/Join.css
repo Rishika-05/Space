@@ -1,4 +1,4 @@
-.join{
+.join {
    width: 99%;
 }
 
@@ -34,6 +34,7 @@
    box-sizing: border-box;
    background: rgba(196, 196, 196, 0.7);
    border-radius: 0.625rem;
+   box-shadow: 0px 2px 20px #d8d8d8;
 }
 
 .boxmeet h2 {
@@ -107,6 +108,7 @@
    transform: rotateY(180deg);
    -webkit-transform: rotateY(180deg);
    -moz-transform: rotateY(180deg);
+   box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
 }
 
 .video-mask {
@@ -118,6 +120,7 @@
    overflow: hidden;
    position: relative;
    z-index: 8;
+   box-shadow: 0px 2px 20px #d8d8d8;
 }
 
 .video-mask .buttons {
