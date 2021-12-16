@@ -82,7 +82,7 @@ const patriclesConfig = {
         },
         modes: {
             grab: {
-                distance: 100,
+                distance: 150,
                 line_linked: {
                     opacity: 1
                 }

@@ -1,9 +1,7 @@
 import React from 'react'
 import { useLayoutEffect, useState } from 'react';
-import { useParams, useNavigate,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
-import Particles from 'react-particles-js'
-import patriclesConfig from './config/particle-config'
 import {
     Button, Modal,
     ModalHeader, ModalBody
@@ -15,8 +13,7 @@ export default function Profile(props) {
     const [avatar, setAvatar] = useState();
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
-    const [submissions,setSubmissions] = useState(0);
-    const navigate = useNavigate();
+    const [submissions, setSubmissions] = useState(0);
     const toggle = () => {
         setModal(!modal);
     }
@@ -25,14 +22,14 @@ export default function Profile(props) {
     }
     useLayoutEffect(() => {
         getUserProfile();
-        
+
     }, [])
     const { id } = useParams();
-    const countSubmissions = (user)=>{
+    const countSubmissions = (user) => {
         let temp = 0;
-        for(let i=0;i<user.calender.length;i++){
-            temp+= user.calender[i].value;
-            
+        for (let i = 0; i < user.calender.length; i++) {
+            temp += user.calender[i].value;
+
         }
         setSubmissions(temp);
     }
@@ -46,7 +43,7 @@ export default function Profile(props) {
         let userData = await res.json();
         setuserProfile(userData.user);
         console.log(userData);
-        
+
         const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] + '+' + fullName[fullName.length - 1]
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
@@ -58,7 +55,7 @@ export default function Profile(props) {
         event.preventDefault()
         let data = { name: event.target.name.value, email: event.target.email.value, country: event.target.country.value }
 
-        let res = fetch(`http://localhost:9002/update/summary/${id}`, {
+        fetch(`http://localhost:9002/update/summary/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -72,7 +69,7 @@ export default function Profile(props) {
 
         let data = { about: event.target.about.value, institute: event.target.institute.value, graduation: event.target.graduation.value, degree: event.target.degree.value }
 
-        let res = fetch(`http://localhost:9002/update/about/${id}`, {
+        fetch(`http://localhost:9002/update/about/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -80,22 +77,22 @@ export default function Profile(props) {
         getUserProfile();
 
     }
-    
+
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(7), (val, index) => index + year);
-    const verdictColor = (element)=>{
-        if(element.verdict == 'Accepted'){
-            return <h6 style = {{"color":"green"}}>{element.verdict}</h6>
-        }else{
-            return <h6 style = {{"color":"red"}}>{element.verdict}</h6>
+    const verdictColor = (element) => {
+        if (element.verdict === 'Accepted') {
+            return <h6 style={{ "color": "green" }}>{element.verdict}</h6>
+        } else {
+            return <h6 style={{ "color": "red" }}>{element.verdict}</h6>
         }
     }
 
     if (userProfile) {
         return (
-            <div className="container-fluid" style = {{"backgroundColor":"#F5F5F5"}}>
-                <div id="outer-div" className = "container">
-                   
+            <div className="container-fluid" style={{ "backgroundColor": "#F5F5F5" }}>
+                <div id="outer-div" className="container">
+
                     <div id="left-profile-data">
                         <div className="left-card">
                             <div id="profile-summary-card">
@@ -129,24 +126,24 @@ export default function Profile(props) {
                     </div>
                     <div id="right-profile-data">
                         <div className="right-card">
-                        <h6 className = "px-3 pt-2">Submissions</h6>
-                        <hr></hr>
+                            <h6 className="px-3 pt-2">Submissions</h6>
+                            <hr></hr>
                             {
-                                userProfile.solutions.slice(0).reverse().map((element)=>{
+                                userProfile.solutions.slice(0).reverse().map((element) => {
 
-                                    return <><div id = "profile-submissions" className = "d-flex">
-                                            <Link id = "ques-link" to = {`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
-                                            <Link id = "solu-link" to = {`/problemPage/${element._id}`}><h6>Your Solution</h6></Link>
-                                            <div id = "verdict-text">{verdictColor(element)}</div>
-                                        </div>
+                                    return <><div id="profile-submissions" className="d-flex">
+                                        <Link id="ques-link" to={`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
+                                        <Link id="solu-link" to={`/problemPage/${element._id}`}><h6>Your Solution</h6></Link>
+                                        <div id="verdict-text">{verdictColor(element)}</div>
+                                    </div>
                                         {/* <hr></hr>   */}
-                                        </> 
+                                    </>
                                     // console.log(element);
                                 })
                             }
                         </div>
                         <div className="right-card">
-                            <h6 className = "px-3 pt-2">{submissions} submissions this year</h6>
+                            <h6 className="px-3 pt-2">{submissions} submissions this year</h6>
                             <Calender calender={userProfile.calender}></Calender>
                         </div>
                     </div>

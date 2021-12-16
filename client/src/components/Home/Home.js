@@ -6,7 +6,6 @@ import './home.css'
 import inter from './inter.png'
 import prob from './problem.png'
 import puz from './puzzle.png'
-import {useNavigate} from 'react-router-dom'
 
 export default function Home(props) {
     return (
@@ -26,7 +25,7 @@ export default function Home(props) {
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg' />
                     <h3 className='hh3'>Problem Solving</h3>
-                    <Link to='/problemset' style={{ "textDecoration": "none" }}><button className ="btn btn-dark btn-sm">Problem Solving</button></Link>
+                    <Link to='/problemset' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Problem Solving</button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />

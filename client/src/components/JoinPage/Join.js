@@ -12,7 +12,7 @@ let video = true;
 
 const Join = () => {
 
-   const { date, time, wish } = useDate();
+   const { date, time } = useDate();
 
    const navigate = useNavigate();
    let localStream = null;
@@ -100,7 +100,7 @@ const Join = () => {
 
    return (
       <>
-         <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow":"0px 2px 20px #D6D6D6" }}>
+         <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2', "boxShadow": "0px 2px 20px #D6D6D6" }}>
             <div className="container-fluid">
                <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,7 @@ const Join = () => {
                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "18px" }}>
                      <li className="nav-item me-4">
-                        <p style={{'fontSize':'20px'}}>{date}  &emsp; &emsp;{ time}</p>
+                        <p style={{ 'fontSize': '20px' }}>{date}  &emsp; &emsp;{time}</p>
                      </li>
                   </ul>
                </div>
