@@ -42,7 +42,7 @@ module.exports.signUp = async (req, res) => {
                     if (err) {
                         res.send(err)
                     } else {
-                        res.send({ message: 'successfully registered' })
+                        res.send({ message: 'User registered successfully!' })
                     }
                 })
             }

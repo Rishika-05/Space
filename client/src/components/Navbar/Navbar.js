@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar(props) {
+
     const navigate = useNavigate();
-    // console.
+
     const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
     }
+
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", zIndex: '2' }}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", "zIndex": '2', "boxShadow": "0px 2px 10px #EAEAEA"  }}>
                 <div className="container-fluid">
-                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="" /> </Link>
+                    <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="Space Logo" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -40,10 +42,6 @@ export default function Navbar(props) {
                                 </ul>
                             </li>
                         </ul>
-                        {/* <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button className ="btn btn-outline-success" type ="submit">Search</button>
-                        </form> */}
                     </div>
                 </div>
             </nav>
