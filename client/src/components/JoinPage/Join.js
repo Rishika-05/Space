@@ -6,7 +6,7 @@ import db from '../Firebase/firebase'
 import Unauthorized from '../unauthorized/Unauthorized'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDate } from '../UseDate'
+import { useDate } from '../utils/UseDate'
 
 let audio = true;
 let video = true;

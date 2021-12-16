@@ -1,5 +1,5 @@
 .sidebar {
-   background: #000000;
+   background: #263238;
    padding: 1px;
    padding-top: 14vh;
    margin: 0;
@@ -11,18 +11,24 @@
 }
 
 .sidebar button {
-   background-color: rgb(0, 0, 0);
+   background-color: #263238;
    display: block;
    width: 100%;
    line-height: 80px;
    text-decoration: none;
    padding-left: 8px;
-   border:none;
+   border: none;
 }
 
-.sidebar button i{
+.sidebar button i {
    color: #fff;
+   font-size: 24px;
 }
+
 .sidebar button:hover {
    background: #4b4b4b;
+}
+
+.sidebar button:hover i {
+   font-size: 28px;
 }
