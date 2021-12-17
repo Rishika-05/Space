@@ -11,7 +11,9 @@ import { UseUtils } from '../utils/roomUtils';
 
 const Room = (props) => {
 
-   const { setInterview } = props;
+   const { setInterview, name, room } = props;
+   let username = name;
+   let roomid = room;
    const { show_video, show_chat, show_board, show_code, show_git, show_cf } = UseUtils();
    setInterview(false);
 
@@ -46,7 +48,7 @@ const Room = (props) => {
 
          <div className="content_space">
             <div className="room row">
-               <div className="col-md-12 col-sm-12 video" id="video_space">
+               <div className="col-md-12 col-sm-12 video " id="video_space">
                   <div className="video">
                      <div id="videos">
                         <video id="remote_Video" autoplay playsinline ></video>
@@ -54,14 +56,15 @@ const Room = (props) => {
                      </div>
                   </div>
                </div>
-               <div className="col-md-12 col-sm-12  d-none" id="chat_space" >
-                  <div className="container-fluid">
-
+               <div className="col-md-12 col-sm-12 d-none" id="chat_space" >
+                  <div className="container-fluid" id='chattt' style={{ 'height': '100vh'}} >
+                     <embed src={`https://chat-with-space.herokuapp.com/?username=${username}&room=${roomid}`} id="chat_s" style={{ 'height': '99vh', 'width': '96vw' }} /> 
+                     {/* <embed src="http://localhost:7000/?username=Rishika&room=1234" id="chat_s" style={{ 'height': '99vh', 'width': '98vw'}} /> */}
                   </div>
                </div>
                <div className="col-md-12 col-sm-12  d-none" id="board_space">
                   <div className="container-fluid">
-
+                     
                   </div>
                </div>
                <div className="col-md-12 col-sm-12  d-none" id="code_space">

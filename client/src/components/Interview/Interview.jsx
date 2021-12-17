@@ -53,8 +53,8 @@ const Interview = () => {
 
     firebaseOrdersCollection.child(randKey).set(details);
 
-    sendToIE(randKey + 'E');
-    sendToIR(randKey + 'R');
+    sendToIE(randKey + 'IE');
+    sendToIR(randKey + 'IR');
     document.getElementById("schedule-submit-btn").innerHTML = `Sent...`;
 
     setInterval(() => setModal(!modal), 2000);

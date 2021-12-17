@@ -25,6 +25,8 @@ function App() {
 
   const [user, setLoginUser] = useState({})
   const [interview, setInterview] = useState(true);
+  const [name, setName] = useState("");
+  const [room, setRoom] = useState("");
 
   return (
     <>
@@ -46,8 +48,8 @@ function App() {
           <Route exact path="/problemset" element={<Problemset user={user} />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide user={user} />} />
-          <Route exact path="/join" element={<Join user={user} />} />
-          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
+          <Route exact path="/join" element={<Join user={user} setName={setName} setRoom={setRoom} />} />
+          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} name={name} room={room} />} />
           <Route exact path='unauthorized' element={<Unauthorized />} />
         </Routes>
         <ToastContainer />

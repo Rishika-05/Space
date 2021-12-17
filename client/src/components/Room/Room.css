@@ -43,3 +43,8 @@
 .row {
    max-width: 99vw;
 }
+
+#chattt {
+   /* background: url("./bg.jpeg"); */
+   background-color: #dfdfdf;
+}
