@@ -69,7 +69,7 @@ export default function SignIn(props) {
                     <div className="container left">
                         <img src={logo} className="gif_left phone" alt="logo"></img>
                         <img src={logoText} className="gif_left pull" alt="main_logo"></img>
-                        <p className="text">A Space to pratice and achieve DREAMS</p>
+                        <p className="text">A Space to practice and achieve DREAMS</p>
                     </div>
                     <div className="container right">
                         <div className="container box">

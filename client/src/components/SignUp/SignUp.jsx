@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Tippy from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -21,6 +23,20 @@ export default function SignUp() {
             ...user,
             [name]: value
         })
+    }
+
+    const passInfo = () => {
+        return (
+            <>
+                min length 8
+                <br />
+                Must consist of:
+                <br />
+                Atleast 1 capital, 1 small
+                <br />
+                1 number
+            </>
+        )
     }
 
     let chkpass = (password) => {
@@ -112,7 +128,7 @@ export default function SignUp() {
                 <div className="container left">
                     <img src={logo} className="gif_left phone" alt="logo"></img>
                     <img src={logoText} className="gif_left pull" alt="main_logo"></img>
-                    <p className="text">A Space to pratice and achieve DREAMS</p>
+                    <p className="text">A Space to practice and achieve DREAMS</p>
                 </div>
                 <div className="container right">
                     <div className="container box">
@@ -124,8 +140,10 @@ export default function SignUp() {
                                 onChange={handleChange} />
                         </div>
                         <div className="form-group">
-                            <input type="password" value={user.password} className="form-control" id="show_hide_password" name="password" placeholder="Password"
-                                onChange={handleChange} />
+                            <Tippy content={passInfo()} placement='right'>
+                                <input type="password" value={user.password} className="form-control" id="show_hide_password" name="password" placeholder="Password"
+                                    onChange={handleChange} />
+                            </Tippy>
                         </div>
                         <div className="form-group">
                             <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
