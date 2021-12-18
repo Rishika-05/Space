@@ -12,6 +12,7 @@ export default function Problemset(props) {
     const [questions, setQuestions] = useState();
     useEffect(() => {
         filterData();
+        document.title = 'Practice | Space'
         // eslint-disable-next-line
     }, [])
     const parseDifficulty = (data) => {

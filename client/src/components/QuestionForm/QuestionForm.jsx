@@ -1,6 +1,12 @@
-import React from 'react'
+import React,{ useEffect} from 'react'
 import Unauthorized from '../unauthorized/Unauthorized';
 export default function QuestionForm(props) {
+
+    useEffect(() => {
+        document.title = 'Add Question | Space';
+        // eslint-disable-next-line
+    }, []);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(event.target.tag.value)

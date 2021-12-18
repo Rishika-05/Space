@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import {
   Modal, ModalHeader, ModalBody
 } from "reactstrap"
@@ -23,6 +23,11 @@ const Interview = () => {
   const [IRmail, setIRmail] = useState(" ");
   const [IEmail, setIEmail] = useState(" ");
   const [DateTime, setDateTime] = useState();
+
+  useEffect(() => {
+    document.title = 'Interview | Space';
+    // eslint-disable-next-line
+  }, []);
 
  
   const toggle = () => {

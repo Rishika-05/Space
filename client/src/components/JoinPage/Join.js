@@ -25,6 +25,7 @@ const Join = (props) => {
 
    useEffect(() => {
       getStream();
+      document.title = 'Join Meeting | Space'
       // eslint-disable-next-line
    },[mic, cam]);
 

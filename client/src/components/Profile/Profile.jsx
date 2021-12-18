@@ -23,6 +23,7 @@ export default function Profile(props) {
     }
     useLayoutEffect(() => {
         getUserProfile();
+        document.title = `${props.user.name} | Space`;
         // eslint-disable-next-line
     }, [])
     const { id } = useParams();

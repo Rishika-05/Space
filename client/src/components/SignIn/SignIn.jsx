@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../login.css'
 import logo from '../../assets/images/space1.gif'
 import logoText from '../../assets/images/Space.png'
@@ -14,7 +14,12 @@ export default function SignIn(props) {
     const [user, setUser] = useState({
         email: "",
         password: "",
-    })
+    });
+    useEffect(() => {
+        document.title = 'Sign In | Space';
+        // eslint-disable-next-line
+    }, []);
+
     const handleChange = e => {
         const { name, value } = e.target
         setUser({

@@ -37,6 +37,7 @@ const Room = (props) => {
          toggle();
       }
       openUserMedia();
+      document.title = 'Room | Space'
       // eslint-disable-next-line
    },[]);
 

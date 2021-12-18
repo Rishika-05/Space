@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import reset from './reset.png'
 import AceEditor from 'react-ace';
 import Unauthorized from '../unauthorized/Unauthorized';
@@ -16,7 +16,12 @@ import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
+
 export default function Ide(props) {
+    useEffect(() => {
+        document.title = 'IDE | Space';
+        // eslint-disable-next-line
+    }, []);
 
     const cDefault = `#include<bits/stdc++.h>
 using namespace std;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Particles from 'react-particles-js'
 import patriclesConfig from './config/particle-config'
@@ -8,6 +8,10 @@ import prob from './problem.png'
 import puz from './puzzle.png'
 
 export default function Home(props) {
+    useEffect(() => {
+        document.title = 'Home | Space';
+        // eslint-disable-next-line
+    }, []);
     props.setInterview(true);
     return (
         <div className="home1">

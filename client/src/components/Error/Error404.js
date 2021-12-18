@@ -1,9 +1,13 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './Error404.css'
 import { Link } from 'react-router-dom';
 
 const Error404 = (props) => {
    props.setInterview(false);
+   useEffect(() => {
+      document.title = 'Interview | Space';
+      // eslint-disable-next-line
+   }, []);
    return (
       <>
          <div className='error-container'>
