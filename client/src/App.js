@@ -13,11 +13,12 @@ import ProblemPage from './components/ProblemPage/ProblemPage'
 import Ide from './components/ide/Ide'
 import Join from './components/JoinPage/Join'
 import Room from './components/Room/Room'
+import Error404 from './components/Error/Error404';
 import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
 } from "react-router-dom";
 import './App.css';
 
@@ -36,7 +37,7 @@ function App() {
           <Route exact path="/login" element={<SignIn setLoginUser={setLoginUser} />} />
           <Route exact path="/SignUp" element={<SignUp />} />
           <Route exact path="/" element={
-            user && user._id ? <Home user={user} setLoginUser={setLoginUser} /> : <SignIn setLoginUser={setLoginUser} />
+            user && user._id ? <Home user={user} setInterview={setInterview} setLoginUser={setLoginUser} /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route exact path="/interview" element={
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
@@ -48,7 +49,8 @@ function App() {
           <Route exact path="/ide" element={<Ide user={user} />} />
           <Route exact path="/join" element={<Join user={user} />} />
           <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user}  />} />
-          <Route exact path='unauthorized' element={<Unauthorized />} />
+          <Route exact path='/unauthorized' element={<Unauthorized />} />
+          <Route exact path='/error404' element={<Error404 setInterview={setInterview}/> } />
         </Routes>
         <ToastContainer />
       </Router>

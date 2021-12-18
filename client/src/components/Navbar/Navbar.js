@@ -2,13 +2,15 @@ import React from 'react'
 import Logo from '../../assets/images/navLogo.svg'
 import UserPic from '../../assets/images/user.png'
 import { Link } from 'react-router-dom'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Navbar(props) {
 
     const navigate = useNavigate();
+    let loc = useLocation();
+
 
     const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
@@ -38,16 +40,16 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 mt-2" style={{ "fontSize": "18px" }}>
                             <li className="nav-item me-4">
-                                <Link className="nav-link" aria-current="page" to="/ide">Online IDE</Link>
+                                <Link className={`nav-link ${loc.pathname === '/ide'?"active":""}`} aria-current="page" to="/ide">Online IDE</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className="nav-link" to="/problemset">Practice</Link>
+                                <Link className={`nav-link ${loc.pathname === '/problemset'?"active":""}`} to="/problemset">Practice</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className="nav-link" to="/leaderboard">Leaderboard</Link>
+                                <Link className={`nav-link ${loc.pathname === '/leaderboard'?"active":""}`} to="/error404">Leaderboard</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className="nav-link" to="/interview">Interview</Link>
+                                <Link className={`nav-link ${loc.pathname === '/interview'?"active":""}`} to="/interview">Interview</Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -1,0 +1,9 @@
+#navbarSupportedContent {
+   z-index: 10 !important;
+   background-color: #fff !important;
+}
+
+.show {
+   z-index: 10 !important;
+   background-color: #fff !important;
+}

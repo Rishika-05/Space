@@ -8,6 +8,7 @@ import prob from './problem.png'
 import puz from './puzzle.png'
 
 export default function Home(props) {
+    props.setInterview(true);
     return (
         <div className="home1">
             <Particles
@@ -30,7 +31,7 @@ export default function Home(props) {
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />
                     <h3 className='hh3 selectionColor'>Puzzles</h3>
-                    <button className="btn btn-dark btn-sm">Puzzles</button>
+                    <Link to='/error404' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Puzzles</button></Link>
                 </div>
             </div>
         </div>
