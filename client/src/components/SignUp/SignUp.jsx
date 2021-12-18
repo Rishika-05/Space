@@ -28,11 +28,11 @@ export default function SignUp() {
     const passInfo = () => {
         return (
             <>
-                min length 8
+                Min length 8
                 <br />
                 Must consist of:
                 <br />
-                Atleast 1 capital, 1 small
+                At least 1 capital, 1 small
                 <br />
                 1 number
             </>
@@ -103,7 +103,7 @@ export default function SignUp() {
             }
         }
         else {
-            toast('invalid input', {
+            toast('Invalid input', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -150,7 +150,7 @@ export default function SignUp() {
                                 onChange={handleChange} />
                         </div>
                         <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
-                        <Link className="back" to="/">Back to LogIn Page</Link>
+                        <Link className="back" to="/">Back to Login Page</Link>
                     </div>
                 </div>
             </div>

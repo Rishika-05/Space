@@ -32,18 +32,7 @@ export default function Home(props) {
                     <h3 className='hh3 selectionColor'>Puzzles</h3>
                     <button className="btn btn-dark btn-sm">Puzzles</button>
                 </div>
-                {/* <div><Link to='/login' onClick={() => { props.setLoginUser(null) }}>LogOut</Link></div> */}
             </div>
         </div>
     )
 }
-
-/*
-<div className="maincontent" style={{ textAlign: 'center' }}>
-                <h1>Home Page</h1>
-                <h2>Name: {props.user.name}</h2>
-                <h2>Email: {props.user.email}</h2>
-                <Link to='/'>LogOut</Link>
-            </div>
-
-*/

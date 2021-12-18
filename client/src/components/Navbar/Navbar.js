@@ -3,6 +3,8 @@ import Logo from '../../assets/images/navLogo.svg'
 import UserPic from '../../assets/images/user.png'
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Navbar(props) {
 
@@ -10,6 +12,19 @@ export default function Navbar(props) {
 
     const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
+    }
+
+    const logOut = () => {
+        props.setLoginUser(null);
+        toast("Logged out successfully!", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     return (
@@ -41,13 +56,14 @@ export default function Navbar(props) {
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "18px" }}>
                                     <li><div className="dropdown-item" onClick={userProfile}>Profile</div></li>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li><Link className="dropdown-item" onClick={() => { props.setLoginUser(null) }} to="/login">Logout</Link></li>
+                                    <li><Link className="dropdown-item" onClick={logOut} to="/login">Logout</Link></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            <ToastContainer />
         </>
     )
 }

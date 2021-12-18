@@ -62,7 +62,6 @@ const Join = (props) => {
    const validateUser = () => {
       console.log('validate');
       window.localStorage.setItem('Name', name);
-      props.setName(name);
       if (roomID.endsWith('R')) {
          window.localStorage.setItem('Type', 'IR');
       } else {
@@ -72,7 +71,6 @@ const Join = (props) => {
       const ID = roomID.slice(0, 10);
       console.log(ID);
       window.localStorage.setItem('ID', ID);
-      props.setRoom(ID);
       document.getElementById("form").reset();
 
       const findKey = (data) => {
