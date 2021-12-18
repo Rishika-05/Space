@@ -37,7 +37,7 @@ export default function Calender(props) {
                 <ul class="squares">
                     {
                         props.calender.map((element) => {
-                            return (<Tippy content={element.value + ' Solved'} placement='right'><li data-level={mani(element.value)} class="tile"></li></Tippy>)
+                            return (<Tippy content={element.value + ' Solved'}><li data-level={mani(element.value)} class="tile"></li></Tippy>)
                         })
                     }
 

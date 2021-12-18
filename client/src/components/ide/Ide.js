@@ -201,10 +201,11 @@ return 0;
         maxWidth: '5vw',
         marginLeft: '35vw'
     }
-    // if (props.user._id === undefined) {
-    //     return (<Unauthorized />)
-    // }
-    // else {
+    if (props.user._id === undefined) {
+        return (<Unauthorized />)
+    }
+    else {
+        console.log(props.user)
         return (
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -282,4 +283,4 @@ return 0;
             </>
         )
     }
-// }
+}
