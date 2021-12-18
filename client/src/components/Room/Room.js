@@ -5,12 +5,14 @@ import Github from '../RoomComp/Github/Github'
 import Codeforces from '../RoomComp/CF/Cf'
 import Ide from '../ide/Ide'
 import { UseUtils } from '../utils/roomUtils';
+import init from '../utils/videoUtils';
 import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
 } from "reactstrap"
 
 var aud = window.localStorage.getItem('audio');
 var vid = window.localStorage.getItem('video');
+
 
 
 const Room = (props) => {
@@ -25,7 +27,7 @@ const Room = (props) => {
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
 
-
+   
    const [micr, setMicr] = useState(aud);
    const [camr, setCamr] = useState(vid);
 
@@ -33,11 +35,15 @@ const Room = (props) => {
    console.log(micr + '<- Micro & Came -> ' + camr);
 
    useEffect(() => {
+      
       if (window.localStorage.getItem('Type') === 'IE') {
          toggle();
       }
       openUserMedia();
       document.title = 'Room | Space'
+      const localVideo = document.querySelector('#local_Video');
+      const remoteVideo = document.querySelector('#remote_Video');
+      init(localVideo,remoteVideo);
       // eslint-disable-next-line
    },[]);
 

@@ -1,3 +1,6 @@
+import firebase from 'firebase/compat/app';
+import "firebase/compat/firestore";
+
 const configuration = {
    iceServers: [{
       urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19302"],
@@ -13,12 +16,20 @@ let createdRoomDialog = null;
 let roomId = null;
 let roomRef = null;
 let roomSnapshot = null;
-
-function init() {
+let db;
+let element;
+var  localVideo;
+var remoteVideo;
+const init = (localVideos,remoteVideos)=> {
+   localVideo = localVideos;
+   remoteVideo = remoteVideos;
+   console.log(localVideo);
+   console.log(remoteVideo);
    makeRoom();
    document.querySelector("#toggleCamera").addEventListener("click", toggleCamera);
    document.querySelector("#toggleMic").addEventListener("click", toggleMic);
    document.querySelector("#hangupBtn").addEventListener("click", hangUp);
+   
 }
 
 async function makeRoom() {
@@ -28,7 +39,7 @@ async function makeRoom() {
 
    const urlParams = new URLSearchParams(querystring);
 
-   const roomId = urlParams.get("key");
+   const roomId = window.localStorage.getItem('ID');
    // roomId = window.localStorage.getItem('roomId')
    console.log(roomId);
    db = firebase.firestore();
@@ -46,7 +57,7 @@ async function makeRoom() {
 
 
 async function createRoomById() {
-   const db = firebase.firestore();
+   db = firebase.firestore();
 
    console.log("Create PeerConnection with configuration: ", configuration);
    peerConnection = new RTCPeerConnection(configuration);
@@ -75,8 +86,8 @@ async function createRoomById() {
 
    const urlParams = new URLSearchParams(querystring);
 
-   const roomId = urlParams.get("key");
-   launchlab(roomId);
+   const roomId = window.localStorage.getItem('ID');
+   console.log(roomId);
    const roomRef = await db.collection("rooms").doc(roomId);
 
    roomRef.set(roomWithOffer);
@@ -131,7 +142,7 @@ async function createRoomById() {
 }
 
 async function joinRoomById(roomId) {
-   getlab(roomId);
+   
    console.log(roomSnapshot);
    console.log("Create PeerConnection with configuration: ", configuration);
    peerConnection = new RTCPeerConnection(configuration);
@@ -191,16 +202,17 @@ async function joinRoomById(roomId) {
 }
 
 async function openUserMedia(e) {
-   v = window.localStorage.getItem("v") == "true";
+   let v = window.localStorage.getItem("video") == "true";
    console.log(v);
-   a = window.localStorage.getItem("a") == "true";
+   let a = window.localStorage.getItem("audio") == "true";
    console.log(a);
    const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
    });
    console.log(stream);
-   document.querySelector("#localVideo").srcObject = stream;
+   localVideo.srcObject = stream;
+   localVideo.play();
    localStream = stream;
    console.log(localStream);
    if (v == false) {
@@ -210,9 +222,10 @@ async function openUserMedia(e) {
       await toggleMic();
    }
    remoteStream = new MediaStream();
-   document.querySelector("#remoteVideo").srcObject = remoteStream;
+   remoteVideo.srcObject = remoteStream;
+   remoteVideo.play();
 
-   console.log("Stream:", document.querySelector("#localVideo").srcObject);
+   // console.log("Stream:", localVideo.srcObject);
    document.querySelector("#toggleCamera").disabled = false;
    document.querySelector("#toggleMic").disabled = false;
    document.querySelector("#hangupBtn").disabled = false;
@@ -245,7 +258,7 @@ function toggleMic() {
 }
 
 async function hangUp(e) {
-   const tracks = document.querySelector("#localVideo").srcObject.getTracks();
+   const tracks = localVideo.srcObject.getTracks();
    tracks.forEach((track) => {
       track.stop();
    });
@@ -258,8 +271,8 @@ async function hangUp(e) {
       peerConnection.close();
    }
 
-   document.querySelector("#localVideo").srcObject = null;
-   document.querySelector("#remoteVideo").srcObject = null;
+   localVideo.srcObject = null;
+   remoteVideo.srcObject = null;
    document.querySelector("#hangupBtn").disabled = true;
    document.querySelector("#currentRoom").innerText = "";
 
@@ -308,4 +321,4 @@ function registerPeerConnectionListeners() {
    });
 }
 
-init();
+export default init;
