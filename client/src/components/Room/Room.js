@@ -109,6 +109,7 @@ const Room = (props) => {
       )
    }
    else {
+      props.user._id = username;
       return (
          <>
             <div className="sidebar">
