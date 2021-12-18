@@ -1,3 +1,7 @@
+body {
+   transition: smooth;
+}
+
 .sidebar {
    background: #263238;
    padding: 0px;
@@ -44,7 +48,53 @@
    max-width: 99vw;
 }
 
+.col-md-12,
+.col-md-6, .cd-sm-12 {
+   transition: all 0.3s linear;
+}
+
 #chattt {
    /* background: url("./bg.jpeg"); */
    background-color: #dfdfdf;
+}
+
+.footer {
+   position: fixed;
+   left: 40%;
+   bottom: 6%;
+   width: 20%;
+   height: 50px;
+   text-align: center;
+   margin: 0;
+   z-index: 10;
+}
+
+.footer button {
+   background-color: #263238;
+   border: none;
+   color: white;
+   font-size: 20px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   border-radius: 50%;
+   height: 60px;
+   width: 60px;
+}
+
+.footer button:hover {
+   background-color: black;
+}
+
+.footer button:focus {
+   border: none;
+   outline: none;
+}
+
+#hangupBtn {
+   background-color: red;
+}
+
+#hangupBtn:hover {
+   background-color: rgb(218, 2, 2);
 }

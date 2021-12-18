@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const UseUtils = () => {
 
    const close = (s) => {
@@ -17,7 +15,8 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("git_space");
-      close("cf_space")
+      close("cf_space");
+      open("setting_space");
       open("video_space");
    }
 
@@ -26,7 +25,8 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("git_space");
-      close("cf_space")
+      close("cf_space");
+      close("setting_space");
       open("chat_space");
    }
 
@@ -36,6 +36,7 @@ export const UseUtils = () => {
       close("code_space");
       close("git_space")
       close("cf_space");
+      close("setting_space");
       open("board_space");
    }
 
@@ -45,6 +46,7 @@ export const UseUtils = () => {
       close("board_space");
       close("git_space")
       close("cf_space");
+      close("setting_space");
       open("code_space");
    }
 
@@ -54,6 +56,7 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("cf_space");
+      close("setting_space");
       open("git_space");
    }
 
@@ -63,6 +66,7 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("git_space");
+      close("setting_space");
       open("cf_space");
    }
 
