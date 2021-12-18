@@ -11,7 +11,7 @@ const firebaseConfig = {
    messagingSenderId: process.env.REACT_APP_MSG_ID ,
    appId: process.env.REACT_APP_ID
 };
-
+// eslint-disable-next-line
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 var firebaseOrdersCollection = db.ref('Interview_details');

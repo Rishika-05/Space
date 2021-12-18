@@ -13,7 +13,6 @@ let video = true;
 
 const Join = (props) => {
 
-
    const { date, time } = useDate();
 
    const navigate = useNavigate();
@@ -21,12 +20,13 @@ const Join = (props) => {
 
    const [name, setName] = useState('');
    const [roomID, setRoomID] = useState('');
-   const [mic, setMic] = useState(true);
-   const [cam, setCam] = useState(true);
+   const [mic, setMic] = useState(audio);
+   const [cam, setCam] = useState(video);
 
    useEffect(() => {
       getStream();
-   })
+      // eslint-disable-next-line
+   },[mic, cam]);
 
    const getStream = async () => {
       if (video || audio)
@@ -44,19 +44,23 @@ const Join = (props) => {
    const toggleCamera = async () => {
       if (video)
          localStream.getVideoTracks()[0].stop();
+      // localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
       video = !video;
-      setCam(!cam);
       window.localStorage.setItem('video', video);
-      console.log(window.localStorage.getItem('video'));
+      setCam(!cam);
+      console.log('Video '+window.localStorage.getItem('video'));
+      // getStream();
    }
 
    const toggleMic = async () => {
       if (audio)
          localStream.getAudioTracks()[0].stop();
+      // localStream.getAudioTracks()[0].enabled = !(localStream.getAudioTracks()[0].enabled);
       audio = !audio;
-      setMic(!mic);
       window.localStorage.setItem('audio', audio);
-      console.log(window.localStorage.getItem('audio'));
+      setMic(!mic);
+      console.log('Audio '+window.localStorage.getItem('audio'));
+      // getStream();
    }
 
    const validateUser = () => {
@@ -124,7 +128,7 @@ const Join = (props) => {
                <div className="row d-flex">
                   <div className="col-sm-8 mx-auto">
                      <div className="video-mask">
-                        <video id="localVideo" muted autoplay playsinline ></video>
+                        <video id="localVideo" muted autoPlay playsInline ></video>
                         <div className="buttons">
                            <button className="button" id="toggleCamera" onClick={toggleCamera}>
                               <i className={cam ? "fa fa-video" : "fa fa-video-slash"} aria-hidden="true"></i>
@@ -161,4 +165,5 @@ const Join = (props) => {
 
 export default Join
 
-// iNui4tRrLH
+// iNui4tRrLHIE --> id for interviewee
+// iNui4tRrLHIR --> id for interviewer

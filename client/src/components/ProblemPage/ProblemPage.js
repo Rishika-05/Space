@@ -18,6 +18,7 @@ export default function ProblemPage(props) {
     }
     useLayoutEffect(() => {
         getQuestion();
+        // eslint-disable-next-line
     }, [])
 
 

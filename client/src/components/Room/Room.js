@@ -9,6 +9,9 @@ import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
 } from "reactstrap"
 
+var aud = window.localStorage.getItem('audio');
+var vid = window.localStorage.getItem('video');
+
 
 const Room = (props) => {
 
@@ -19,17 +22,26 @@ const Room = (props) => {
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);
 
-   var aud = window.localStorage.getItem('audio');
-   var vid = window.localStorage.getItem('video');
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
 
-   console.log(aud + ' ' + vid);
 
    const [micr, setMicr] = useState(aud);
    const [camr, setCamr] = useState(vid);
 
-   var elem = document.documentElement;
+   console.log(aud + '<- Audio & Video -> ' + vid);
+   console.log(micr + '<- Micro & Came -> ' + camr);
+
+   useEffect(() => {
+      if (window.localStorage.getItem('Type') === 'IE') {
+         toggle();
+      }
+      openUserMedia();
+      // eslint-disable-next-line
+   },[]);
+
+   // useEffect(() => {
+   // }, []);
 
    const toggle = () => {
       setModal(!modal);
@@ -39,20 +51,13 @@ const Room = (props) => {
       setModalW(!modalw);
    }
 
-   useEffect(() => {
-      if (window.localStorage.getItem('Type') === 'IE') {
-         toggle();
-      }
-   }, []);
-
-   useEffect(() => {
-      openUserMedia();
-   }, []);
-
    const openUserMedia = async () => {
-      document.getElementById('toggleCamera').disabled = false;
-      document.getElementById('toggleMic').disabled = false;
+      // document.getElementById('toggleCamera').disabled = false;
+      // document.getElementById('toggleMic').disabled = false;
    }
+
+   var elem = document.documentElement;
+
 
    const fullScreen = () => {
       if (elem.requestFullscreen) {
@@ -82,19 +87,19 @@ const Room = (props) => {
    const toggleCamera = async () => {
       // if (vid)
       //    localStream.getVideoTracks()[0].stop();
-      // vid = !vid;
-      setCamr(!camr);
+      vid = !vid;
       window.localStorage.setItem('video', vid);
-      console.log(window.localStorage.getItem('video'));
+      setCamr(!camr);
+      console.log("Video " +window.localStorage.getItem('video'));
    }
 
    const toggleMic = async () => {
       // if (aud)
       //    localStream.getAudioTracks()[0].stop();
-      // aud = !aud;
-      setMicr(!micr);
+      aud = !aud;
       window.localStorage.setItem('audio', aud);
-      console.log(window.localStorage.getItem('audio'));
+      setMicr(!micr);
+      console.log("Audio "+window.localStorage.getItem('audio'));
    }
 
 
@@ -126,8 +131,8 @@ const Room = (props) => {
                   <div className="col-md-12 col-sm-12 video" id="video_space">
                      <div className="video">
                         <div id="videos">
-                           <video id="remote_Video" autoplay playsinline ></video>
-                           <video id="local_Video" muted autoplay playsinline></video>
+                           <video id="remote_Video" autoPlay playsInline ></video>
+                           <video id="local_Video" muted autoPlay playsInline></video>
                         </div>
                      </div>
                   </div>

@@ -12,40 +12,40 @@ export default function Problemset(props) {
     const [questions, setQuestions] = useState();
     useEffect(() => {
         filterData();
-
+        // eslint-disable-next-line
     }, [])
     const parseDifficulty = (data) => {
         let parsedDiff = "";
         if (data.difficulty.easy) {
-            parsedDiff = parsedDiff + "difficulty=easy" + '&';
+            parsedDiff = parsedDiff + "difficulty=easy&";
         }
         if (data.difficulty.medium) {
-            parsedDiff = parsedDiff + "difficulty=medium" + '&';
+            parsedDiff = parsedDiff + "difficulty=medium&";
         }
         if (data.difficulty.hard) {
-            parsedDiff = parsedDiff + "difficulty=hard" + '&';
+            parsedDiff = parsedDiff + "difficulty=hard&";
         }
         if (parsedDiff.length === 0) {
-            parsedDiff = "difficulty=easy" + '&' + "difficulty=medium" + '&' + "difficulty=hard" + '&';
+            parsedDiff = "difficulty=easy&difficulty=medium&difficulty=hard&";
         }
         return parsedDiff;
     }
     const parseTag = (data) => {
         let parsedTag = "";
         if (data.tag.implementation) {
-            parsedTag = parsedTag + "tag=implementation" + '&';
+            parsedTag = parsedTag + "tag=implementation&";
         }
         if (data.tag.strings) {
-            parsedTag = parsedTag + "tag=strings" + '&';
+            parsedTag = parsedTag + "tag=strings&";
         }
         if (data.tag.sorting) {
-            parsedTag = parsedTag + "tag=sorting" + '&';
+            parsedTag = parsedTag + "tag=sorting&";
         }
         if (data.tag.greedy) {
-            parsedTag = parsedTag + "tag=greedy" + '&';
+            parsedTag = parsedTag + "tag=greedy&";
         }
         if (parsedTag.length === 0) {
-            parsedTag = "tag=implementation" + '&' + "tag=strings" + '&' + "tag=sorting" + '&' + "tag=greedy" + '&';
+            parsedTag = "tag=implementation&tag=strings&tag=sorting&tag=greedy&";
         }
         return parsedTag;
     }

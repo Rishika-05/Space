@@ -98,6 +98,7 @@ return 0;
     }
     const questionSolved = async () => {
         let data = { user: props.user._id, question: props.question._id };
+        // eslint-disable-next-line
         let res = await fetch(`http://localhost:9002/problemPage/solved`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
@@ -151,6 +152,7 @@ return 0;
         checkerToast(res2.apiOut.output, data);
     }
     const soluLog = async (solution) => {
+        // eslint-disable-next-line
         let res = await fetch(`http://localhost:9002/solution`, {
             method: "POST", body: JSON.stringify(solution), headers: {
                 'Content-Type': 'application/json'
@@ -235,7 +237,7 @@ return 0;
                                         <option selected value="nord_dark">Nord Dark</option>
                                         <option value="github">Github</option>
                                         <option value="eclipse">Eclipse</option>
-                                        <option value="monokai">monokai</option>
+                                        <option value="monokai">Monokai</option>
                                         <option value="chrome">Chrome</option>
                                         <option value="dreamweaver">Dream Weaver</option>
                                     </select>

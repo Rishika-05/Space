@@ -23,7 +23,7 @@ export default function Profile(props) {
     }
     useLayoutEffect(() => {
         getUserProfile();
-
+        // eslint-disable-next-line
     }, [])
     const { id } = useParams();
     const countSubmissions = (user) => {
