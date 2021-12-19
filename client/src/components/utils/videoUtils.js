@@ -33,7 +33,7 @@ const makeRoom = async () => {
    const roomId = window.localStorage.getItem('ID');
 
    db = firebase.firestore();
-   roomRef = db.collection("rooms").doc(`${roomId}`);
+   roomRef = db.collection("Rooms").doc(`${roomId}`);
    roomSnapshot = await roomRef.get();
    // console.log("Got room:", roomSnapshot.exists);
 
