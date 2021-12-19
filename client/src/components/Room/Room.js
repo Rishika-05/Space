@@ -152,7 +152,7 @@ const Room = (props) => {
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="board_space">
                      <div className="container-fluid">
-                        <embed src={`hhttps://white-board-client.vercel.app/${roomid}`} id="board_s" style={{ 'height': '99vh', 'width': '96vw' }}></embed>
+                        <embed src={`https://white-board-client.vercel.app/${roomid}`} id="board_s" style={{ 'height': '99vh', 'width': '96vw' }}></embed>
                      </div>
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="code_space">
