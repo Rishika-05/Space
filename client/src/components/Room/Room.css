@@ -119,8 +119,8 @@ div #videos {
 
 #local_Video {
    object-fit: cover;
-   width: 50vh;
-   height: 40vh;
+   width: 45vh;
+   height: 35vh;
    position: absolute;
    left: 1em;
    top: 1em;
