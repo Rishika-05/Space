@@ -30,7 +30,6 @@ const init = (localVideos, remoteVideos) => {
 
 const makeRoom = async () => {
    await openUserMedia();
-
    const roomId = window.localStorage.getItem('ID');
 
    db = firebase.firestore();
@@ -72,7 +71,6 @@ const createRoomById = async () => {
          sdp: offer.sdp,
       },
    };
-
    const roomId = window.localStorage.getItem('ID');
    // console.log(roomId);
    const roomRef = await db.collection("Rooms").doc(roomId);
