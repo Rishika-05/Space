@@ -11,16 +11,16 @@ const configuration = {
 let peerConnection = null;
 let localStream = null;
 let remoteStream = null;
-let roomDialog = null;
-let createdRoomDialog = null;
-let roomId = null;
+//let roomDialog = null;
+//let createdRoomDialog = null;
+//let roomId = null;
 let roomRef = null;
 let roomSnapshot = null;
 let db;
 let element;
-var  localVideo;
+var localVideo;
 var remoteVideo;
-const init = (localVideos,remoteVideos)=> {
+const init = (localVideos, remoteVideos) => {
    localVideo = localVideos;
    remoteVideo = remoteVideos;
    console.log(localVideo);
@@ -29,7 +29,7 @@ const init = (localVideos,remoteVideos)=> {
    document.querySelector("#toggleCamera").addEventListener("click", toggleCamera);
    document.querySelector("#toggleMic").addEventListener("click", toggleMic);
    document.querySelector("#hangupBtn").addEventListener("click", hangUp);
-   
+
 }
 
 async function makeRoom() {
@@ -38,7 +38,7 @@ async function makeRoom() {
    console.log(querystring);
 
    const urlParams = new URLSearchParams(querystring);
-
+   console.log(urlParams);
    const roomId = window.localStorage.getItem('ID');
    // roomId = window.localStorage.getItem('roomId')
    console.log(roomId);
@@ -85,7 +85,7 @@ async function createRoomById() {
    console.log(querystring);
 
    const urlParams = new URLSearchParams(querystring);
-
+   console.log('urlparams ' + urlParams);
    const roomId = window.localStorage.getItem('ID');
    console.log(roomId);
    const roomRef = await db.collection("rooms").doc(roomId);
@@ -142,7 +142,7 @@ async function createRoomById() {
 }
 
 async function joinRoomById(roomId) {
-   
+
    console.log(roomSnapshot);
    console.log("Create PeerConnection with configuration: ", configuration);
    peerConnection = new RTCPeerConnection(configuration);
@@ -202,9 +202,9 @@ async function joinRoomById(roomId) {
 }
 
 async function openUserMedia(e) {
-   let v = window.localStorage.getItem("video") == "true";
+   let v = window.localStorage.getItem("video") === "true";
    console.log(v);
-   let a = window.localStorage.getItem("audio") == "true";
+   let a = window.localStorage.getItem("audio") === "true";
    console.log(a);
    const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
@@ -215,10 +215,10 @@ async function openUserMedia(e) {
    localVideo.play();
    localStream = stream;
    console.log(localStream);
-   if (v == false) {
+   if (v === false) {
       await toggleCamera();
    }
-   if (a == false) {
+   if (a === false) {
       await toggleMic();
    }
    remoteStream = new MediaStream();
