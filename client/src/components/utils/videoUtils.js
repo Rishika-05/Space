@@ -81,13 +81,11 @@ async function createRoomById() {
          sdp: offer.sdp,
       },
    };
-   const querystring = window.location.search;
-   console.log(querystring);
-
-   const urlParams = new URLSearchParams(querystring);
+   
+   
 
    const roomId = window.localStorage.getItem('ID');
-   console.log(roomId);
+   
    const roomRef = await db.collection("rooms").doc(roomId);
 
    roomRef.set(roomWithOffer);
@@ -214,7 +212,7 @@ async function openUserMedia(e) {
    localVideo.srcObject = stream;
    localVideo.play();
    localStream = stream;
-   console.log(localStream);
+   
    if (v == false) {
       await toggleCamera();
    }
@@ -223,9 +221,10 @@ async function openUserMedia(e) {
    }
    remoteStream = new MediaStream();
    remoteVideo.srcObject = remoteStream;
+   console.log(remoteVideo.srcObject);
    remoteVideo.play();
 
-   // console.log("Stream:", localVideo.srcObject);
+   
    document.querySelector("#toggleCamera").disabled = false;
    document.querySelector("#toggleMic").disabled = false;
    document.querySelector("#hangupBtn").disabled = false;
@@ -282,8 +281,8 @@ async function hangUp(e) {
 
    const urlParams = new URLSearchParams(querystring);
 
-   const roomId = urlParams.get("key");
-   console.log(roomId);
+   const roomId = window.localStorage.getItem('ID');
+   
    if (roomId) {
       const db = firebase.firestore();
       const roomRef = db.collection("rooms").doc(roomId);
