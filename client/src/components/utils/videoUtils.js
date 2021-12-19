@@ -11,41 +11,32 @@ const configuration = {
 let peerConnection = null;
 let localStream = null;
 let remoteStream = null;
-let roomDialog = null;
-let createdRoomDialog = null;
-let roomId = null;
+let roomId = window.localStorage.getItem('ID');
 let roomRef = null;
 let roomSnapshot = null;
 let db;
-let element;
-var  localVideo;
+var localVideo;
 var remoteVideo;
-const init = (localVideos,remoteVideos)=> {
+let a, v;
+
+const init = (localVideos, remoteVideos) => {
    localVideo = localVideos;
    remoteVideo = remoteVideos;
-   console.log(localVideo);
-   console.log(remoteVideo);
    makeRoom();
    document.querySelector("#toggleCamera").addEventListener("click", toggleCamera);
    document.querySelector("#toggleMic").addEventListener("click", toggleMic);
    document.querySelector("#hangupBtn").addEventListener("click", hangUp);
-   
 }
 
-async function makeRoom() {
+const makeRoom = async () => {
    await openUserMedia();
-   const querystring = window.location.search;
-   console.log(querystring);
-
-   const urlParams = new URLSearchParams(querystring);
 
    const roomId = window.localStorage.getItem('ID');
-   // roomId = window.localStorage.getItem('roomId')
-   console.log(roomId);
+
    db = firebase.firestore();
    roomRef = db.collection("rooms").doc(`${roomId}`);
    roomSnapshot = await roomRef.get();
-   console.log("Got room:", roomSnapshot.exists);
+   // console.log("Got room:", roomSnapshot.exists);
 
    if (roomSnapshot.exists) {
       joinRoomById(roomId);
@@ -56,10 +47,10 @@ async function makeRoom() {
 }
 
 
-async function createRoomById() {
+const createRoomById = async () => {
    db = firebase.firestore();
 
-   console.log("Create PeerConnection with configuration: ", configuration);
+   // console.log("Create PeerConnection with configuration: ", configuration);
    peerConnection = new RTCPeerConnection(configuration);
 
    registerPeerConnectionListeners();
@@ -81,14 +72,10 @@ async function createRoomById() {
          sdp: offer.sdp,
       },
    };
-   const querystring = window.location.search;
-   console.log(querystring);
-
-   const urlParams = new URLSearchParams(querystring);
 
    const roomId = window.localStorage.getItem('ID');
-   console.log(roomId);
-   const roomRef = await db.collection("rooms").doc(roomId);
+   // console.log(roomId);
+   const roomRef = await db.collection("Rooms").doc(roomId);
 
    roomRef.set(roomWithOffer);
 
@@ -98,19 +85,19 @@ async function createRoomById() {
    const callerCandidatesCollection = roomRef.collection("callerCandidates");
    peerConnection.addEventListener("icecandidate", (event) => {
       if (!event.candidate) {
-         console.log("Got final candidate!");
+         // console.log("Got final candidate!");
          return;
       }
-      console.log("Got candidate: ", event.candidate);
+      // console.log("Got candidate: ", event.candidate);
       callerCandidatesCollection.add(event.candidate.toJSON());
    });
 
    // Code for collecting ICE candidates above
 
    peerConnection.addEventListener("track", (event) => {
-      console.log("Got remote track:", event.streams[0]);
+      // console.log("Got remote track:", event.streams[0]);
       event.streams[0].getTracks().forEach((track) => {
-         console.log("Add a track to the remoteStream:", track);
+         // console.log("Add a track to the remoteStream:", track);
          remoteStream.addTrack(track);
       });
    });
@@ -119,7 +106,7 @@ async function createRoomById() {
    roomRef.onSnapshot(async (snapshot) => {
       const data = snapshot.data();
       if (!peerConnection.currentRemoteDescription && data && data.answer) {
-         console.log("Got remote description: ", data.answer);
+         // console.log("Got remote description: ", data.answer);
          const rtcSessionDescription = new RTCSessionDescription(data.answer);
          await peerConnection.setRemoteDescription(rtcSessionDescription);
       }
@@ -131,7 +118,7 @@ async function createRoomById() {
       snapshot.docChanges().forEach(async (change) => {
          if (change.type === "added") {
             let data = change.doc.data();
-            console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+            // console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
             await peerConnection.addIceCandidate(new RTCIceCandidate(data));
          }
       });
@@ -141,10 +128,9 @@ async function createRoomById() {
    return roomId;
 }
 
-async function joinRoomById(roomId) {
-   
-   console.log(roomSnapshot);
-   console.log("Create PeerConnection with configuration: ", configuration);
+const joinRoomById = async (roomId) => {
+   // console.log(roomSnapshot);
+   // console.log("Create PeerConnection with configuration: ", configuration);
    peerConnection = new RTCPeerConnection(configuration);
    registerPeerConnectionListeners();
    localStream.getTracks().forEach((track) => {
@@ -155,28 +141,28 @@ async function joinRoomById(roomId) {
    const calleeCandidatesCollection = roomRef.collection("calleeCandidates");
    peerConnection.addEventListener("icecandidate", (event) => {
       if (!event.candidate) {
-         console.log("Got final candidate!");
+         // console.log("Got final candidate!");
          return;
       }
-      console.log("Got candidate: ", event.candidate);
+      // console.log("Got candidate: ", event.candidate);
       calleeCandidatesCollection.add(event.candidate.toJSON());
    });
    // Code for collecting ICE candidates above
 
    peerConnection.addEventListener("track", (event) => {
-      console.log("Got remote track:", event.streams[0]);
+      // console.log("Got remote track:", event.streams[0]);
       event.streams[0].getTracks().forEach((track) => {
-         console.log("Add a track to the remoteStream:", track);
+         // console.log("Add a track to the remoteStream:", track);
          remoteStream.addTrack(track);
       });
    });
 
    // Code for creating SDP answer below
    const offer = roomSnapshot.data().offer;
-   console.log("Got offer:", offer);
+   // console.log("Got offer:", offer);
    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
    const answer = await peerConnection.createAnswer();
-   console.log("Created answer:", answer);
+   // console.log("Created answer:", answer);
    await peerConnection.setLocalDescription(answer);
    const roomWithAnswer = {
       answer: {
@@ -189,10 +175,11 @@ async function joinRoomById(roomId) {
 
    // Listening for remote ICE candidates below
    roomRef.collection("callerCandidates").onSnapshot((snapshot) => {
+      // console.log('remote');
       snapshot.docChanges().forEach(async (change) => {
          if (change.type === "added") {
             let data = change.doc.data();
-            console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+            // console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
             await peerConnection.addIceCandidate(new RTCIceCandidate(data));
          }
       });
@@ -201,67 +188,57 @@ async function joinRoomById(roomId) {
    // }
 }
 
-async function openUserMedia(e) {
-   let v = window.localStorage.getItem("video") == "true";
-   console.log(v);
-   let a = window.localStorage.getItem("audio") == "true";
-   console.log(a);
+const openUserMedia = async () => {
+   v = window.localStorage.getItem("video") === "true";
+   a = window.localStorage.getItem("audio") === "true";
    const stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
    });
-   console.log(stream);
+   // console.log(stream);
    localVideo.srcObject = stream;
    localVideo.play();
    localStream = stream;
-   console.log(localStream);
-   if (v == false) {
-      await toggleCamera();
+   // console.log(localStream);
+   if (v === false) {
+      toggleCamera();
    }
-   if (a == false) {
-      await toggleMic();
+   if (a === false) {
+      toggleMic();
    }
    remoteStream = new MediaStream();
    remoteVideo.srcObject = remoteStream;
    remoteVideo.play();
 
    // console.log("Stream:", localVideo.srcObject);
+   // console.log("Remote Stream:", remoteVideo.srcObject);
    document.querySelector("#toggleCamera").disabled = false;
    document.querySelector("#toggleMic").disabled = false;
    document.querySelector("#hangupBtn").disabled = false;
 }
 
-function toggleCamera() {
-   element = document.getElementById("toggleCameraIcon");
-   if (element.classList.contains("fa-video-camera")) {
-      element.classList.remove("fa-video-camera");
-      element.classList.add("fa-video-slash");
-   } else {
-      element.classList.add("fa-video-camera");
-      element.classList.remove("fa-video-slash");
-   }
-   localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0]
-      .enabled;
+const toggleCamera = () => {
+   if (v)
+      localStream.getVideoTracks()[0].stop();
+   else
+      localVideo.play();
+   localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled;
 }
 
-function toggleMic() {
-   element = document.getElementById("toggleMicIcon");
-   if (element.classList.contains("fa-microphone")) {
-      element.classList.remove("fa-microphone");
-      element.classList.add("fa-microphone-slash");
-   } else {
-      element.classList.add("fa-microphone");
-      element.classList.remove("fa-microphone-slash");
-   }
-   localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0]
-      .enabled;
+const toggleMic = () => {
+   if (a)
+      localStream.getAudioTracks()[0].stop();
+   localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled;
 }
 
-async function hangUp(e) {
+const hangUp = async (e) => {
    const tracks = localVideo.srcObject.getTracks();
    tracks.forEach((track) => {
       track.stop();
    });
+   console.log("Delete");
+   localStream.getAudioTracks()[0].stop();
+   localStream.getVideoTracks()[0].stop();
 
    if (remoteStream) {
       remoteStream.getTracks().forEach((track) => track.stop());
@@ -274,36 +251,27 @@ async function hangUp(e) {
    localVideo.srcObject = null;
    remoteVideo.srcObject = null;
    document.querySelector("#hangupBtn").disabled = true;
-   document.querySelector("#currentRoom").innerText = "";
 
    // Delete room on hangup
-   const querystring = window.location.search;
-   console.log(querystring);
 
-   const urlParams = new URLSearchParams(querystring);
-
-   const roomId = urlParams.get("key");
-   console.log(roomId);
    if (roomId) {
       const db = firebase.firestore();
-      const roomRef = db.collection("rooms").doc(roomId);
+      const roomRef = db.collection("Rooms").doc(roomId);
       const calleeCandidates = await roomRef.collection("calleeCandidates").get();
       calleeCandidates.forEach(async (candidate) => {
-         await candidate.delete();
+         await candidate.ref.delete();
       });
       const callerCandidates = await roomRef.collection("callerCandidates").get();
       callerCandidates.forEach(async (candidate) => {
-         await candidate.delete();
+         await candidate.ref.delete();
       });
       await roomRef.delete();
    }
 }
 
-function registerPeerConnectionListeners() {
+const registerPeerConnectionListeners = () => {
    peerConnection.addEventListener("icegatheringstatechange", () => {
-      console.log(
-         `ICE gathering state changed: ${peerConnection.iceGatheringState}`
-      );
+      console.log(`ICE gathering state changed: ${peerConnection.iceGatheringState}`);
    });
 
    peerConnection.addEventListener("connectionstatechange", () => {
@@ -315,9 +283,7 @@ function registerPeerConnectionListeners() {
    });
 
    peerConnection.addEventListener("iceconnectionstatechange ", () => {
-      console.log(
-         `ICE connection state change: ${peerConnection.iceConnectionState}`
-      );
+      console.log(`ICE connection state change: ${peerConnection.iceConnectionState}`);
    });
 }
 

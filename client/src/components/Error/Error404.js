@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Error404 = (props) => {
    props.setInterview(false);
    useEffect(() => {
-      document.title = 'Interview | Space';
+      document.title = 'Error 404 | Space';
       // eslint-disable-next-line
    }, []);
    return (
