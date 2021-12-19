@@ -48,9 +48,9 @@ function App() {
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide user={user} />} />
           <Route exact path="/join" element={<Join user={user} />} />
-          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user}  />} />
+          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
-          <Route exact path='/error404' element={<Error404 setInterview={setInterview}/> } />
+          <Route path='*' element={<Error404 setInterview={setInterview} />} />
         </Routes>
         <ToastContainer />
       </Router>

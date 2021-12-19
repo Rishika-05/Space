@@ -54,7 +54,6 @@ body {
 }
 
 #chattt {
-   /* background: url("./bg.jpeg"); */
    background-color: #dfdfdf;
 }
 
@@ -83,7 +82,7 @@ body {
 }
 
 .footer button:hover {
-   background-color: black;
+   background-color: rgb(19, 19, 19);
 }
 
 .footer button:focus {
@@ -96,5 +95,45 @@ body {
 }
 
 #hangupBtn:hover {
-   background-color: rgb(218, 2, 2);
+   background-color: rgb(133, 0, 0);
+}
+
+div #videos {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+#remote_Video {
+   width: 100vw;
+   object-fit: cover;
+   height: 100vh;
+   background: rgb(68, 68, 68);
+   display: block;
+   transition: width 0.3s, height 0.3s;
+   transform: rotateY(180deg);
+   -webkit-transform: rotateY(180deg);
+   -moz-transform: rotateY(180deg);
+   z-index: 10;
+}
+
+#local_Video {
+   object-fit: cover;
+   width: 50vh;
+   height: 40vh;
+   position: absolute;
+   left: 1em;
+   top: 1em;
+   display: block;
+   background: #5c5c5c;
+   transition: right 0.5s linear;
+   transform: rotateY(180deg);
+   -webkit-transform: rotateY(180deg);
+   -moz-transform: rotateY(180deg);
+   z-index: 11;
+   border-radius: 25px;
+}
+
+.video {
+   position: relative;
 }

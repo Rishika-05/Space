@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Room.css'
 import Unauthorized from '../unauthorized/Unauthorized';
 import Github from '../RoomComp/Github/Github'
@@ -21,6 +22,8 @@ const Room = (props) => {
    const { show_video, show_chat, show_board, show_code, show_git, show_cf } = UseUtils();
    setInterview(false);
 
+   const navigate = useNavigate();
+
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);
 
@@ -35,20 +38,20 @@ const Room = (props) => {
    console.log(micr + '<- Micro & Came -> ' + camr);
 
    useEffect(() => {
-      
       if (window.localStorage.getItem('Type') === 'IE') {
          toggle();
       }
-      openUserMedia();
       document.title = 'Room | Space'
       const localVideo = document.querySelector('#local_Video');
       const remoteVideo = document.querySelector('#remote_Video');
-      init(localVideo,remoteVideo);
+      init(localVideo, remoteVideo);
+      window.addEventListener('beforeunload', onUnload);
       // eslint-disable-next-line
-   },[]);
-
-   // useEffect(() => {
-   // }, []);
+   }, []);
+   
+   const onUnload = () => {
+      navigate("/join");
+   };
 
    const toggle = () => {
       setModal(!modal);
@@ -58,13 +61,7 @@ const Room = (props) => {
       setModalW(!modalw);
    }
 
-   const openUserMedia = async () => {
-      // document.getElementById('toggleCamera').disabled = false;
-      // document.getElementById('toggleMic').disabled = false;
-   }
-
    var elem = document.documentElement;
-
 
    const fullScreen = () => {
       if (elem.requestFullscreen) {
@@ -92,8 +89,6 @@ const Room = (props) => {
    }
 
    const toggleCamera = async () => {
-      // if (vid)
-      //    localStream.getVideoTracks()[0].stop();
       vid = !vid;
       window.localStorage.setItem('video', vid);
       setCamr(!camr);
@@ -101,12 +96,14 @@ const Room = (props) => {
    }
 
    const toggleMic = async () => {
-      // if (aud)
-      //    localStream.getAudioTracks()[0].stop();
       aud = !aud;
       window.localStorage.setItem('audio', aud);
       setMicr(!micr);
       console.log("Audio "+window.localStorage.getItem('audio'));
+   }
+
+   const hangUpRe = () => {
+      navigate('/');
    }
 
 
@@ -116,6 +113,7 @@ const Room = (props) => {
       )
    }
    else {
+   
       props.user._id = username;
       return (
          <>
@@ -138,6 +136,9 @@ const Room = (props) => {
                <div className="room row">
                   <div className="col-md-12 col-sm-12 video" id="video_space">
                      <div className="video">
+                        <div>
+                           <span id="currentRoom"></span>
+                        </div>
                         <div id="videos">
                            <video id="remote_Video" autoPlay playsInline ></video>
                            <video id="local_Video" muted autoPlay playsInline></video>
@@ -184,7 +185,7 @@ const Room = (props) => {
                   </button>
                </div>
                <div className="col-md-4 my-auto">
-                  <button id="hangupBtn" >
+                  <button id="hangupBtn" onClick={hangUpRe}>
                      <i className="fa fa-phone" aria-hidden="true"></i>
                   </button>
                </div>
