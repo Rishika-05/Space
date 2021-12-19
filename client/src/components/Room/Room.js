@@ -147,12 +147,12 @@ const Room = (props) => {
                   </div>
                   <div className="col-md-12 col-sm-12 d-none" id="chat_space" >
                      <div className="container-fluid" id='chattt' style={{ 'height': '100vh' }} >
-                        <embed src={`https://chat-with-space.herokuapp.com/?username=${username}&room=${roomid}`} id="chat_s" style={{ 'height': '99vh', 'width': '96vw' }} />
+                        <iframe src={`https://chat-with-space.herokuapp.com/?username=${username}&room=${roomid}`} title='chat_s' id="chat_s" loading="eager" frameborder="0" allowfullscreen style={{ 'height': '99vh', 'width': '96vw' }} ></iframe>
                      </div>
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="board_space">
                      <div className="container-fluid">
-
+                        <embed src={`hhttps://white-board-client.vercel.app/${roomid}`} id="board_s" style={{ 'height': '99vh', 'width': '96vw' }}></embed>
                      </div>
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="code_space">
