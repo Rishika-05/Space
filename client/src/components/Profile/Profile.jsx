@@ -3,6 +3,7 @@ import { useLayoutEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
 import Unauthorized from '../unauthorized/Unauthorized';
+import Loading from '../Loading/Loading'
 import {
     Button, Modal,
     ModalHeader, ModalBody
@@ -242,8 +243,7 @@ export default function Profile(props) {
         )
     } else {
         return (
-            <>
-            </>
+            <Loading />
         )
     }
 }
