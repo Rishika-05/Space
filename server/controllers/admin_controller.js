@@ -4,7 +4,7 @@ module.exports.questionUpload = async (req,res)=>{
     try{
         let questionData = req.body;
         const question = new Question(questionData);
-        console.log(questionData);
+        // console.log(questionData);
         question.save(err => {
             if (err) {
                 res.send(err)

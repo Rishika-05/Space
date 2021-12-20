@@ -9,7 +9,7 @@ module.exports.check = (req, res) => {
     }
     else {
         const user = jwt.verify(token, "myKey");
-        console.log(user.user);
+        // console.log(user.user);
         const passU = user.user
         res.send({ message: 200, user: passU });
     }

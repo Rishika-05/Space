@@ -30,7 +30,7 @@ const Leaderboard = () => {
          id: ele._id,
          quesSolved: ele.questionsSolved.length
       }));
-      console.log(data);
+      // console.log(data);
       data.sort((a, b) => b.quesSolved - a.quesSolved);
       setUsers(data);
    }
