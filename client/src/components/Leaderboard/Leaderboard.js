@@ -1,10 +1,11 @@
 import React,{ useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 
 
 const Leaderboard = () => {
 
+   const navigate = useNavigate();
    const [Users, setUsers] = useState();
    let data = [];
 
@@ -36,11 +37,11 @@ const Leaderboard = () => {
 
       return (
          <>
-            <p>Name &emsp;&emsp;&emsp; Questions Solved</p>
+            <h5>Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Questions Solved</h5>
             {
                Users.map((ele) => {
                   return <>
-                     <p><Link to={`profile/${ele.id}`} >{ele.name}</Link> &emsp;&emsp;&emsp; {ele.quesSolved}  </p>
+                     <p><span onClick={() => navigate(`/profile/${ele.id}`)} >{ele.name}</span> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {ele.quesSolved}  </p>
                   </>
                })
             }
