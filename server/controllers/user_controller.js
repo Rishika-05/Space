@@ -1,5 +1,20 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+module.exports.check = (req, res) => {
+    const { token } = req.body;
+    if (token === undefined || req.body === undefined) {
+        res.send({ message: 404 })
+    }
+    else {
+        const user = jwt.verify(token, "myKey");
+        console.log(user.user);
+        const passU = user.user
+        res.send({ message: 200, user: passU });
+    }
+}
+
 module.exports.login = (req, res) => {
     const { email, password } = req.body
     User.findOne({ email: email }, async function (err, user) {
@@ -7,7 +22,8 @@ module.exports.login = (req, res) => {
             if (user) {
                 const chk = await bcrypt.compare(password, user.password);
                 if (chk) {
-                    res.send({ message: "Login Successfull", user: user })
+                    let token = jwt.sign({ user }, "myKey");
+                    res.send({ message: "Login Successfull", user: user, token: token })
                 }
                 else {
                     res.send({ message: "Incorrect password" })
