@@ -71,18 +71,9 @@ const createRoomById = async () => {
          sdp: offer.sdp,
       },
    };
-<<<<<<< HEAD
-   
-   
-
-   const roomId = window.localStorage.getItem('ID');
-   
-   const roomRef = await db.collection("rooms").doc(roomId);
-=======
    const roomId = window.localStorage.getItem('ID');
    // console.log(roomId);
    const roomRef = await db.collection("Rooms").doc(roomId);
->>>>>>> 911ac2621560993126fdba34c150129ddd2cd990
 
    roomRef.set(roomWithOffer);
 
@@ -206,15 +197,9 @@ const openUserMedia = async () => {
    localVideo.srcObject = stream;
    localVideo.play();
    localStream = stream;
-<<<<<<< HEAD
-   
-   if (v == false) {
-      await toggleCamera();
-=======
    // console.log(localStream);
    if (v === false) {
       toggleCamera();
->>>>>>> 911ac2621560993126fdba34c150129ddd2cd990
    }
    if (a === false) {
       toggleMic();
@@ -224,12 +209,8 @@ const openUserMedia = async () => {
    console.log(remoteVideo.srcObject);
    remoteVideo.play();
 
-<<<<<<< HEAD
-   
-=======
    // console.log("Stream:", localVideo.srcObject);
    // console.log("Remote Stream:", remoteVideo.srcObject);
->>>>>>> 911ac2621560993126fdba34c150129ddd2cd990
    document.querySelector("#toggleCamera").disabled = false;
    document.querySelector("#toggleMic").disabled = false;
    document.querySelector("#hangupBtn").disabled = false;
@@ -272,11 +253,6 @@ const hangUp = async (e) => {
 
    // Delete room on hangup
 
-<<<<<<< HEAD
-   const roomId = window.localStorage.getItem('ID');
-   
-=======
->>>>>>> 911ac2621560993126fdba34c150129ddd2cd990
    if (roomId) {
       const db = firebase.firestore();
       const roomRef = db.collection("Rooms").doc(roomId);
