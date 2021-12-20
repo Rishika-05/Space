@@ -48,7 +48,7 @@ module.exports.solved = async (req,res)=>{
             user.questionsSolved.push(solData.question);
         
             var a = dayOfYear(new Date());
-            console.log(a);
+            // console.log(a);
             if(a == 1){
                 for(let i = 0;i<user.calender.length;i++){
                     user.calender[i].value = 0;

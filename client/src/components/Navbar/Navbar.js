@@ -18,6 +18,8 @@ export default function Navbar(props) {
 
     const logOut = () => {
         props.setLoginUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('userMain');
         toast("Logged out successfully!", {
             position: "top-center",
             autoClose: 1500,
@@ -31,7 +33,7 @@ export default function Navbar(props) {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", "zIndex": '2', "boxShadow": "0px 2px 10px #EAEAEA"  }}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "height": "60px", "zIndex": '2', "boxShadow": "0px 2px 10px #EAEAEA" }}>
                 <div className="container-fluid">
                     <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="Space Logo" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,16 +42,16 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 " style={{ "fontSize": "18px" }}>
                             <li className="nav-item me-4">
-                                <Link className={`nav-link ${loc.pathname === '/ide'?"active":""}`} aria-current="page" to="/ide">Online IDE</Link>
+                                <Link className={`nav-link ${loc.pathname === '/ide' ? "active" : ""}`} aria-current="page" to="/ide">Online IDE</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className={`nav-link ${loc.pathname === '/problemset'?"active":""}`} to="/problemset">Practice</Link>
+                                <Link className={`nav-link ${loc.pathname === '/problemset' ? "active" : ""}`} to="/problemset">Practice</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className={`nav-link ${loc.pathname === '/leaderboard'?"active":""}`} to="/error404">Leaderboard</Link>
+                                <Link className={`nav-link ${loc.pathname === '/leaderboard' ? "active" : ""}`} to="/leaderboard">Leaderboard</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className={`nav-link ${loc.pathname === '/interview'?"active":""}`} to="/interview">Interview</Link>
+                                <Link className={`nav-link ${loc.pathname === '/interview' ? "active" : ""}`} to="/interview">Interview</Link>
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

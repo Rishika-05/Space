@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import '../login.css'
 import logo from '../../assets/images/space1.gif'
 import logoText from '../../assets/images/Space.png'
@@ -15,10 +15,21 @@ export default function SignIn(props) {
         email: "",
         password: "",
     });
-    useEffect(() => {
-        document.title = 'Sign In | Space';
-        // eslint-disable-next-line
-    }, []);
+
+    useLayoutEffect(() => {
+
+        if (localStorage.getItem('user')) {
+            let token = localStorage.getItem('user');
+            const passer = { token: token }
+            axios.post("http://localhost:9002/check", passer)
+                .then(res => {
+                    if (res.data.message === 200) {
+                        console.log(res.data.user);
+                        props.setLoginUser(res.data.user);
+                    }
+                })
+        }
+    })
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -44,8 +55,11 @@ export default function SignIn(props) {
                     })
 
                     props.setLoginUser(res.data.user)
-                    if (res.data.user)
+                    if (res.data.user) {
+                        localStorage.setItem('userMain', JSON.stringify(res.data.user));
+                        localStorage.setItem('user', res.data.token);
                         navigate('/')
+                    }
                     else
                         navigate('/login')
                 });

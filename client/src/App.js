@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './components/login.css'
 import SignIn from './components/SignIn/SignIn.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
@@ -14,6 +14,7 @@ import Ide from './components/ide/Ide'
 import Join from './components/JoinPage/Join'
 import Room from './components/Room/Room'
 import Error404 from './components/Error/Error404';
+import Leaderboard from './components/Leaderboard/Leaderboard'
 import { ToastContainer } from 'react-toastify';
 import {
   BrowserRouter as Router,
@@ -26,6 +27,13 @@ function App() {
 
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('userMain')) {
+      let u = JSON.parse(localStorage.getItem('userMain'));
+      setLoginUser(u);
+    }
+  }, []);
 
   return (
     <>
@@ -48,6 +56,7 @@ function App() {
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide user={user} />} />
           <Route exact path="/join" element={<Join user={user} />} />
+          <Route exact path="/leaderboard" element={<Leaderboard user={user} />} />
           <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
           <Route path='*' element={<Error404 setInterview={setInterview} />} />

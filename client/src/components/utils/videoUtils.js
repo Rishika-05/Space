@@ -33,7 +33,7 @@ const makeRoom = async () => {
    const roomId = window.localStorage.getItem('ID');
 
    db = firebase.firestore();
-   roomRef = db.collection("rooms").doc(`${roomId}`);
+   roomRef = db.collection("Rooms").doc(`${roomId}`);
    roomSnapshot = await roomRef.get();
    // console.log("Got room:", roomSnapshot.exists);
 
@@ -173,7 +173,6 @@ const joinRoomById = async (roomId) => {
 
    // Listening for remote ICE candidates below
    roomRef.collection("callerCandidates").onSnapshot((snapshot) => {
-      // console.log('remote');
       snapshot.docChanges().forEach(async (change) => {
          if (change.type === "added") {
             let data = change.doc.data();
@@ -193,11 +192,11 @@ const openUserMedia = async () => {
       video: true,
       audio: true,
    });
-   // console.log(stream);
+
    localVideo.srcObject = stream;
    localVideo.play();
    localStream = stream;
-   // console.log(localStream);
+
    if (v === false) {
       toggleCamera();
    }
@@ -209,24 +208,16 @@ const openUserMedia = async () => {
    console.log(remoteVideo.srcObject);
    remoteVideo.play();
 
-   // console.log("Stream:", localVideo.srcObject);
-   // console.log("Remote Stream:", remoteVideo.srcObject);
    document.querySelector("#toggleCamera").disabled = false;
    document.querySelector("#toggleMic").disabled = false;
    document.querySelector("#hangupBtn").disabled = false;
 }
 
 const toggleCamera = () => {
-   if (v)
-      localStream.getVideoTracks()[0].stop();
-   else
-      localVideo.play();
    localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled;
 }
 
 const toggleMic = () => {
-   if (a)
-      localStream.getAudioTracks()[0].stop();
    localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled;
 }
 

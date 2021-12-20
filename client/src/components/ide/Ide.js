@@ -212,7 +212,7 @@ return 0;
         return (<Unauthorized />)
     }
     else {
-        console.log(props.user)
+        // console.log(props.user)
         return (
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
