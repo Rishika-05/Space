@@ -1,7 +1,7 @@
-import React,{ useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../Loading/Loading'
-import './Leaderboard.css'
+import './Leaderboard.scss'
 
 
 const Leaderboard = () => {
@@ -39,23 +39,34 @@ const Leaderboard = () => {
 
       return (
          <>
-            <div>
-               <h5>Rank  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Name &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Questions Solved</h5>
-            {
-                  Users.map((ele) => {
-                     count++;
-                     return <>
-                        <p>&emsp;&emsp;{count}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong><span id='lead_user' onClick={() => navigate(`/profile/${ele.id}`)} >{ele.name}</span></strong> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {ele.quesSolved}  </p>
-                     </>;
-               }
-               )
-               }
+            <div className="container-lead">
+               <h1>Leaderboard</h1>
+               <ul className="responsive-table">
+                  <li className="table-header">
+                     <div className="col col-1"><strong>Rank</strong></div>
+                     <div className="col col-2"><strong>Name</strong></div>
+                     <div className="col col-3"><strong>Questions solved</strong></div>
+                  </li>
+                  {
+                     Users.map((ele) => {
+                        count++;
+                        return <>
+                           <li className="table-row">
+                              <div className="col col-1" data-label="rank">{count} </div>
+                              <div className="col col-2" onClick={() => navigate(`profile/${ele.id}`)} data-label="name">{ele.name}</div> 
+                              <div className="col col-3" data-label="qs">{ ele.quesSolved }</div>
+                           </li>
+                        </>;
+                     }
+                     )
+                  }
+               </ul>
             </div>
          </>
       )
    } else {
       return (
-         <Loading/>
+         <Loading />
       )
    }
 }

@@ -35,7 +35,7 @@ export default function Home(props) {
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg' />
                     <h3 className='hh3 selectionColor'>Puzzles</h3>
-                    <Link to='/error404' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Puzzles</button></Link>
+                    <Link to='/puzzles' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Puzzles</button></Link>
                 </div>
             </div>
         </div>
