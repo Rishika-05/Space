@@ -53,7 +53,7 @@ const Leaderboard = () => {
                         return <>
                            <li className="table-row">
                               <div className="col col-1" data-label="rank">{count} </div>
-                              <div className="col col-2" onClick={() => navigate(`profile/${ele.id}`)} data-label="name">{ele.name}</div> 
+                              <div className="col col-2" id="lead_user" onClick={() => navigate(`/profile/${ele.id}`)} data-label="name">{ele.name}</div> 
                               <div className="col col-3" data-label="qs">{ ele.quesSolved }</div>
                            </li>
                         </>;
