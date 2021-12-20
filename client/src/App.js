@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './components/login.css'
 import SignIn from './components/SignIn/SignIn.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
@@ -28,6 +28,12 @@ function App() {
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
 
+  useEffect(() => {
+    if (localStorage.getItem('userMain')) {
+      let u = JSON.parse(localStorage.getItem('userMain'));
+      setLoginUser(u);
+    }
+  }, []);
 
   return (
     <>

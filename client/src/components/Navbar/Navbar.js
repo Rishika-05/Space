@@ -19,6 +19,7 @@ export default function Navbar(props) {
     const logOut = () => {
         props.setLoginUser(null);
         localStorage.removeItem('user');
+        localStorage.removeItem('userMain');
         toast("Logged out successfully!", {
             position: "top-center",
             autoClose: 1500,

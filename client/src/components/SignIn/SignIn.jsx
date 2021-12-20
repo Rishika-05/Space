@@ -56,6 +56,7 @@ export default function SignIn(props) {
 
                     props.setLoginUser(res.data.user)
                     if (res.data.user) {
+                        localStorage.setItem('userMain', JSON.stringify(res.data.user));
                         localStorage.setItem('user', res.data.token);
                         navigate('/')
                     }
