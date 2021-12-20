@@ -46,7 +46,7 @@ export default function Navbar(props) {
                                 <Link className={`nav-link ${loc.pathname === '/problemset'?"active":""}`} to="/problemset">Practice</Link>
                             </li>
                             <li className="nav-item  me-4">
-                                <Link className={`nav-link ${loc.pathname === '/leaderboard'?"active":""}`} to="/error404">Leaderboard</Link>
+                                <Link className={`nav-link ${loc.pathname === '/leaderboard'?"active":""}`} to="/leaderboard">Leaderboard</Link>
                             </li>
                             <li className="nav-item  me-4">
                                 <Link className={`nav-link ${loc.pathname === '/interview'?"active":""}`} to="/interview">Interview</Link>

@@ -113,14 +113,14 @@ export default function Problemset(props) {
                             <div id="status-input">
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" name="status" value="solved" id="status-solved" />
-                                    <label className="form-check-label" for="status-solved">
+                                    <label className="form-check-label" htmlFor="status-solved">
                                         Solved
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="solved" id="status-unsolved" />
-                                    <label className="form-check-label" for="status-unsolved">
+                                    <label className="form-check-label" htmlFor="status-unsolved">
                                         Unsolved
                                     </label>
 
@@ -131,21 +131,21 @@ export default function Problemset(props) {
                             <div id="difficulty-input">
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="easy" id="difficulty-easy" />
-                                    <label className="form-check-label" for="difficulty-easy">
+                                    <label className="form-check-label" htmlFor="difficulty-easy">
                                         Easy
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="medium" id="difficulty-medium" />
-                                    <label className="form-check-label" for="difficulty-medium">
+                                    <label className="form-check-label" htmlFor="difficulty-medium">
                                         Medium
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="hard" id="difficulty-hard" />
-                                    <label className="form-check-label" for="difficulty-hard">
+                                    <label className="form-check-label" htmlFor="difficulty-hard">
                                         Hard
                                     </label>
 
@@ -158,34 +158,34 @@ export default function Problemset(props) {
 
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="implementation" id="tag-implementation" />
-                                    <label className="form-check-label" for="tag-implementation">
+                                    <label className="form-check-label" htmlFor="tag-implementation">
                                         Implementation
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="strings" id="tag-strings" />
-                                    <label className="form-check-label" for="tag-strings">
+                                    <label className="form-check-label" htmlFor="tag-strings">
                                         Strings
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="sorting" id="tag-sorting" />
-                                    <label className="form-check-label" for="tag-sorting">
+                                    <label className="form-check-label" htmlFor="tag-sorting">
                                         Sorting
                                     </label>
 
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="greedy" id="tag-greedy" />
-                                    <label className="form-check-label" for="tag-greedy">
+                                    <label className="form-check-label" htmlFor="tag-greedy">
                                         Greedy
                                     </label>
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn btn-dark">Apply</button>
+                            <button type="submit" className="btn btn-dark">Apply</button>
                         </form>
                     </div>
 

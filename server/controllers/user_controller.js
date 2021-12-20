@@ -10,7 +10,7 @@ module.exports.login = (req, res) => {
                     res.send({ message: "Login Successfull", user: user })
                 }
                 else {
-                    res.send({ message: "Password didn't match" })
+                    res.send({ message: "Incorrect password" })
                 }
             }
             else {
