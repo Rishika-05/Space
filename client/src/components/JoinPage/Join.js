@@ -12,7 +12,7 @@ let audio = true;
 let video = true;
 
 const Join = (props) => {
-
+   props.setInterview(false);
    const { date, time } = useDate();
 
    const navigate = useNavigate();

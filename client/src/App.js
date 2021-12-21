@@ -55,7 +55,7 @@ function App() {
           <Route exact path="/problemset" element={<Problemset user={user} />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide user={user} />} />
-          <Route exact path="/join" element={<Join user={user} />} />
+          <Route exact path="/join" element={<Join user={user} setInterview={setInterview} />} />
           <Route exact path="/leaderboard" element={<Leaderboard user={user} />} />
           <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
