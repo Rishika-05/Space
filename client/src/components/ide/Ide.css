@@ -1,0 +1,9 @@
+.ace_content {
+   box-shadow: 0px 2px 10px #e0e0e0 !important;
+}
+
+.outputBox {
+   border: none;
+   box-shadow: 0px 1px 5px #bbbbbb !important;
+   outline: none;
+}
