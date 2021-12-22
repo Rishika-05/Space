@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import reset from './reset.png'
+import './Ide.css'
 import AceEditor from 'react-ace';
 import Unauthorized from '../unauthorized/Unauthorized';
 import { ToastContainer, toast } from 'react-toastify';
@@ -205,8 +206,8 @@ return 0;
     }
 
     const myStyle = {
-        maxWidth: '5vw',
-        marginLeft: '35vw'
+        maxWidth: '8vw',
+        marginLeft: '29vw'
     }
     if (props.user._id === undefined) {
         return (<Unauthorized />)
@@ -215,7 +216,7 @@ return 0;
         // console.log(props.user)
         return (
             <>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ 'boxShadow': '0px 2px 10px #cecece' }} >
                     <div className="container-fluid">
                         <text className="navbar-brand">Space Online IDE</text>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -283,9 +284,9 @@ return 0;
                         tabSize: 2,
                     }} />
                 <br />
-                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run</button>
-                <h5>Output</h5>
-                <textarea className="outputBox" style={{ width: '40vw', height: '20vh' }} value={output}></textarea>
+                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run Code</button>
+                <h5 className="ms-3">Output</h5>
+                <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '40vw', height: '25vh' }} value={output}></textarea>
                 <ToastContainer />
             </>
         )
