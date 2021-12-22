@@ -27,7 +27,7 @@ function App() {
 
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
-
+  
   useEffect(() => {
     if (localStorage.getItem('userMain')) {
       let u = JSON.parse(localStorage.getItem('userMain'));
@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/interview" element={
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
           } />
-          <Route path="/profile/:id" element={<Profile user={user} />} />
+          <Route path="/profile/:id" element={<Profile user={user} setLoginUser={setLoginUser} />} />
           <Route path="/questionUpload" element={<QuestionForm user={user} />} />
           <Route exact path="/problemset" element={<Problemset user={user} />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />

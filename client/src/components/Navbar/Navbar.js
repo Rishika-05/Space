@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '../../assets/images/navLogo.svg'
 import UserPic from '../../assets/images/user.png'
+import {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,11 +12,11 @@ export default function Navbar(props) {
     const navigate = useNavigate();
     let loc = useLocation();
 
-
+    console.log(props.user);
     const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
     }
-
+    
     const logOut = () => {
         props.setLoginUser(null);
         localStorage.removeItem('user');

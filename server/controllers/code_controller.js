@@ -61,7 +61,7 @@ module.exports.solved = async (req,res)=>{
                 }
             }
         }
-        user.save();
+        user.update();
     }catch(err){
         console.log(err);
     }

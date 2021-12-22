@@ -5,16 +5,16 @@ module.exports.updateSummary = async (req,res)=>{
         
         let user = await User.findById(req.params.id);
         let updateData = req.body;
-        if(updateData.name && updateData.name != ''){
-            user.name = updateData.name
+        if(updateData.loggedIn == req.params.id){
+            if(updateData.name && updateData.name != ''){
+                user.name = updateData.name
+            }
+            
+            if(updateData.country && updateData.country != ''){
+                user.country = updateData.country
+            }
+            user.save();
         }
-        if(updateData.email && updateData.email != ''){
-            user.email = updateData.email
-        }
-        if(updateData.country && updateData.country != ''){
-            user.country = updateData.country
-        }
-        user.save();
         
         
     }catch(err){
