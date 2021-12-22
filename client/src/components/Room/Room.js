@@ -19,7 +19,7 @@ var vid = window.localStorage.getItem('video');
 const Room = (props) => {
 
    const { setInterview } = props;
-   const { show_video, show_chat, show_board, show_code, show_git, show_cf } = UseUtils();
+   const { show_video, show_chat, show_board, show_code, show_git } = UseUtils();
    setInterview(false);
 
    const navigate = useNavigate();
@@ -128,8 +128,8 @@ const Room = (props) => {
                   <i className="fas fa-code fa-2x"></i></button>
                <button onClick={show_git} data-toggle="tooltip" data-placement="right" title="GitHub">
                   <i className="fab fa-github fa-2x"></i></button >
-               <button onClick={show_cf} data-toggle="tooltip" data-placement="right" title="Codeforces">
-                  <i className="fas fa-chart-bar fa-2x"></i></button>
+               {/* <button onClick={show_cf} data-toggle="tooltip" data-placement="right" title="Codeforces">
+                  <i className="fas fa-chart-bar fa-2x"></i></button> */}
             </div>
 
             <div className="content_space">
@@ -165,11 +165,11 @@ const Room = (props) => {
                         <Github />
                      </div>
                   </div>
-                  <div className="col-md-12 col-sm-12 d-none" id="cf_space">
+                  {/* <div className="col-md-12 col-sm-12 d-none" id="cf_space">
                      <div className="container-fluid" >
                         <Codeforces />
                      </div>
-                  </div>
+                  </div> */}
                </div>
             </div>
 

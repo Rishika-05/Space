@@ -15,7 +15,7 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("git_space");
-      close("cf_space");
+      // close("cf_space");
       open("setting_space");
       open("video_space");
    }
@@ -25,7 +25,7 @@ export const UseUtils = () => {
       close("board_space");
       close("code_space");
       close("git_space");
-      close("cf_space");
+      // close("cf_space");
       close("setting_space");
       open("chat_space");
    }
@@ -35,7 +35,7 @@ export const UseUtils = () => {
       close("chat_space");
       close("code_space");
       close("git_space")
-      close("cf_space");
+      // close("cf_space");
       close("setting_space");
       open("board_space");
    }
@@ -45,7 +45,7 @@ export const UseUtils = () => {
       close("chat_space");
       close("board_space");
       close("git_space")
-      close("cf_space");
+      // close("cf_space");
       close("setting_space");
       open("code_space");
    }
@@ -55,23 +55,23 @@ export const UseUtils = () => {
       close("chat_space");
       close("board_space");
       close("code_space");
-      close("cf_space");
+      // close("cf_space");
       close("setting_space");
       open("git_space");
    }
 
-   const show_cf = () => {
-      close("video_space");
-      close("chat_space");
-      close("board_space");
-      close("code_space");
-      close("git_space");
-      close("setting_space");
-      open("cf_space");
-   }
+   // const show_cf = () => {
+   //    close("video_space");
+   //    close("chat_space");
+   //    close("board_space");
+   //    close("code_space");
+   //    close("git_space");
+   //    close("setting_space");
+   //    open("cf_space");
+   // }
 
    return {
-      show_video, show_chat, show_board, show_code, show_git, show_cf 
+      show_video, show_chat, show_board, show_code, show_git 
    };
 }
 

@@ -5,7 +5,7 @@ body {
 .sidebar {
    background: #263238;
    padding: 0px;
-   padding-top: 14vh;
+   padding-top: 18vh;
    margin: 0;
    position: fixed;
    right: 0;
@@ -20,7 +20,7 @@ body {
    background-color: #263238;
    display: block;
    width: 100%;
-   line-height: 78px;
+   line-height: 80px;
    text-decoration: none;
    padding-left: 4px;
    border: none;
