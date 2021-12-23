@@ -9,7 +9,6 @@ router.post('/check', userController.check);
 router.get('/leaderboard', allUserController.leaderboard);
 router.use('/profile', require('./profile'));
 router.use('/update', require('./update'));
-router.use('/admin', require('./admin'));
 router.use('/problemset', require('./problemset'));
 router.use('/problemPage', require('./problemPage'));
 router.post('/run', codeController.getResult);

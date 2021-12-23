@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Room.css'
 import Unauthorized from '../unauthorized/Unauthorized';
 import Github from '../RoomComp/Github/Github'
-import Codeforces from '../RoomComp/CF/Cf'
 import Ide from '../ide/Ide'
 import { UseUtils } from '../utils/roomUtils';
 import init from '../utils/videoUtils';
@@ -165,11 +164,6 @@ const Room = (props) => {
                         <Github />
                      </div>
                   </div>
-                  {/* <div className="col-md-12 col-sm-12 d-none" id="cf_space">
-                     <div className="container-fluid" >
-                        <Codeforces />
-                     </div>
-                  </div> */}
                </div>
             </div>
 

@@ -7,7 +7,6 @@ import Interview from './components/Interview/Interview'
 import Unauthorized from './components/unauthorized/Unauthorized'
 import Navbar from './components/Navbar/Navbar.js'
 import Profile from './components/Profile/Profile.jsx'
-import QuestionForm from './components/QuestionForm/QuestionForm.jsx'
 import Problemset from './components/Problemset/Problemset'
 import ProblemPage from './components/ProblemPage/ProblemPage'
 import Ide from './components/ide/Ide'
@@ -51,7 +50,6 @@ function App() {
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route path="/profile/:id" element={<Profile user={user} setLoginUser={setLoginUser} />} />
-          <Route path="/questionUpload" element={<QuestionForm user={user} />} />
           <Route exact path="/problemset" element={<Problemset user={user} />} />
           <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
           <Route exact path="/ide" element={<Ide user={user} />} />
