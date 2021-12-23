@@ -154,7 +154,7 @@ export default function SignUp() {
                                 onChange={handleChange} />
                         </div>
                         <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
-                        <Link className="back" to="/">Back to Login Page</Link>
+                        <Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link>
                     </div>
                 </div>
             </div>

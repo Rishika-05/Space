@@ -1,4 +1,4 @@
-.upperBox{
+.upperBox {
     background-color: #171C3D;
     height: 78vh;
     width: 65vw;
@@ -8,89 +8,104 @@
     align-items: center;
     flex-direction: row;
 }
-.left{
+
+.left {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.right{
+
+.right {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
 }
-.gif_left{
+
+.gif_left {
     max-height: 50%;
     max-width: 50%;
     margin-top: 5%;
 }
-.pull{
+
+.pull {
     margin-top: -10%;
 }
-.box{
+
+.box {
     background-color: #F5F2FB;
     height: 63vh;
     width: 22vw;
     border-radius: 5%;
 }
-.text{
+
+.text {
     color: #F5F2FB;
     font-size: 1.2rem;
     text-align: center;
     margin-top: -3%;
 }
-.btn-primary{
+
+.btn-primary {
     background-color: #373761;
     width: 90%;
     margin-left: 5%;
 }
-.newAcc{
+
+.newAcc {
     margin-top: 1em;
     background-color: #8585E1;
 }
-.form-group{
-    margin: 1.5em;
+
+.form-group {
+    margin: 1.5em 0.75rem;
 }
-@media screen and (max-width:700px){
-    .upperBox{
-        flex-direction:column;
+
+@media screen and (max-width:700px) {
+    .upperBox {
+        flex-direction: column;
         height: 100%;
         width: 100%;
         margin: 0%;
     }
-    .box{
+
+    .box {
         width: 90%;
     }
-    
+
 }
-.push{
+
+.push {
     margin-bottom: 5%;
 }
-.back{
+
+.back {
     color: blue;
     margin-left: 27%;
     text-decoration: underline;
 }
-.back:hover{
+
+.back:hover {
     color: #098cb4;
     transition: 0.5s;
 }
-.phone{
 
-}
-@media screen and (max-width:700px){
-    .upperBox{
-        flex-direction:column;
+@media screen and (max-width:700px) {
+    .upperBox {
+        flex-direction: column;
         height: 100%;
         width: 100%;
         margin: 0%;
         border-radius: 0%;
     }
-    .box{
+
+    .box {
         width: 90%;
     }
-    .phone{
+
+    .phone {
         display: none;
     }
-    .pull{
+
+    .pull {
         margin-top: 0%;
     }
 }

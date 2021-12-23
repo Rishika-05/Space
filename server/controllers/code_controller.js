@@ -1,4 +1,4 @@
-const User = require('../models/User.js');
+const User = require('../models/User');
 const Solution = require('../models/Solution');
 //const Question = require('../models/Question')
 const fetch = require("node-fetch");
@@ -61,7 +61,7 @@ module.exports.solved = async (req,res)=>{
                 }
             }
         }
-        user.update();
+        user.save();
     }catch(err){
         console.log(err);
     }
@@ -77,8 +77,6 @@ module.exports.solutionLog = async (req,res)=>{
         solution.save(err => {
             if (err) {
                 console.log(err);
-            } else {
-                console.log("Solution created successfully");
             }
         })
         
