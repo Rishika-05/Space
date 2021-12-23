@@ -11,6 +11,7 @@ router.use('/profile', require('./profile'));
 router.use('/update', require('./update'));
 router.use('/problemset', require('./problemset'));
 router.use('/problemPage', require('./problemPage'));
+router.use('/puzzlePage', require('./puzzlePage'));
 router.post('/run', codeController.getResult);
 router.post('/solution', codeController.solutionLog)
 module.exports = router;

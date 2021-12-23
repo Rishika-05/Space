@@ -15,13 +15,14 @@ import Room from './components/Room/Room'
 import Error404 from './components/Error/Error404';
 import Leaderboard from './components/Leaderboard/Leaderboard'
 import { ToastContainer } from 'react-toastify';
+import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
 import './App.css';
-
+import Puzzles from './components/Puzzles/Puzzles'
 function App() {
 
   const [user, setLoginUser] = useState({});
@@ -58,6 +59,8 @@ function App() {
           <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
           <Route path='*' element={<Error404 setInterview={setInterview} />} />
+          <Route exact path="/puzzles" element={<Puzzles user={user} />} />
+          <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} />} />
         </Routes>
         <ToastContainer />
       </Router>
