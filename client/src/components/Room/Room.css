@@ -119,8 +119,8 @@ div #videos {
 
 #local_Video {
    object-fit: cover;
-   width: 45vh;
-   height: 35vh;
+   width: 42vh;
+   height: 30vh;
    position: absolute;
    left: 1em;
    top: 1em;
@@ -132,6 +132,7 @@ div #videos {
    -moz-transform: rotateY(180deg);
    z-index: 11;
    border-radius: 25px;
+   cursor: move;
 }
 
 .video {

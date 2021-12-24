@@ -9,7 +9,6 @@
    max-width: 1000px;
    margin-left: auto;
    margin-right: auto;
-   padding-left: 10px;
    padding-right: 10px;
 }
 
@@ -20,10 +19,11 @@
    text-align: center;
 }
 
+
 .responsive-table {
    li {
       border-radius: 3px;
-      padding: 17px 28px;
+      padding: 17px 20px;
       display: flex;
       justify-content: space-between;
       margin-bottom: 25px;
@@ -63,9 +63,7 @@
       }
 
       .col {
-
          flex-basis: 100%;
-
       }
 
       .col {

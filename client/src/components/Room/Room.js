@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Draggable from 'react-draggable';
 import { useNavigate } from 'react-router-dom';
 import './Room.css'
 import Unauthorized from '../unauthorized/Unauthorized';
@@ -140,7 +141,9 @@ const Room = (props) => {
                         </div>
                         <div id="videos">
                            <video id="remote_Video" autoPlay playsInline ></video>
-                           <video id="local_Video" muted autoPlay playsInline></video>
+                           <Draggable bounds="parent" grid={[25, 25]} >
+                              <video id="local_Video" muted autoPlay playsInline></video>
+                           </Draggable>
                         </div>
                      </div>
                   </div>
