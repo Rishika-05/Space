@@ -3,12 +3,15 @@ import Problem from './Problem.jsx'
 import './Problemset.css'
 import { useState, useEffect } from 'react'
 import Unauthorized from '../unauthorized/Unauthorized.js'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 export default function Problemset(props) {
     const [filter, setFilter] = useState({
         status: { solved: true, unsolved: true },
         difficulty: { easy: true, medium: true, hard: true },
         tag: { implementation: true, strings: true, sorting: true, greedy: true },
     });
+    const [spinner,setSpinner] = useState(false);
     const [questions, setQuestions] = useState();
     useEffect(() => {
         filterData();
@@ -51,14 +54,14 @@ export default function Problemset(props) {
         return parsedTag;
     }
     const filterData = async () => {
-
+        setSpinner(true);
         let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(filter) + parseTag(filter)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
         let data = await res.json();
-
+        setSpinner(false);
         setQuestions(data.questions);
 
     }
@@ -78,13 +81,14 @@ export default function Problemset(props) {
         tag.greedy = document.getElementById("tag-greedy").checked;
         let data = { status: status, tag: tag, difficulty: difficulty }
         setFilter(data);
+        setSpinner(true);
         let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(data) + parseTag(data)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
         let data2 = await res.json();
-
+        setSpinner(false);
         setQuestions(data2.questions);
     }
     if (props.user === undefined) {
@@ -100,6 +104,13 @@ export default function Problemset(props) {
                 </nav>
                 <div id="problemset-container" className="container d-flex">
                     <div id="problems-container">
+                    <Loader id = "spinner"
+                        type="Bars"
+                        color="gray"
+                        height={100}
+                        width={100}
+                        visible = {spinner}
+                    />
                         {
 
                             questions && questions.map((question) => {

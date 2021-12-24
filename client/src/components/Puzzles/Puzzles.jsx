@@ -3,7 +3,10 @@ import Problem from './Problem.jsx'
 import './Puzzles.css'
 import { useState, useEffect } from 'react'
 import Unauthorized from '../unauthorized/Unauthorized.js'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 export default function Problemset(props) {
+    const [spinner,setSpinner] = useState(false);
     const [filter, setFilter] = useState({
         difficulty: { easy: true, medium: true, hard: true },
     });
@@ -31,13 +34,14 @@ export default function Problemset(props) {
     }
     
     const filterData = async () => {
-
+        setSpinner(true);
         let res = await fetch(`http://localhost:9002/problemset/puzzleFilter/?${parseDifficulty(filter)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
         let data = await res.json();
+        setSpinner(false);
         setQuestions(data.puzzles);
 
     }
@@ -53,12 +57,14 @@ export default function Problemset(props) {
         
         let data = {difficulty: difficulty }
         setFilter(data);
+        setSpinner(true);
         let res = await fetch(`http://localhost:9002/problemset/puzzleFilter/?${parseDifficulty(data)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
         let data2 = await res.json();
+        setSpinner(false);
         setQuestions(data2.puzzles);
     }
     if (props.user === undefined) {
@@ -74,6 +80,13 @@ export default function Problemset(props) {
                 </nav>
                 <div id="problemset-container" className="container d-flex">
                     <div id="problems-container">
+                    <Loader id = "spinner"
+                        type="Bars"
+                        color="gray"
+                        height={100}
+                        width={100}
+                        visible = {spinner}
+                    />
                         {
 
                             questions && questions.map((question) => {

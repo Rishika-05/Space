@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user_controller.js');
 const codeController = require('../controllers/code_controller.js');
 const allUserController = require('../controllers/alluser_controller');
+const solutionController = require('../controllers/solution_controller')
 router.post('/login', userController.login);
 router.post('/signUp', userController.signUp);
 router.post('/check', userController.check);
@@ -14,4 +15,5 @@ router.use('/problemPage', require('./problemPage'));
 router.use('/puzzlePage', require('./puzzlePage'));
 router.post('/run', codeController.getResult);
 router.post('/solution', codeController.solutionLog)
+router.get('/solution/:id', solutionController.getSolution) 
 module.exports = router;

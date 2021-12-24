@@ -16,6 +16,7 @@ import Error404 from './components/Error/Error404';
 import Leaderboard from './components/Leaderboard/Leaderboard'
 import { ToastContainer } from 'react-toastify';
 import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
+import Solution from './components/Solution/Solution.jsx'
 import {
   BrowserRouter as Router,
   Routes,
@@ -61,6 +62,7 @@ function App() {
           <Route path='*' element={<Error404 setInterview={setInterview} />} />
           <Route exact path="/puzzles" element={<Puzzles user={user} />} />
           <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} />} />
+          <Route exact path="/solution/:id" element={<Solution user={user} />} />
         </Routes>
         <ToastContainer />
       </Router>

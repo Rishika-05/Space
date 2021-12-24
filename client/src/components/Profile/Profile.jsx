@@ -112,8 +112,10 @@ export default function Profile(props) {
     const verdictColor = (element) => {
         if (element.verdict === 'Accepted') {
             return <h6 style={{ "color": "green" }}>{element.verdict}</h6>
-        } else {
+        } else if(element.verdict === "Rejected") {
             return <h6 style={{ "color": "red" }}>{element.verdict}</h6>
+        } else{
+            return <h6 style={{ "color": "blue" }}>{element.verdict}</h6>
         }
     }
 
@@ -171,19 +173,21 @@ export default function Profile(props) {
                         <div className="right-card">
                             <h6 className="px-3 pt-2">Submissions</h6>
                             <hr></hr>
-                            {
-                                userProfile.solutions.slice(0).reverse().map((element) => {
+                            <div id = "submissions-box">
+                                {
+                                    userProfile.solutions.slice(0).reverse().map((element) => {
 
-                                    return <><div id="profile-submissions" className="d-flex">
-                                        <Link id="ques-link" to={`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
-                                        <Link id="solu-link" to={`/problemPage/${element._id}`}><h6>Your Solution</h6></Link>
-                                        <div id="verdict-text">{verdictColor(element)}</div>
-                                    </div>
-                                        {/* <hr></hr>   */}
-                                    </>
-                                    // console.log(element);
-                                })
-                            }
+                                        return <><div id="profile-submissions" className="d-flex">
+                                            <Link id="ques-link" to={`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
+                                            <Link id="solu-link" to={`/solution/${element._id}`}><h6>Your Solution</h6></Link>
+                                            <div id="verdict-text">{verdictColor(element)}</div>
+                                        </div>
+                                            {/* <hr></hr>   */}
+                                        </>
+                                        // console.log(element);
+                                    })
+                                }
+                            </div>
                         </div>
                         <div className="right-card">
                             <h6 className="px-3 pt-2">{submissions} submissions this year</h6>

@@ -35,3 +35,21 @@
     padding-bottom:3%;
     margin-bottom: 7%;
 }
+#spinner{
+    margin-top:25vh;
+}
+#problems-container{
+    display: flex;
+    flex-direction: column;
+    max-height: 50vw;
+    overflow:auto;
+    align-items: center;
+}
+#problems-container::-webkit-scrollbar {
+    display: none;
+}
+@media screen and (max-width:740px){
+    #problems-container{
+        max-height: 75vw;
+    }
+}
