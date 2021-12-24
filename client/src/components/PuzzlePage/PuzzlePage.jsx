@@ -1,7 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import './puzzlePage.css'
-import Ide from '../ide/Ide';
 import Loading from '../Loading/Loading';
 export default function ProblemPage(props) {
     const { id } = useParams();
@@ -32,24 +31,24 @@ export default function ProblemPage(props) {
                         <div className='problem-container p-3 mt-4'>
                             <h5 className='mb-2'>Puzzle Statement</h5>
                             <p className='mb-4'>{qquestion.problem}</p>
-                        
-                    <div className="accordion" id="accordionExample">
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id="headingOne">
-                            <button className="accordion-button bg-dark acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                See Solution
-                            </button>
-                            </h2>
-                            <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div className="accordion-body">
-                                {qquestion.answer}
+
+                            <div className="accordion" id="accordionExample">
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingOne">
+                                        <button className="accordion-button bg-dark acc-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            See Solution
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            {qquestion.answer}
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            </div>
+
                         </div>
-                    
-                    </div>
-                        
-                    </div>
                     </div>
                 </div>
             </>
@@ -58,7 +57,7 @@ export default function ProblemPage(props) {
     else {
         return (
             <>
-                <Loading/>
+                <Loading />
             </>
         )
     }

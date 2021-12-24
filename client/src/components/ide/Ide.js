@@ -27,19 +27,29 @@ export default function Ide(props) {
     const cDefault = `#include<bits/stdc++.h>
 using namespace std;
 int main(){
+freopen("input.txt", "r", stdin);
 
+cerr<<"@";
 return 0;
-}`
-    const javaDefault = `public class Main
-{   
-    public static void main(String[] args){
-        System.out.println("Hello world");
+} `
+    const javaDefault = `import java.io.*;
+    public class main {
+    public static void main(String[] args) {
+        
+        PrintStream ps = new PrintStream(new File("output11.txt"));
+        //InputStream is = new FileInputStream("input.txt");
+
+        //System.setIn(is);
+        System.setOut(ps);
+        System.err.println("@");
     }
-}`
+} `
     const kotDefault = `fun main(){
     println("Hello world!")
-}`
-    const pyDefault = `print('hello world')`
+} `
+    const pyDefault = `import sys
+sys.stdin = open('input.txt', 'r')
+print("@", file=sys.stderr)`
 
     const [theme, setTheme] = useState('nord_dark')
     const [language, setLanguage] = useState('c_cpp')
@@ -154,8 +164,11 @@ return 0;
             },
         });
         let res2 = await res.json();
-        setOutput(res2.apiOut.output);
-        checkerToast(res2.apiOut.output, data);
+
+        setOutput(res2.cloudOut);
+        checkerToast(res2, data);
+
+
     }
     const soluLog = async (solution) => {
         // eslint-disable-next-line
@@ -167,20 +180,50 @@ return 0;
 
     }
 
-    const checkerToast = (ou, codeObj) => {
+    const checkerToast = (res, codeObj) => {
         let solution = {
             code: codeObj.script,
             language: codeObj.language,
             question: props.question ? props.question._id : "",
             user: props.user ? props.user._id : "",
-            verdict: "",
+            verdict: res.verdict,
         }
         if (props.question === undefined) { }
-        else if (ou === props.question.answer) {
-            questionSolved();
-            solution.verdict = "Accepted"
-            soluLog(solution)
-            toast.success('Correct answer', {
+        if (solution.verdict === 1) {
+            // console.log(props.question.answer)
+            if (res.cloudOut === props.question.answer) {
+                //correct Answer
+                questionSolved();
+                solution.verdict = "Accepted";
+                soluLog(solution);
+                toast.success('Correct Answer', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                //incorrect answer
+                solution.verdict = "Rejected";
+                soluLog(solution);
+                toast.error('Incorrect Answer', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } else if (solution.verdict === -1) {
+            //TLE
+            solution.verdict = "Time Limit Exceeded";
+            soluLog(solution);
+            toast.error('Time Limit Exceeded', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -189,11 +232,11 @@ return 0;
                 draggable: true,
                 progress: undefined,
             });
-        }
-        else {
-            solution.verdict = "Rejected"
+        } else if (solution.verdict === 0) {
+            //compilation
+            solution.verdict = "Compilation Error";
             soluLog(solution);
-            toast.error('Incorrect Answer', {
+            toast.error('Compilation Error', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -292,3 +335,36 @@ return 0;
         )
     }
 }
+/*
+
+else if (res.cloudOut === props.question.answer) {
+            questionSolved();
+            solution.verdict = "Accepted"
+            soluLog(solution)
+            toast.success('Correct answer', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        else {
+            solution.verdict = "Rejected"
+            soluLog(solution);
+            toast.error('Incorrect Answer', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+
+
+*/

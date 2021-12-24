@@ -56,7 +56,7 @@ export default function ProblemPage(props) {
     else {
         return (
             <>
-                <Loading/>
+                <Loading />
             </>
         )
     }

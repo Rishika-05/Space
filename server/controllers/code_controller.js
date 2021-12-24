@@ -2,75 +2,235 @@ const User = require('../models/User');
 const Solution = require('../models/Solution');
 //const Question = require('../models/Question')
 const fetch = require("node-fetch");
+const fs = require('fs')
+const { NodeSSH } = require('node-ssh')
+const ssh = new NodeSSH()
 
 // client id  :   7eaec65631d56c14ef7463193fc91eb2
 // client secret : fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a
 // https://api.jdoodle.com/v1/execute
 
 module.exports.getResult = async (req, res) => {
+    let output;
+    let error;
     try {
         const { script, language, stdin, versionIndex } = req.body;
         let script2 = script;
 
-        let data = {
-            clientId: "7eaec65631d56c14ef7463193fc91eb2",
-            clientSecret: "fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a",
-            script: script2,
-            language,
-            stdin,
-            versionIndex: versionIndex
+        if (language === 'cpp17') {
+            fs.writeFile('main.cpp', script, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('main file created');
+                }
+            })
+            fs.writeFile('input.txt', stdin, function (err) {
+                if (err) console.log(err);
+                else {
+                    console.log('input file created');
+                }
+            })
+            ssh.connect({
+                host: '34.131.26.25',
+                username: 'user',
+                port: '22',
+                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
+            }).then(function () {
+
+                ssh.putFile('./main.cpp', '/home/user/cloud/main.cpp').then(function () {
+                    console.log("The File thing is done")
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
+                    console.log("The File thing is done")
+                    ssh.execCommand("g++ main.cpp -o main && timeout 1 ./main", { cwd: '/home/user/cloud' }).then(function (result) {
+                        output = result.stdout;
+                        error = result.stderr;
+                        //console.log('out :' + output);
+                        //console.log('err :' + error);
+                        let verdict = 0;
+                        if (error.charAt(error.length - 1) === "@") {
+                            verdict = 1;
+                        }
+                        else {
+                            if (error.length > 1) {
+                                verdict = 0;
+                            } else {
+                                verdict = -1;
+                            }
+                        }
+                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                        console.log('ver ' + verdict);
+                        console.log('err ' + error)
+                    })
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+            }), function (err) {
+                console.log(err);
+            }
+        } else if (language === "python3") {
+            fs.writeFile('main.py', script, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('main file created');
+                }
+            })
+            fs.writeFile('input.txt', stdin, function (err) {
+                if (err) console.log(err);
+                else {
+                    console.log('input file created');
+                }
+            })
+            ssh.connect({
+                host: '34.131.26.25',
+                username: 'user',
+                port: '22',
+                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
+            }).then(function () {
+
+                ssh.putFile('./main.py', '/home/user/cloud/main.py').then(function () {
+                    console.log("The File thing is done")
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
+                    console.log("The File thing is done")
+                    ssh.execCommand("timeout 1 python3 main.py", { cwd: '/home/user/cloud' }).then(function (result) {
+                        output = result.stdout;
+                        error = result.stderr;
+                        //console.log('out :' + output);
+                        //console.log('err :' + error);
+                        let verdict = 0;
+                        if (error.charAt(error.length - 1) === "@") {
+                            verdict = 1;
+                        }
+                        else {
+                            if (error.length > 1) {
+                                verdict = 0;
+                            } else {
+                                verdict = -1;
+                            }
+                        }
+                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                        console.log('ver ' + verdict);
+                        console.log('err ' + error)
+                    })
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+            }), function (err) {
+                console.log(err);
+            }
+        } else if (language === "java") {
+            fs.writeFile('main.java', script, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('main file created');
+                }
+            })
+            fs.writeFile('input.txt', stdin, function (err) {
+                if (err) console.log(err);
+                else {
+                    console.log('input file created');
+                }
+            })
+            ssh.connect({
+                host: '34.131.26.25',
+                username: 'user',
+                port: '22',
+                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
+            }).then(function () {
+
+                ssh.putFile('./main.java', '/home/user/cloud/main.java').then(function () {
+                    console.log("The File thing is done")
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
+                    console.log("The File thing is done")
+                    ssh.execCommand("javac main.java && timeout 1 java main", { cwd: '/home/user/cloud' }).then(function (result) {
+                        output = result.stdout;
+                        error = result.stderr;
+                        //console.log('out :' + output);
+                        //console.log('err :' + error);
+                        let verdict = 0;
+                        if (error.charAt(error.length - 1) === "@") {
+                            verdict = 1;
+                        }
+                        else {
+                            if (error.length > 1) {
+                                verdict = 0;
+                            } else {
+                                verdict = -1;
+                            }
+                        }
+                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                        console.log('ver ' + verdict);
+                        console.log('err ' + error)
+                    })
+                }, function (error) {
+                    console.log("Something's wrong")
+                    console.log(error)
+                })
+            }), function (err) {
+                console.log(err);
+            }
         }
-        // console.log(JSON.stringify(data));
-        let output = await fetch(`https://api.jdoodle.com/v1/execute`, {
-            method: "POST", body: JSON.stringify(data), headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-        let apiOut = await output.json();
-        res.send({ apiOut: apiOut });
+
+
 
     }
     catch (err) {
         console.log(err)
     }
 }
-const dayOfYear = function(today){
-    return Math.ceil((today - new Date(today.getFullYear(),0,1)) / 86400000);
+const dayOfYear = function (today) {
+    return Math.ceil((today - new Date(today.getFullYear(), 0, 1)) / 86400000);
 }
 
 
-module.exports.solved = async (req,res)=>{
+module.exports.solved = async (req, res) => {
     let solData = req.body;
-    try{
+    try {
         let user = await User.findById(solData.user);
         let index = user.questionsSolved.indexOf(solData.question);
-        if(index == -1){
+        if (index == -1) {
             user.questionsSolved.push(solData.question);
-        
+
             var a = dayOfYear(new Date());
             // console.log(a);
-            if(a == 1){
-                for(let i = 0;i<user.calender.length;i++){
+            if (a == 1) {
+                for (let i = 0; i < user.calender.length; i++) {
                     user.calender[i].value = 0;
                 }
             }
-            for(let i = 0;i<user.calender.length;i++){
-                if(user.calender[i].day == a){
+            for (let i = 0; i < user.calender.length; i++) {
+                if (user.calender[i].day == a) {
                     user.calender[i].value++;
                     break;
                 }
             }
         }
         user.save();
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
-module.exports.solutionLog = async (req,res)=>{
+module.exports.solutionLog = async (req, res) => {
     let solData = req.body;
-    try{
+    try {
         const solution = new Solution(solData);
-        
+
         let user = await User.findById(solData.user);
         user.solutions.push(solution._id);
         user.save();
@@ -79,10 +239,26 @@ module.exports.solutionLog = async (req,res)=>{
                 console.log(err);
             }
         })
-        
-    }catch(err){
+
+    } catch (err) {
         console.log(err);
     }
 }
 
 
+// let data = {
+        //     clientId: "7eaec65631d56c14ef7463193fc91eb2",
+        //     clientSecret: "fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a",
+        //     script: script2,
+        //     language,
+        //     stdin,
+        //     versionIndex: versionIndex
+        // }
+        // // console.log(JSON.stringify(data));
+        // let output = await fetch(`https://api.jdoodle.com/v1/execute`, {
+        //     method: "POST", body: JSON.stringify(data), headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        // });
+        // let apiOut = await output.json();
+        // res.send({ apiOut: apiOut });
