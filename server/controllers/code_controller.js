@@ -15,180 +15,77 @@ module.exports.getResult = async (req, res) => {
     let error;
     try {
         const { script, language, stdin, versionIndex } = req.body;
-        let script2 = script;
-
-        if (language === 'cpp17') {
-            fs.writeFile('main.cpp', script, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('main file created');
-                }
-            })
-            fs.writeFile('input.txt', stdin, function (err) {
-                if (err) console.log(err);
-                else {
-                    console.log('input file created');
-                }
-            })
-            ssh.connect({
-                host: '34.131.26.25',
-                username: 'user',
-                port: '22',
-                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
-            }).then(function () {
-
-                ssh.putFile('./main.cpp', '/home/user/cloud/main.cpp').then(function () {
-                    console.log("The File thing is done")
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
-                    console.log("The File thing is done")
-                    ssh.execCommand("g++ main.cpp -o main && timeout 1 ./main", { cwd: '/home/user/cloud' }).then(function (result) {
-                        output = result.stdout;
-                        error = result.stderr;
-                        //console.log('out :' + output);
-                        //console.log('err :' + error);
-                        let verdict = 0;
-                        if (error.charAt(error.length - 1) === "@") {
-                            verdict = 1;
-                        }
-                        else {
-                            if (error.length > 1) {
-                                verdict = 0;
-                            } else {
-                                verdict = -1;
-                            }
-                        }
-                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                        console.log('ver ' + verdict);
-                        console.log('err ' + error)
-                    })
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-            }), function (err) {
-                console.log(err);
-            }
-        } else if (language === "python3") {
-            fs.writeFile('main.py', script, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('main file created');
-                }
-            })
-            fs.writeFile('input.txt', stdin, function (err) {
-                if (err) console.log(err);
-                else {
-                    console.log('input file created');
-                }
-            })
-            ssh.connect({
-                host: '34.131.26.25',
-                username: 'user',
-                port: '22',
-                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
-            }).then(function () {
-
-                ssh.putFile('./main.py', '/home/user/cloud/main.py').then(function () {
-                    console.log("The File thing is done")
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
-                    console.log("The File thing is done")
-                    ssh.execCommand("timeout 1 python3 main.py", { cwd: '/home/user/cloud' }).then(function (result) {
-                        output = result.stdout;
-                        error = result.stderr;
-                        //console.log('out :' + output);
-                        //console.log('err :' + error);
-                        let verdict = 0;
-                        if (error.charAt(error.length - 1) === "@") {
-                            verdict = 1;
-                        }
-                        else {
-                            if (error.length > 1) {
-                                verdict = 0;
-                            } else {
-                                verdict = -1;
-                            }
-                        }
-                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                        console.log('ver ' + verdict);
-                        console.log('err ' + error)
-                    })
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-            }), function (err) {
-                console.log(err);
-            }
-        } else if (language === "java") {
-            fs.writeFile('main.java', script, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('main file created');
-                }
-            })
-            fs.writeFile('input.txt', stdin, function (err) {
-                if (err) console.log(err);
-                else {
-                    console.log('input file created');
-                }
-            })
-            ssh.connect({
-                host: '34.131.26.25',
-                username: 'user',
-                port: '22',
-                privateKey: fs.readFileSync('./id_rsa', 'utf8'),
-            }).then(function () {
-
-                ssh.putFile('./main.java', '/home/user/cloud/main.java').then(function () {
-                    console.log("The File thing is done")
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-                ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
-                    console.log("The File thing is done")
-                    ssh.execCommand("javac main.java && timeout 1 java main", { cwd: '/home/user/cloud' }).then(function (result) {
-                        output = result.stdout;
-                        error = result.stderr;
-                        //console.log('out :' + output);
-                        //console.log('err :' + error);
-                        let verdict = 0;
-                        if (error.charAt(error.length - 1) === "@") {
-                            verdict = 1;
-                        }
-                        else {
-                            if (error.length > 1) {
-                                verdict = 0;
-                            } else {
-                                verdict = -1;
-                            }
-                        }
-                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                        console.log('ver ' + verdict);
-                        console.log('err ' + error)
-                    })
-                }, function (error) {
-                    console.log("Something's wrong")
-                    console.log(error)
-                })
-            }), function (err) {
-                console.log(err);
-            }
+        let assign = {
+            fileName: "",
+            command: "",
         }
+        if (language === 'cpp17') {
+            assign.fileName = "main.cpp"
+            assign.command = "g++ main.cpp -o main && timeout 1 ./main"
+        }
+        else if (language === 'python3') {
+            assign.fileName = "main.py"
+            assign.command = "timeout 1 python3 main.py"
+        }
+        else if (language === 'java') {
+            assign.fileName = "main.java"
+            assign.command = "javac main.java && timeout 1 java main"
+        }
+        fs.writeFile(assign.fileName, script, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('main file created');
+            }
+        })
+        fs.writeFile('input.txt', stdin, function (err) {
+            if (err) console.log(err);
+            else {
+                console.log('input file created');
+            }
+        })
+        ssh.connect({
+            host: '34.131.26.25',
+            username: 'user',
+            port: '22',
+            privateKey: fs.readFileSync('./id_rsa', 'utf8'),
+        }).then(function () {
 
-
-
+            ssh.putFile(`./${assign.fileName}`, `/home/user/cloud/${assign.fileName}`).then(function () {
+                console.log("The File thing is done")
+            }, function (error) {
+                console.log("Something's wrong")
+                console.log(error)
+            })
+            ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
+                console.log("The File thing is done")
+                ssh.execCommand(assign.command, { cwd: '/home/user/cloud' }).then(function (result) {
+                    output = result.stdout;
+                    error = result.stderr;
+                    //console.log('out :' + output);
+                    //console.log('err :' + error);
+                    let verdict = 0;
+                    if (error.charAt(error.length - 1) === "@") {
+                        verdict = 1;
+                    }
+                    else {
+                        if (error.length > 1) {
+                            verdict = 0;
+                        } else {
+                            verdict = -1;
+                        }
+                    }
+                    res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                    console.log('ver ' + verdict);
+                    console.log('err ' + error)
+                })
+            }, function (error) {
+                console.log("Something's wrong")
+                console.log(error)
+            })
+        }), function (err) {
+            console.log(err);
+        }
     }
     catch (err) {
         console.log(err)
