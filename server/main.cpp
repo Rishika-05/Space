@@ -1,10 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main(){
-freopen("input.txt", "r", stdin);
-while(true){
+// int main(){
+// freopen("input.txt", "r", stdin);
+// //timer 
+// while(true){
   
-}
-cerr<<"@";
-return 0;
-} 
+// }
+
+
+// cerr<<"@";
+// } 

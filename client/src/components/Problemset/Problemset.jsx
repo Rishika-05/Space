@@ -88,8 +88,34 @@ export default function Problemset(props) {
             },
         });
         let data2 = await res.json();
+        if(!data.status.solved && !data.status.unsolved){
+            data.status.solved = true;
+            data.status.unsolved = true;
+
+        }
+        if(data.status.solved && data.status.unsolved){
+            setQuestions(data2.questions);
+        }
+        if(data.status.solved && !data.status.unsolved){
+            let appliedFilter = [];
+            for(let i=0;i<data2.questions.length;i++){
+                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) != -1){
+                    appliedFilter.push(data2.questions[i]);
+                }
+            }
+            setQuestions(appliedFilter);
+        }
+        if(!data.status.solved && data.status.unsolved){
+            let appliedFilter = [];
+            for(let i=0;i<data2.questions.length;i++){
+                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) == -1){
+                    appliedFilter.push(data2.questions[i]);
+                }
+            }
+            setQuestions(appliedFilter);
+        }
         setSpinner(false);
-        setQuestions(data2.questions);
+        
     }
     if (props.user === undefined) {
         return (
@@ -114,7 +140,7 @@ export default function Problemset(props) {
                         {
 
                             questions && questions.map((question) => {
-                                return <Problem question={question} key={question._id} />
+                                return <Problem question={question} key={question._id} isSolved = {props.user.questionsSolved.indexOf(question._id) != -1} />
                             })
                         }
                     </div>
@@ -166,7 +192,7 @@ export default function Problemset(props) {
                             <hr></hr>
                             <h6>Tags</h6>
                             <div id="tags-input">
-
+ 
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="implementation" id="tag-implementation" />
                                     <label className="form-check-label" htmlFor="tag-implementation">
