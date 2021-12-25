@@ -22,6 +22,8 @@ const Join = (props) => {
    const [roomID, setRoomID] = useState('');
    const [mic, setMic] = useState(audio);
    const [cam, setCam] = useState(video);
+   // console.log('Video ' + window.localStorage.getItem('video'));
+   // console.log('Audio ' + window.localStorage.getItem('audio'));
 
    useEffect(() => {
       getStream();
@@ -43,8 +45,8 @@ const Join = (props) => {
    }
 
    const toggleCamera = async () => {
-      if (video)
-         localStream.getVideoTracks()[0].stop();
+      // if (video)
+      //    localStream.getVideoTracks()[0].stop();
       // localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
       video = !video;
       window.localStorage.setItem('video', video);
@@ -54,13 +56,13 @@ const Join = (props) => {
    }
 
    const toggleMic = async () => {
-      if (audio)
-         localStream.getAudioTracks()[0].stop();
+      // if (audio)
+      //    localStream.getAudioTracks()[0].stop();
       // localStream.getAudioTracks()[0].enabled = !(localStream.getAudioTracks()[0].enabled);
       audio = !audio;
       window.localStorage.setItem('audio', audio);
       setMic(!mic);
-      console.log('Audio '+window.localStorage.getItem('audio'));
+      console.log('Audio '+ window.localStorage.getItem('audio'));
       // getStream();
    }
 

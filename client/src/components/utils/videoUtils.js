@@ -19,7 +19,8 @@ var localVideo;
 var remoteVideo;
 let a, v;
 
-const init = (localVideos, remoteVideos) => {
+
+const init = (localVideos, remoteVideos ) => {
    localVideo = localVideos;
    remoteVideo = remoteVideos;
    makeRoom();
@@ -186,12 +187,16 @@ const joinRoomById = async (roomId) => {
 }
 
 const openUserMedia = async () => {
-   v = window.localStorage.getItem("video") === "true";
-   a = window.localStorage.getItem("audio") === "true";
-   const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true,
-   });
+   v = window.localStorage.getItem("video");
+   a = window.localStorage.getItem("audio");
+   console.log("v " + v + "a " + a);
+   let stream = null;
+   if (v || a) {
+      stream = await navigator.mediaDevices.getUserMedia({
+         video: v,
+         audio: a,
+      });
+   }
 
    localVideo.srcObject = stream;
    localVideo.play();
@@ -205,7 +210,7 @@ const openUserMedia = async () => {
    }
    remoteStream = new MediaStream();
    remoteVideo.srcObject = remoteStream;
-   console.log(remoteVideo.srcObject);
+   // console.log(remoteVideo.srcObject);
    remoteVideo.play();
 
    document.querySelector("#toggleCamera").disabled = false;
@@ -213,11 +218,16 @@ const openUserMedia = async () => {
    document.querySelector("#hangupBtn").disabled = false;
 }
 
-const toggleCamera = () => {
+const toggleCamera =() => {
    localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled;
+   window.localStorage.setItem('video', v);
+   console.log("Video " + window.localStorage.getItem('video'));
 }
 
-const toggleMic = () => {
+const toggleMic = (a, setMicr) => {
+   window.localStorage.setItem('audio', a);
+   // setMicr(a);
+   console.log("Audio " + window.localStorage.getItem('audio'));
    localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled;
 }
 
@@ -241,6 +251,9 @@ const hangUp = async (e) => {
    localVideo.srcObject = null;
    remoteVideo.srcObject = null;
    document.querySelector("#hangupBtn").disabled = true;
+
+   window.localStorage.setItem('video', true);
+   window.localStorage.setItem('audio', true);
 
    // Delete room on hangup
 

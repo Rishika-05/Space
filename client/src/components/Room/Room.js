@@ -14,13 +14,13 @@ import {
 var aud = window.localStorage.getItem('audio');
 var vid = window.localStorage.getItem('video');
 
-
-
 const Room = (props) => {
 
    const { setInterview } = props;
    const { show_video, show_chat, show_board, show_code, show_git } = UseUtils();
    setInterview(false);
+   let f = 0;
+
 
    const navigate = useNavigate();
 
@@ -89,17 +89,17 @@ const Room = (props) => {
    }
 
    const toggleCamera = async () => {
-      vid = !vid;
-      window.localStorage.setItem('video', vid);
+      // window.localStorage.setItem('video', vid);
       setCamr(!camr);
-      console.log("Video " +window.localStorage.getItem('video'));
+      // console.log("Video " +window.localStorage.getItem('video'));
+      // f = !f;
    }
 
    const toggleMic = async () => {
-      aud = !aud;
-      window.localStorage.setItem('audio', aud);
+      // window.localStorage.setItem('audio', aud);
       setMicr(!micr);
-      console.log("Audio "+window.localStorage.getItem('audio'));
+      // console.log("Audio " + window.localStorage.getItem('audio'));
+      // f = !f;
    }
 
    const hangUpRe = () => {
