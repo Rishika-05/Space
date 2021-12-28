@@ -14,17 +14,12 @@ let video = true;
 const Join = (props) => {
    props.setInterview(false);
    const { date, time } = useDate();
-
    const navigate = useNavigate();
    let localStream = null;
-
    const [name, setName] = useState('');
    const [roomID, setRoomID] = useState('');
    const [mic, setMic] = useState(audio);
    const [cam, setCam] = useState(video);
-   // console.log('Video ' + window.localStorage.getItem('video'));
-   // console.log('Audio ' + window.localStorage.getItem('audio'));
-
    useEffect(() => {
       getStream();
       document.title = 'Join Meeting | Space'
@@ -45,26 +40,22 @@ const Join = (props) => {
    }
 
    const toggleCamera = async () => {
-      // if (video)
-      //    localStream.getVideoTracks()[0].stop();
-      // localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
+     
       video = !video;
-      console.log(video);
+      console.log("JoinVid",video);
       window.localStorage.setItem('video', video);
       setCam(!cam);
-      console.log('Video '+window.localStorage.getItem('video'));
-      // getStream();
+      
    }
 
    const toggleMic = async () => {
-      // if (audio)
-      //    localStream.getAudioTracks()[0].stop();
-      // localStream.getAudioTracks()[0].enabled = !(localStream.getAudioTracks()[0].enabled);
+      
       audio = !audio;
+      console.log("JoinAud",audio);
       window.localStorage.setItem('audio', audio);
       setMic(!mic);
-      console.log('Audio '+ window.localStorage.getItem('audio'));
-      // getStream();
+      
+      
    }
 
    const validateUser = () => {

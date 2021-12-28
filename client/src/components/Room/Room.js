@@ -13,8 +13,10 @@ import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
 } from "reactstrap"
 
-var aud = window.localStorage.getItem('audio');
-var vid = window.localStorage.getItem('video');
+var audi = window.localStorage.getItem('audio');
+var vidi = window.localStorage.getItem('video');
+audi = (audi === "true");
+vidi = (vidi === "true");
 
 
 const Room = (props) => {
@@ -27,19 +29,19 @@ const Room = (props) => {
    const { users, tracks } = props;
    
    const navigate = useNavigate();
-
+   const [aud,setAud] = useState(audi);
+   const [vid,setVid] = useState(vidi);
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);
-   const [trackState, setTrackState] = useState({ video: vid, audio: aud });
+   const [trackState, setTrackState] = useState({ video: !vidi, audio: !audi });
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
 
    
-   const [micr, setMicr] = useState(aud);
-   const [camr, setCamr] = useState(vid);
+   const [micr, setMicr] = useState(!aud);
+   const [camr, setCamr] = useState(!vid);
 
-   console.log(aud + '<- Audio & Video -> ' + vid);
-   console.log(micr + '<- Micro & Came -> ' + camr);
+   
 
    useEffect(() => {
       if (window.localStorage.getItem('Type') === 'IE') {
@@ -47,10 +49,13 @@ const Room = (props) => {
       }
       toggleCamera();
       toggleMic();
+      // setTrackState({audio:!aud,video:!vid});
+      console.log("Video",trackState.video);
+      console.log("Audio",trackState.audio);
+      
+      // console.log("Changed");
       document.title = 'Room | Space'
-      // const localVideo = document.querySelector('#local_Video');
-      // const remoteVideo = document.querySelector('#remote_Video');
-      //init();
+      
       window.addEventListener('beforeunload', onUnload);
       // eslint-disable-next-line
    }, []);
