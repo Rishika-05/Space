@@ -3,8 +3,8 @@ import {
   config,
   useClient,
   useMicrophoneAndCameraTracks,
-  channelName,
-  getToken,
+  
+  
 } from "./settings.js";
 
 
@@ -12,10 +12,10 @@ import Room from '../Room/Room.js'
 
 export default function VideoCall(props) {
   const { setInCall } = props;
-  
+  const channelName = window.localStorage.getItem('ID');
   const [users, setUsers] = useState([]);
   const [start, setStart] = useState(false);
-  getToken();
+  
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks();
   
