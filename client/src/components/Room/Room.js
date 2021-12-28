@@ -6,7 +6,9 @@ import Unauthorized from '../unauthorized/Unauthorized';
 import Github from '../RoomComp/Github/Github'
 import Ide from '../ide/Ide'
 import { UseUtils } from '../utils/roomUtils';
-import init from '../utils/videoUtils';
+import { useClient } from "../VideoCall/settings.js";
+import { AgoraVideoPlayer } from "agora-rtc-react";
+
 import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
 } from "reactstrap"
@@ -14,19 +16,21 @@ import {
 var aud = window.localStorage.getItem('audio');
 var vid = window.localStorage.getItem('video');
 
-const Room = (props) => {
 
+const Room = (props) => {
+   const client = useClient();
    const { setInterview } = props;
+   const {setStart, setInCall } = props;
    const { show_video, show_chat, show_board, show_code, show_git } = UseUtils();
    setInterview(false);
    let f = 0;
-
-
+   const { users, tracks } = props;
+   
    const navigate = useNavigate();
 
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);
-
+   const [trackState, setTrackState] = useState({ video: vid, audio: aud });
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
 
@@ -41,10 +45,12 @@ const Room = (props) => {
       if (window.localStorage.getItem('Type') === 'IE') {
          toggle();
       }
+      toggleCamera();
+      toggleMic();
       document.title = 'Room | Space'
-      const localVideo = document.querySelector('#local_Video');
-      const remoteVideo = document.querySelector('#remote_Video');
-      init(localVideo, remoteVideo);
+      // const localVideo = document.querySelector('#local_Video');
+      // const remoteVideo = document.querySelector('#remote_Video');
+      //init();
       window.addEventListener('beforeunload', onUnload);
       // eslint-disable-next-line
    }, []);
@@ -89,21 +95,29 @@ const Room = (props) => {
    }
 
    const toggleCamera = async () => {
-      // window.localStorage.setItem('video', vid);
+      await tracks[1].setEnabled(!trackState.video);
+      setTrackState((ps) => {
+        return { ...ps, video: !ps.video };
+      });
       setCamr(!camr);
-      // console.log("Video " +window.localStorage.getItem('video'));
-      // f = !f;
    }
 
    const toggleMic = async () => {
-      // window.localStorage.setItem('audio', aud);
+      await tracks[0].setEnabled(!trackState.audio);
+      setTrackState((ps) => {
+        return { ...ps, audio: !ps.audio };
+      });
       setMicr(!micr);
-      // console.log("Audio " + window.localStorage.getItem('audio'));
-      // f = !f;
    }
 
-   const hangUpRe = () => {
-      navigate('/');
+   const hangUpRe = async () => {
+      await client.leave();
+      client.removeAllListeners();
+      tracks[0].close();
+      tracks[1].close();
+      setStart(false);
+      setInCall(false);
+      window.close();
    }
 
 
@@ -140,9 +154,25 @@ const Room = (props) => {
                            <span id="currentRoom"></span>
                         </div>
                         <div id="videos">
-                           <video id="remote_Video" autoPlay playsInline ></video>
+                           {users.length > 0 &&
+                              users.map((user) => {
+                                 if (user.videoTrack) {
+                                 return (
+                                       <div id = "remote_Video">
+                                       <AgoraVideoPlayer
+                                       videoTrack={user.videoTrack}
+                                       key={user.uid}
+                                       style={{height: '100%', width: '100%'}}
+                                       />
+                                       </div>
+                                    
+                                 );
+                                 } else return null;
+                           })}
                            <Draggable bounds="parent" grid={[25, 25]} >
-                              <video id="local_Video" muted autoPlay playsInline></video>
+                              <div id = "local_Video">
+                                 <AgoraVideoPlayer videoTrack={tracks[1]} style={{height: '100%', width: '100%',borderRadius:'25px'}} />
+                              </div>
                            </Draggable>
                         </div>
                      </div>

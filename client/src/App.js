@@ -17,6 +17,7 @@ import Leaderboard from './components/Leaderboard/Leaderboard'
 import { ToastContainer } from 'react-toastify';
 import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
 import Solution from './components/Solution/Solution.jsx'
+import Agora from './components/VideoCall/VideoCall.js'
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,6 +29,7 @@ function App() {
 
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
+  const [inCall, setInCall] = useState(false);
   
   useEffect(() => {
     if (localStorage.getItem('userMain')) {
@@ -57,7 +59,7 @@ function App() {
           <Route exact path="/ide" element={<Ide user={user} />} />
           <Route exact path="/join" element={<Join user={user} setInterview={setInterview} />} />
           <Route exact path="/leaderboard" element={<Leaderboard user={user} />} />
-          <Route exact path="/room/:id" element={<Room setInterview={setInterview} user={user} />} />
+          <Route exact path="/room/:id" element={<Agora setInterview={setInterview} user={user} setInCall={setInCall} />} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
           <Route path='*' element={<Error404 setInterview={setInterview} />} />
           <Route exact path="/puzzles" element={<Puzzles user={user} />} />

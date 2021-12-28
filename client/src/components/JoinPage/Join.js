@@ -49,6 +49,7 @@ const Join = (props) => {
       //    localStream.getVideoTracks()[0].stop();
       // localStream.getVideoTracks()[0].enabled = !(localStream.getVideoTracks()[0].enabled);
       video = !video;
+      console.log(video);
       window.localStorage.setItem('video', video);
       setCam(!cam);
       console.log('Video '+window.localStorage.getItem('video'));
@@ -67,16 +68,16 @@ const Join = (props) => {
    }
 
    const validateUser = () => {
-      console.log('validate');
+      
       window.localStorage.setItem('Name', name);
       if (roomID.endsWith('R')) {
          window.localStorage.setItem('Type', 'IR');
       } else {
          window.localStorage.setItem('Type', 'IE');
       }
-      console.log(window.localStorage.getItem('Type'));
+      
       const ID = roomID.slice(0, 10);
-      console.log(ID);
+      
       window.localStorage.setItem('ID', ID);
       document.getElementById("form").reset();
 

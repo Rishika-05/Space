@@ -4,6 +4,13 @@
 #lead_user {
    cursor: pointer;
 }
+.table-row:hover{
+   -moz-transform: scale(1.02);
+  -webkit-transform: scale(1.02);
+  -o-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  transform: scale(1.02);
+}
 .container-lead {
    font-family: 'Poppins', sans-serif;
    max-width: 1000px;

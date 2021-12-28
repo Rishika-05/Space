@@ -53,7 +53,7 @@ export default function Profile(props) {
 
         let userData = await res.json();
         setuserProfile(userData.user);
-        console.log(userData);
+        
         const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] + '+' + fullName[fullName.length - 1]
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)

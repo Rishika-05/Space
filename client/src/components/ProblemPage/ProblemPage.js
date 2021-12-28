@@ -3,22 +3,47 @@ import { useParams } from 'react-router-dom'
 import './problemPage.css'
 import Ide from '../ide/Ide';
 import Loading from '../Loading/Loading';
+import {Link} from 'react-router-dom';
+
 export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
+    const [userProfile,setuserProfile] = useState({solutions:[]});
     const getQuestion = async () => {
         let res = await fetch(`http://localhost:9002/problemPage/${id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
-        console.log(res);
+        
         const questionData = await res.json();
-        console.log(questionData);
+        
         setQuestion(questionData.question);
+    }
+    const getUser = async()=>{
+        let res = await fetch(`http://localhost:9002/profile/${props.user._id}`, {
+            method: "GET", headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        let userData = await res.json();
+        setuserProfile(userData.user);
+        console.log(userData.user);
+        
+
+    }
+    const verdictColor = (element) => {
+        if (element.verdict === 'Accepted') {
+            return <h6 style={{ "color": "green" }}>{element.verdict}</h6>
+        } else if(element.verdict === "Rejected") {
+            return <h6 style={{ "color": "red" }}>{element.verdict}</h6>
+        } else{
+            return <h6 style={{ "color": "blue" }}>{element.verdict}</h6>
+        }
     }
     useLayoutEffect(() => {
         getQuestion();
+        getUser();
         // eslint-disable-next-line
     }, [])
 
@@ -26,7 +51,7 @@ export default function ProblemPage(props) {
     if (qquestion) {
         return (
             <>
-                <div className='container'>
+                <div className='container d-flex align-items-center justify-content-center'>
                     <div className='col-sm-9 col-lg-9 col-xs-12'>
                         <h3 className='mt-4'>{qquestion.title}</h3>
                         <div className='problem-container p-3 mt-4'>
@@ -49,6 +74,7 @@ export default function ProblemPage(props) {
                             <Ide user={props.user} question={qquestion} />
                         </div>
                     </div>
+                    
                 </div>
             </>
         )

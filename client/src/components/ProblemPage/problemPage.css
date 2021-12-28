@@ -1,3 +1,9 @@
 .problem-container {
     box-shadow: 0px 2px 10px #e0e0e0;
 }
+#submissions-history{
+    border:1px solid black;
+    height:20vw;
+    width:100%;
+    
+}

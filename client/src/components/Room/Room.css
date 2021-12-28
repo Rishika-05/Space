@@ -135,6 +135,13 @@ div #videos {
    cursor: move;
 }
 
+#local_Video div div {
+   border-radius: 25px;
+}
+
 .video {
    position: relative;
+}
+#local_Video div div video{
+   border-radius: 25px;
 }
