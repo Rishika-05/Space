@@ -2887,6 +2887,31 @@
     "clean-stack" "^2.0.0"
     "indent-string" "^4.0.0"
 
+"agora-access-token@^2.0.4":
+  "integrity" "sha512-RtOIvi4PqV1ok3rdnopMZeVwiUqZgG9Pp56kqxJc5cU/+ljRBzs1Al+IThD5ahm528dGsdY1TyP1bJdqmgBCbQ=="
+  "resolved" "https://registry.npmjs.org/agora-access-token/-/agora-access-token-2.0.4.tgz"
+  "version" "2.0.4"
+  dependencies:
+    "crc-32" "1.2.0"
+    "cuint" "0.2.2"
+
+"agora-rtc-react@^1.1.0":
+  "integrity" "sha512-+cvK3gXcUC2FzXkrN9L/nE5B6FqgP2w7fWid5wpsdtzmBMf/gehzN1cDhMSDz2oI3Jq/9zo9R4iVswPx+QtAGA=="
+  "resolved" "https://registry.npmjs.org/agora-rtc-react/-/agora-rtc-react-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "agora-rtc-sdk-ng" "^4.3.0"
+
+"agora-rtc-sdk-ng@^4.3.0":
+  "integrity" "sha512-6SX3S4KJmiJVqITYAoicM2aBhthzvfrM+Fwccdd3vFsBeIetbI2Ajsz3Uhm6+7gotbcorHgm47eKNZWaqpUULg=="
+  "resolved" "https://registry.npmjs.org/agora-rtc-sdk-ng/-/agora-rtc-sdk-ng-4.7.3.tgz"
+  "version" "4.7.3"
+
+"agora-rtc-sdk@^3.6.8":
+  "integrity" "sha512-a9WohFL6Jr4h8uqWDvEleh+Bjgt3eGVFQ17KpxQu3gO0iUs5OY75PbR7kKzPJxGgkeB/DjvVGmJjRmHQ4zTziQ=="
+  "resolved" "https://registry.npmjs.org/agora-rtc-sdk/-/agora-rtc-sdk-3.6.8.tgz"
+  "version" "3.6.8"
+
 "ajv-errors@^1.0.0":
   "integrity" "sha512-DCRfO/4nQ+89p/RK43i8Ezd41EqdGIU4ld7nGF8OQ14oc/we5rEntLCUa7+jrn3nn83BosfwZA0wb4pon2o8iQ=="
   "resolved" "https://registry.npmjs.org/ajv-errors/-/ajv-errors-1.0.1.tgz"
@@ -4423,6 +4448,14 @@
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
 
+"crc-32@1.2.0":
+  "integrity" "sha512-1uBwHxF+Y/4yF5G48fwnKq6QsIXheor3ZLPT80yGBV1oEUwpPojlEhQbWKVw1VwcTQyMGHK1/XMmTjmlsmTTGA=="
+  "resolved" "https://registry.npmjs.org/crc-32/-/crc-32-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "exit-on-epipe" "~1.0.1"
+    "printj" "~1.1.0"
+
 "create-ecdh@^4.0.0":
   "integrity" "sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A=="
   "resolved" "https://registry.npmjs.org/create-ecdh/-/create-ecdh-4.0.4.tgz"
@@ -4776,6 +4809,11 @@
   "integrity" "sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA=="
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.10.tgz"
   "version" "3.0.10"
+
+"cuint@0.2.2":
+  "integrity" "sha1-QICG1AlVDCYxFVYZ6fp7ytw7mRs="
+  "resolved" "https://registry.npmjs.org/cuint/-/cuint-0.2.2.tgz"
+  "version" "0.2.2"
 
 "cyclist@^1.0.1":
   "integrity" "sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk="
@@ -5808,6 +5846,11 @@
     "onetime" "^5.1.0"
     "signal-exit" "^3.0.2"
     "strip-final-newline" "^2.0.0"
+
+"exit-on-epipe@~1.0.1":
+  "integrity" "sha512-h2z5mrROTxce56S+pnvAV890uu7ls7f1kEvVGJbw1OlFH3/mlJ5bkXu0KRyW94v37zzHPiUd55iLn3DA7TjWpw=="
+  "resolved" "https://registry.npmjs.org/exit-on-epipe/-/exit-on-epipe-1.0.1.tgz"
+  "version" "1.0.1"
 
 "exit@^0.1.2":
   "integrity" "sha1-BjJjj42HfMghB9MKD/8aF8uhzQw="
@@ -10381,6 +10424,11 @@
     "ansi-regex" "^5.0.1"
     "ansi-styles" "^5.0.0"
     "react-is" "^17.0.1"
+
+"printj@~1.1.0":
+  "integrity" "sha512-zA2SmoLaxZyArQTOPj5LXecR+RagfPSU5Kw1qP+jkWeNlrq+eJZyY2oS68SU1Z/7/myXM4lo9716laOFAVStCQ=="
+  "resolved" "https://registry.npmjs.org/printj/-/printj-1.1.2.tgz"
+  "version" "1.1.2"
 
 "process-nextick-args@~2.0.0":
   "integrity" "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="

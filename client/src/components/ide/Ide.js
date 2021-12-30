@@ -27,35 +27,26 @@ export default function Ide(props) {
     const cDefault = `#include<bits/stdc++.h>
 using namespace std;
 int main(){
-freopen("input.txt", "r", stdin);
-
-cerr<<"@";
+ 
 return 0;
-} `
-    const javaDefault = `import java.io.*;
+}`
+    const javaDefault = `import java.util.*;
     public class main {
     public static void main(String[] args) {
-        
-        PrintStream ps = new PrintStream(new File("output11.txt"));
-        //InputStream is = new FileInputStream("input.txt");
 
-        //System.setIn(is);
-        System.setOut(ps);
-        System.err.println("@");
     }
 } `
     const kotDefault = `fun main(){
     println("Hello world!")
 } `
-    const pyDefault = `import sys
-sys.stdin = open('input.txt', 'r')
-print("@", file=sys.stderr)`
+    const pyDefault = `print('Hello! World')`
 
     const [theme, setTheme] = useState('nord_dark')
     const [language, setLanguage] = useState('c_cpp')
     const [value, setValue] = useState(cDefault)
     const [output, setOutput] = useState('')
-
+    const [input, setInput] = useState('')
+    const [inputBox, setinputBox] = useState(false);
     const themeChange = (event) => {
         setTheme(event.target.value);
     }
@@ -140,7 +131,7 @@ print("@", file=sys.stderr)`
 
         let inn, qID, uID;
         if (props.question) {
-            inn = props.question.testCase;
+            inn = inputBox ? input : props.question.testCase;
             qID = props.question._id;
             uID = props.user._id;
         }
@@ -149,6 +140,7 @@ print("@", file=sys.stderr)`
             qID = "";
             uID = "";
         }
+        console.log("in " + inn);
         setOutput('Loading result...');
         var data = {
             script: value,
@@ -164,8 +156,9 @@ print("@", file=sys.stderr)`
             },
         });
         let res2 = await res.json();
-
+        res2.cloudOut = res2.cloudOut.trim();
         setOutput(res2.cloudOut);
+        console.log("front output " + res2.cloudOut);
         checkerToast(res2, data);
 
 
@@ -188,7 +181,42 @@ print("@", file=sys.stderr)`
             user: props.user ? props.user._id : "",
             verdict: res.verdict,
         }
-        if (props.question === undefined) { }
+        if (props.question === undefined || inputBox === true) {
+            if (solution.verdict === -1) {
+                toast.error('TimedOut', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            else if (solution.verdict === -2) {
+                toast.error('RunTime Error', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            else if (solution.verdict === 0) {
+                toast.error('Compilation Error', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            return;
+        }
         if (solution.verdict === 1) {
             // console.log(props.question.answer)
             if (res.cloudOut === props.question.answer) {
@@ -237,6 +265,19 @@ print("@", file=sys.stderr)`
             solution.verdict = "Compilation Error";
             soluLog(solution);
             toast.error('Compilation Error', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        else if (solution.verdict === -2) {
+            solution.verdict = "RunTime Error";
+            soluLog(solution);
+            toast.error('RunTime Error', {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -327,44 +368,25 @@ print("@", file=sys.stderr)`
                         tabSize: 2,
                     }} />
                 <br />
-                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>Run Code</button>
-                <h5 className="ms-3">Output</h5>
-                <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '40vw', height: '25vh' }} value={output}></textarea>
+                <div className="form-check">
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => {
+                        setinputBox(!inputBox);
+                        console.log("box " + inputBox);
+                    }} />
+                    <label className="form-check-label" for="flexCheckDefault">
+                        Test against custom input
+                    </label>
+                </div>
+                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>{inputBox ? <>Run code</> : <>Submit</>}</button>
+                <h5 className="ms-3">{inputBox ? <>Input</> : <></>}</h5>
+                {inputBox ? <textarea className="inputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} onChange={() => {
+                    setInput(input);
+                }}></textarea> : <></>}
+                <h5 className="ms-3">{inputBox ? <>Output</> : <></>}</h5>
+                {inputBox ? <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} value={output}></textarea> : <></>}
+
                 <ToastContainer />
             </>
         )
     }
 }
-/*
-
-else if (res.cloudOut === props.question.answer) {
-            questionSolved();
-            solution.verdict = "Accepted"
-            soluLog(solution)
-            toast.success('Correct answer', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
-        else {
-            solution.verdict = "Rejected"
-            soluLog(solution);
-            toast.error('Incorrect Answer', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
-
-
-
-*/

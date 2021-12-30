@@ -21,15 +21,15 @@ module.exports.getResult = async (req, res) => {
         }
         if (language === 'cpp17') {
             assign.fileName = "main.cpp"
-            assign.command = "g++ main.cpp -o main && timeout 1 ./main < input.txt"
+            assign.command = "g++ main.cpp -o main"
         }
         else if (language === 'python3') {
             assign.fileName = "main.py"
-            assign.command = "timeout 1 python3 main.py < input.txt"
+            assign.command = "timeout 1 python3 main.py < input.txt && echo $? || echo $?"
         }
         else if (language === 'java') {
             assign.fileName = "main.java"
-            assign.command = "javac main.java && timeout 1 java main"
+            assign.command = "javac main.java"
         }
         fs.writeFile(assign.fileName, script, function (err) {
             if (err) {
@@ -59,31 +59,78 @@ module.exports.getResult = async (req, res) => {
             })
             ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
                 console.log("The File thing is done")
+                //compile
                 ssh.execCommand(assign.command, { cwd: '/home/user/cloud' }).then(function (result) {
                     output = result.stdout;
                     error = result.stderr;
-                    ssh.execCommand("echo $?",{ cwd: '/home/user/cloud' }).then(function (resultE) {
-                        
-                        let verdict = resultE.stdout;
-                        
-                        console.log("verdict",verdict);
-                        if (verdict  === "0") {
+                    if (error.length > 0)
+                        res.send({ cloudOut: error, cloudErr: error, verdict: 0 });
+                    else if (language === "python3") {
+                        console.log("ou " + output);
+                        let verdict;
+                        if (output.charAt(output.length - 1) === "0") {
                             verdict = 1;
-                            console.log("verdict",verdict);
+                            output = output.slice(0, output.length - 1);
                         }
-                        else {
-                            if (verdict === "1") {
-                                verdict = 0;
-                            } else {
-                                verdict = -1;
+                        else if (output.charAt(output.length - 1) === "4") {
+                            verdict = -1;
+                            output = "";
+                        }
+                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                    }
+                    else if (language === "cpp17") {
+                        //exec
+                        ssh.execCommand("timeout 1 ./main < input.txt && echo $? || echo $?", { cwd: '/home/user/cloud' }).then(function (resultE) {
+
+                            let output1 = resultE.stdout;
+                            let error1 = resultE.stderr;
+                            console.log("ou " + output1);
+                            let verdict;
+                            if (output1.charAt(output1.length - 1) === "0") {
+                                verdict = 1;
+                                output1 = output1.slice(0, output1.length - 1);
                             }
-                        }
-                            res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                        },function(err){
+                            else if (output1.charAt(output1.length - 1) === "4") {
+                                verdict = -1;
+                                output1 = "";
+                            }
+                            else {
+                                verdict = -2;
+                                resultE.stderr = resultE.stderr.replace("timeout: the monitored command dumped core", "");
+                                resultE.stderr = resultE.stderr.replace("timeout 1 ./main < input.txt", "");
+                                resultE.stderr = resultE.stderr.replace("bash: line 1:  ", "");
+                                output1 = resultE.stderr;
+                            }
+                            res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
+                        }, function (err) {
                             console.log(err);
                         })
-                    
-                    
+                    }
+                    else if (language === 'java') {
+                        ssh.execCommand("timeout 1 java main < input.txt && echo $? || echo $?", { cwd: '/home/user/cloud' }).then(function (resultE) {
+                            let output1 = resultE.stdout;
+                            let error1 = resultE.stderr;
+                            console.log("ou " + output1);
+                            console.log("err" + error1);
+                            let verdict;
+                            if (output1.charAt(output1.length - 1) === "0") {
+                                verdict = 1;
+                                output1 = output1.slice(0, output1.length - 1);
+                            }
+                            else if (output1.charAt(output1.length - 1) === "4") {
+                                verdict = -1;
+                                output1 = "";
+                            }
+                            else {
+                                verdict = -2;
+                                output1 = resultE.stderr;
+                            }
+                            res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
+                        }, function (err) {
+                            console.log(err);
+                        })
+                    }
+
                 })
             }, function (error) {
                 console.log("Something's wrong")
@@ -165,4 +212,3 @@ module.exports.solutionLog = async (req, res) => {
         // });
         // let apiOut = await output.json();
         // res.send({ apiOut: apiOut });
-        
