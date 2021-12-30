@@ -138,11 +138,11 @@ const Join = (props) => {
                      <div className="boxmeet mt-5">
                         <h2 className="mb-5" >Join Meeting</h2>
                         <form id="form" className="valid">
-                           <div className="inputBox">
+                           <div className="inputBoxJoin">
                               <input type="text" onChange={(e) => setName(e.target.value)} id="room_name" placeholder="Name" name="room_name" />
                               <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
                            </div>
-                           <div className="inputBox">
+                           <div className="inputBoxJoin">
                               <input type="text" onChange={(e) => setRoomID(e.target.value)} id="room_id" placeholder="Room ID" name="room_id" />
                               <label className="mb-2" style={{ "fontSize": "15px" }} ></label>
                            </div>

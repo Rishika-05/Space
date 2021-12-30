@@ -59,6 +59,10 @@ export default function Profile(props) {
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
         setAvatar(av);
         countSubmissions(userData.user);
+        if(userData.user._id === props.user._id){
+            localStorage.setItem('userMain',JSON.stringify(userData.user));
+            
+        }
     }
     const handleSubmit = (event) => {
 
@@ -70,7 +74,12 @@ export default function Profile(props) {
                 'Content-Type': 'application/json'
             },
         });
+        
+        
+        
         getUserProfile();
+        window.location.reload(false);
+
         toast.success('Details Updated Successfully', {
             position: "top-center",
             autoClose: 2000,
@@ -80,7 +89,6 @@ export default function Profile(props) {
             draggable: true,
             progress: undefined,
         });
-        window.location.reload(false);
     }
     const handleSubmit1 = (event) => {
 

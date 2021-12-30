@@ -7,3 +7,6 @@
    box-shadow: 0px 1px 5px #bbbbbb !important;
    outline: none;
 }
+#run-button{
+   max-width:8vw;
+}

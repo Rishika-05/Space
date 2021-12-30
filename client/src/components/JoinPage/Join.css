@@ -44,11 +44,11 @@
    text-align: center;
 }
 
-.boxmeet .inputBox {
+.boxmeet .inputBoxJoin {
    position: relative;
 }
 
-.boxmeet .inputBox input {
+.boxmeet .inputBoxJoin input {
    width: 100%;
    padding: 0.625rem 0;
    font-size: 1rem;
@@ -61,7 +61,7 @@
    background: transparent;
 }
 
-.boxmeet .inputBox label {
+.boxmeet .inputBoxJoin label {
    position: absolute;
    top: 0;
    left: 0;
@@ -72,9 +72,9 @@
    transition: 0.5s;
 }
 
-.boxmeet .inputBox input:focus~label,
-.boxmeet .inputBox input:valid~label,
-.boxmeet .inputBox input:not([value=""])~label {
+.boxmeet .inputBoxJoin input:focus~label,
+.boxmeet .inputBoxJoin input:valid~label,
+.boxmeet .inputBoxJoin input:not([value=""])~label {
    top: -1.125rem;
    left: 0;
    color: #000000;

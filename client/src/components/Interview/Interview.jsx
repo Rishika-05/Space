@@ -60,7 +60,7 @@ const Interview = () => {
 
     sendToIE(randKey + 'IE');
     sendToIR(randKey + 'IR');
-    document.getElementById("schedule-submit-btn").innerHTML = `Sent...`;
+    document.getElementById("schedule-submit-btn").innerHTML = `Sent`;
 
     setInterval(() => setModal(!modal), 2000);
   }

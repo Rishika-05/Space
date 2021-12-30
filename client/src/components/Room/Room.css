@@ -118,6 +118,7 @@ div #videos {
 }
 
 #local_Video {
+   
    object-fit: cover;
    width: 42vh;
    height: 30vh;
@@ -144,4 +145,10 @@ div #videos {
 }
 #local_Video div div video{
    border-radius: 25px;
+}
+#videos{
+   width: 100vw;
+   
+   height: 100vh;
+   background: rgb(68, 68, 68);
 }

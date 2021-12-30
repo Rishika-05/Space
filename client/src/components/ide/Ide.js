@@ -6,6 +6,8 @@ import Unauthorized from '../unauthorized/Unauthorized';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Beautify from 'ace-builds/src-noconflict/ext-beautify';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-java";
@@ -19,8 +21,12 @@ import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
 
 export default function Ide(props) {
+    const [inputBox, setinputBox] = useState(false);
     useEffect(() => {
         document.title = 'IDE | Space';
+        if(!props.question){
+            setinputBox(true);
+        }
         // eslint-disable-next-line
     }, []);
 
@@ -46,7 +52,8 @@ return 0;
     const [value, setValue] = useState(cDefault)
     const [output, setOutput] = useState('')
     const [input, setInput] = useState('')
-    const [inputBox, setinputBox] = useState(false);
+    const [spinner,setSpinner] = useState(false)
+    
     const themeChange = (event) => {
         setTheme(event.target.value);
     }
@@ -73,7 +80,7 @@ return 0;
     }
 
     function resetClicked() {
-        console.log("fyujjhgtyuik");
+       
         if (language === 'c_cpp') {
             setValue(cDefault);
         }
@@ -130,18 +137,20 @@ return 0;
     const submitter = async () => {
 
         let inn, qID, uID;
+        console.log(inputBox);
+        console.log(input);
         if (props.question) {
             inn = inputBox ? input : props.question.testCase;
             qID = props.question._id;
             uID = props.user._id;
         }
         else {
-            inn = "";
+            inn = input;
             qID = "";
             uID = "";
         }
         console.log("in " + inn);
-        setOutput('Loading result...');
+        
         var data = {
             script: value,
             language: passlanguage(language),
@@ -150,6 +159,7 @@ return 0;
             questionID: qID,
             userID: uID
         }
+        setSpinner(true);
         let res = await fetch(`http://localhost:9002/run`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
@@ -157,9 +167,12 @@ return 0;
         });
         let res2 = await res.json();
         res2.cloudOut = res2.cloudOut.trim();
-        setOutput(res2.cloudOut);
-        console.log("front output " + res2.cloudOut);
+        if(inputBox)
+            setOutput(res2.cloudOut);
+        
+        setSpinner(false);
         checkerToast(res2, data);
+
 
 
     }
@@ -289,10 +302,7 @@ return 0;
         }
     }
 
-    const myStyle = {
-        maxWidth: '8vw',
-        marginLeft: '29vw'
-    }
+    
     if (props.user._id === undefined) {
         return (<Unauthorized />)
     }
@@ -368,7 +378,7 @@ return 0;
                         tabSize: 2,
                     }} />
                 <br />
-                <div className="form-check">
+                {props.question?<div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => {
                         setinputBox(!inputBox);
                         console.log("box " + inputBox);
@@ -376,15 +386,37 @@ return 0;
                     <label className="form-check-label" for="flexCheckDefault">
                         Test against custom input
                     </label>
+                </div>:<></>}
+                
+                <div className = "d-flex justify-content-end my-3">
+                    <button type="button" className="btn btn-primary mx-3" id = "run-button" onClick={submitter}>{spinner?<Loader id = "spinner"
+                        type="Bars"
+                        color="white"
+                        height={25}
+                        width={25   }
+                        visible = {spinner}
+                    />:(inputBox ? <>Run code</> : <>Submit</>)}</button>
                 </div>
-                <button type="button" className="btn btn-primary" style={myStyle} onClick={submitter}>{inputBox ? <>Run code</> : <>Submit</>}</button>
-                <h5 className="ms-3">{inputBox ? <>Input</> : <></>}</h5>
-                {inputBox ? <textarea className="inputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} onChange={() => {
-                    setInput(input);
-                }}></textarea> : <></>}
-                <h5 className="ms-3">{inputBox ? <>Output</> : <></>}</h5>
-                {inputBox ? <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} value={output}></textarea> : <></>}
-
+                <div className = "d-flex justify-content-around">
+                    <div>
+                        <h5 className="ms-3 mb-3">{inputBox ? <>Input</> : <></>}</h5>
+                        {inputBox ? <textarea className="inputBox mb-4 ms-3 p-2" id= "input-run-box" style={{ width: '25vw', height: '25vh' }} onChange={() => {
+                            let currInput = document.getElementById('input-run-box');
+                            setInput(currInput.value);
+                        }}></textarea> : <></>}
+                    </div>
+                    <div>
+                        <h5 className="ms-3 d-flex mb-3">{inputBox ? <>Output &nbsp;</> : <></>}{spinner && inputBox?<Loader id = "spinner"
+                        type="Bars"
+                        color="black"
+                        height={25}
+                        width={25}
+                        visible = {spinner}
+                    />:<></>}</h5>
+                        {inputBox ? <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} value={output}></textarea> : <></>}
+                    </div>
+                    
+                </div>
                 <ToastContainer />
             </>
         )

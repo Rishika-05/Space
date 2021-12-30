@@ -1,17 +1,32 @@
 .cardN {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 440px;
+    max-width: 410px;
     
     text-align: center;
   }
   
-  .title {
+  /* .title {
     color: grey;
     font-size: 18px;
-  }
+  } */
   
 .git-brief{
     height:fit-content;
-    padding: 2px!important;
+    padding: 3px!important;
     margin-right: 2%;
+    
+}
+.git-info-box{
+  border:1px rgb(201, 197, 197) solid;
+  border-radius:5px;  
+  
+}
+.git-info-box div{
+  
+}
+.search-div{
+  width:100vw;
+  display: flex;
+  justify-content: center;
+  
 }
