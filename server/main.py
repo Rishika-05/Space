@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input.txt', 'r')
-while(True):
-  print("Hello");
+
+val = input("Enter your value: ")
+print(val)
 print("@", file=sys.stderr)

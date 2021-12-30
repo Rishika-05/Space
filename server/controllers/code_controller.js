@@ -21,11 +21,11 @@ module.exports.getResult = async (req, res) => {
         }
         if (language === 'cpp17') {
             assign.fileName = "main.cpp"
-            assign.command = "g++ main.cpp -o main && timeout 1 ./main"
+            assign.command = "g++ main.cpp -o main && timeout 1 ./main < input.txt"
         }
         else if (language === 'python3') {
             assign.fileName = "main.py"
-            assign.command = "timeout 1 python3 main.py"
+            assign.command = "timeout 1 python3 main.py < input.txt"
         }
         else if (language === 'java') {
             assign.fileName = "main.java"
@@ -62,22 +62,28 @@ module.exports.getResult = async (req, res) => {
                 ssh.execCommand(assign.command, { cwd: '/home/user/cloud' }).then(function (result) {
                     output = result.stdout;
                     error = result.stderr;
-                    //console.log('out :' + output);
-                    //console.log('err :' + error);
-                    let verdict = 0;
-                    if (error.charAt(error.length - 1) === "@") {
-                        verdict = 1;
-                    }
-                    else {
-                        if (error.length > 1) {
-                            verdict = 0;
-                        } else {
-                            verdict = -1;
+                    ssh.execCommand("echo $?",{ cwd: '/home/user/cloud' }).then(function (resultE) {
+                        
+                        let verdict = resultE.stdout;
+                        
+                        console.log("verdict",verdict);
+                        if (verdict  === "0") {
+                            verdict = 1;
+                            console.log("verdict",verdict);
                         }
-                    }
-                    res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                    console.log('ver ' + verdict);
-                    console.log('err ' + error)
+                        else {
+                            if (verdict === "1") {
+                                verdict = 0;
+                            } else {
+                                verdict = -1;
+                            }
+                        }
+                            res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                        },function(err){
+                            console.log(err);
+                        })
+                    
+                    
                 })
             }, function (error) {
                 console.log("Something's wrong")
@@ -159,3 +165,4 @@ module.exports.solutionLog = async (req, res) => {
         // });
         // let apiOut = await output.json();
         // res.send({ apiOut: apiOut });
+        
