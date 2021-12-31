@@ -18,7 +18,11 @@ import { ToastContainer } from 'react-toastify';
 import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
 import Solution from './components/Solution/Solution.jsx'
 import Agora from './components/VideoCall/VideoCall.js'
+<<<<<<< HEAD
 import Payment from './components/PaymentPage/Payment.jsx'
+=======
+import About from './components/About/About'
+>>>>>>> 070a392731c1362afad539e5a59884c7291b9926
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,7 +35,7 @@ function App() {
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
   const [inCall, setInCall] = useState(false);
-  
+
   useEffect(() => {
     if (localStorage.getItem('userMain')) {
       let u = JSON.parse(localStorage.getItem('userMain'));
@@ -67,6 +71,7 @@ function App() {
           <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} />} />
           <Route exact path="/solution/:id" element={<Solution user={user} />} />
           <Route exact path="/payment" element={<Payment user={user} />} />
+          <Route exact path="/about" element={<About />} />
         </Routes>
         <ToastContainer />
       </Router>

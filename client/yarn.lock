@@ -6517,6 +6517,11 @@
   "resolved" "https://registry.npmjs.org/growly/-/growly-1.3.0.tgz"
   "version" "1.3.0"
 
+"gsap@^3.9.1":
+  "integrity" "sha512-JSGVYoC6da4pIjdF/yxFU6Rz8OojOIDkbooveZlfNg0+JIoFoRruyfWAEi6R/gUeNcuOiTqUIb0gi1nCNrHf8w=="
+  "resolved" "https://registry.npmjs.org/gsap/-/gsap-3.9.1.tgz"
+  "version" "3.9.1"
+
 "gzip-size@5.1.1":
   "integrity" "sha512-FNHi6mmoHvs1mxZAds4PpdCS6QG8B4C1krxJsMutgxl5t3+GlRTzzI3NEkifXx2pVsOvJdOGSmIgDhQ55FwdPA=="
   "resolved" "https://registry.npmjs.org/gzip-size/-/gzip-size-5.1.1.tgz"
@@ -11497,6 +11502,11 @@
     "@types/json-schema" "^7.0.8"
     "ajv" "^6.12.5"
     "ajv-keywords" "^3.5.2"
+
+"scrollmagic@^2.0.8":
+  "integrity" "sha512-UYXEGBPVLziovXl3FjHGkY9c4UXKUKopIdXwWR2JapWxCo0U345wYegi7rcsv5vHf/ktc1bSNWy4QRFiV+Yccw=="
+  "resolved" "https://registry.npmjs.org/scrollmagic/-/scrollmagic-2.0.8.tgz"
+  "version" "2.0.8"
 
 "scss-tokenizer@^0.2.3":
   "integrity" "sha1-jrBtualyMzOCTT9VMGQRSYR85dE="
