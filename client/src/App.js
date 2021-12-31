@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
 import Solution from './components/Solution/Solution.jsx'
 import Agora from './components/VideoCall/VideoCall.js'
+import Payment from './components/PaymentPage/Payment.jsx'
 import {
   BrowserRouter as Router,
   Routes,
@@ -65,6 +66,7 @@ function App() {
           <Route exact path="/puzzles" element={<Puzzles user={user} />} />
           <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} />} />
           <Route exact path="/solution/:id" element={<Solution user={user} />} />
+          <Route exact path="/payment" element={<Payment user={user} />} />
         </Routes>
         <ToastContainer />
       </Router>
