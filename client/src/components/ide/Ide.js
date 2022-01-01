@@ -45,7 +45,7 @@ export default function Ide(props) {
     const [input, setInput] = useState('')
     const [spinner,setSpinner] = useState(false)
         
-    const socket = io.connect("http://localhost:9001/",{ transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/",{ transports: ['websocket', 'polling', 'flashsocket'] });
     const [inputBox, setinputBox] = useState(false);
     const [changeSide,setchangeSide] = useState(true);
     useEffect(() => {
@@ -56,12 +56,15 @@ export default function Ide(props) {
         if(props.inInterview){
             joinRoom();
             socket.on('ide',(data)=>{
-                setchangeSide(false);
-                setValue(data);
-                
+                // setchangeSide(false);
+                if (data !== value) {
+                    // setchangeSide(true);
+                    setValue(data);
+                }
+                // console.log("changeSide");
             })
             socket.on('language',(lann)=>{
-                setchangeSide(false);
+                // setchangeSide(false);
                 setLanguage(lann);
                 let options = document.getElementById('language-dropdown');
                 if (lann === 'c_cpp') {
@@ -79,7 +82,19 @@ export default function Ide(props) {
                 
             })
             socket.on('reset',(data)=>{
-                console.log(data);
+                // console.log(data);
+                if (language === 'c_cpp') {
+                    setValue(cDefault);
+                }
+                if (language === 'python') {
+                    setValue(pyDefault);
+                }
+                if (language === 'java') {
+                    setValue(javaDefault);
+                }
+                if (language === 'kotlin') {
+                    setValue(kotDefault);
+                }
             })
         }
         // eslint-disable-next-line
@@ -124,12 +139,19 @@ export default function Ide(props) {
             }
         }
     }
+    let timeout = null;
 
     function onChange(newValue) {
         setValue(newValue);
-        setchangeSide(true);
-        if(props.inInterview){
-            socket.emit('ide',newValue);
+        // setchangeSide(true);
+        if (props.inInterview) {
+            if (timeout != null) { 
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                socket.emit('ide', newValue);
+                console.log("yoyo");
+            }, 500);
         }
     }
 

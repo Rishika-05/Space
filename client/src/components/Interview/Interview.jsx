@@ -122,8 +122,8 @@ const Interview = () => {
             <h6>...</h6>
             <button type="button" onClick={toggle}  style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Schedule</button>
           </div>
-          <div className="imgContainer pull">
-            <img src={join} alt="Problem" className='imgg' />
+          <div className="imgContainer pull mt-5">
+            <img src={join} alt="Problem" className='imgg mt-5' />
             <h6>...</h6>
             <Link to="/interview"><button type="button" onClick={newTab} style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button></Link>
           </div>
