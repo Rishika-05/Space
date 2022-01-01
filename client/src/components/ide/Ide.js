@@ -45,7 +45,7 @@ export default function Ide(props) {
     const [input, setInput] = useState('')
     const [spinner,setSpinner] = useState(false)
         
-    const socket = io.connect("http://localhost:9001/",{ transports: ['websocket', 'polling', 'flashsocket'] });
+    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com",{ transports: ['websocket', 'polling', 'flashsocket'] });
     const [inputBox, setinputBox] = useState(false);
     const [changeSide,setchangeSide] = useState(true);
     useEffect(() => {
@@ -79,7 +79,7 @@ export default function Ide(props) {
                 
             })
             socket.on('reset',(data)=>{
-                console.log(data);
+                resetClicked();
             })
         }
         // eslint-disable-next-line
