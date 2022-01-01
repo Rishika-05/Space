@@ -19,7 +19,7 @@
 }
 #right-profile-data{
     
-    flex-basis: 60%;
+    flex-basis: 70%;
 }
 .left-card{
     box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
@@ -125,6 +125,7 @@
     padding-left:15px;
     padding-right:15px;
     padding-bottom: 15px;
+    min-height:65px;
 }
 #ques-link{
     flex-basis: 50%;
@@ -139,8 +140,9 @@
     color:rgb(58, 154, 233);
 }
 #verdict-text{
-    
-    align-self:flex-end;
+    flex-basis: 35%;
+    text-decoration:none;
+    max-width:5vw;
 }
 @media screen and (max-width:740px){
     #outer-div{

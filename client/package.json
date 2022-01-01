@@ -33,6 +33,7 @@
     "react-tsparticles": "^1.37.5",
     "reactstrap": "^9.0.1",
     "scrollmagic": "^2.0.8",
+    "socket.io-client": "^4.4.0",
     "vanta": "^0.5.21",
     "web-vitals": "^1.0.1",
     "yarn": "^1.22.17"

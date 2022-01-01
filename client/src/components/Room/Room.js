@@ -194,7 +194,7 @@ const Room = (props) => {
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="code_space">
                      <div className="container-fluid">
-                        <Ide user={props.user} />
+                        <Ide user={props.user} inInterview = {true} />
                      </div>
                   </div>
                   <div className="col-md-12 col-sm-12 d-none" id="git_space">

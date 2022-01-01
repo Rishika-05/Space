@@ -179,7 +179,7 @@ export default function Profile(props) {
                     </div>
                     <div id="right-profile-data">
                         <div className="right-card">
-                            <h6 className="px-3 pt-2">Submissions</h6>
+                            <h6 className="px-3 pt-2"><i class="fas fa-clipboard-check"></i> &nbsp; Submissions</h6>
                             <hr></hr>
                             <div id = "submissions-box">
                                 {
@@ -198,7 +198,7 @@ export default function Profile(props) {
                             </div>
                         </div>
                         <div className="right-card">
-                            <h6 className="px-3 pt-2">{submissions} submissions this year</h6>
+                            <h6 className="px-3 pt-2"><i class="far fa-calendar-alt"></i> &nbsp; {submissions} submissions this year</h6>
                             <Calender calender={userProfile.calender}></Calender>
                         </div>
                     </div>

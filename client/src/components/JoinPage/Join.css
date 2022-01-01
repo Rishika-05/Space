@@ -99,8 +99,8 @@
 
 #localVideo {
    object-fit: cover;
-   width: 650px;
-   height: 375px;
+   width: inherit;
+   height: inherit;
    display: block;
    background: #424242;
    transition: right 0.5s linear;
@@ -114,8 +114,8 @@
 .video-mask {
    top: 18.5%;
    left: 5%;
-   width: 650px;
-   height: 375px;
+   width: 55vw;
+   height: 30vw;
    border-radius: 20px;
    overflow: hidden;
    position: relative;

@@ -10,8 +10,7 @@ export default function Navbar(props) {
 
     const navigate = useNavigate();
     let loc = useLocation();
-    let userMain = localStorage.getItem('userMain');
-    let userMainConv = JSON.parse(userMain);
+   
     
     const userProfile = () => {
         navigate(`/profile/${props.user._id}`)
@@ -63,7 +62,7 @@ export default function Navbar(props) {
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={UserPic} alt="" style={{ "height": "25px", "marginRight": "10px" }} />{userMainConv.name}
+                                    <img src={UserPic} alt="" style={{ "height": "25px", "marginRight": "10px" }} />{props.user.name}
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "18px" }}>
                                     <li><div className="dropdown-item" onClick={userProfile}>Profile</div></li>

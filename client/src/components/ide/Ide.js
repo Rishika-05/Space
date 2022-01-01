@@ -19,41 +19,76 @@ import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
-
+import io from "socket.io-client";
 export default function Ide(props) {
-    const [inputBox, setinputBox] = useState(false);
-    useEffect(() => {
-        document.title = 'IDE | Space';
-        if(!props.question){
-            setinputBox(true);
-        }
-        // eslint-disable-next-line
-    }, []);
-
     const cDefault = `#include<bits/stdc++.h>
-using namespace std;
-int main(){
- 
-return 0;
-}`
-    const javaDefault = `import java.util.*;
-    public class main {
-    public static void main(String[] args) {
-
-    }
-} `
-    const kotDefault = `fun main(){
-    println("Hello world!")
-} `
-    const pyDefault = `print('Hello! World')`
-
+    using namespace std;
+    int main(){
+     
+    return 0;
+    }`
+        const javaDefault = `import java.util.*;
+        public class main {
+        public static void main(String[] args) {
+    
+        }
+    } `
+        const kotDefault = `fun main(){
+        println("Hello world!")
+    } `
+        const pyDefault = `print('Hello! World')`
+    
     const [theme, setTheme] = useState('nord_dark')
     const [language, setLanguage] = useState('c_cpp')
     const [value, setValue] = useState(cDefault)
     const [output, setOutput] = useState('')
     const [input, setInput] = useState('')
     const [spinner,setSpinner] = useState(false)
-    
+        
+    const socket = io.connect("http://localhost:9001/",{ transports: ['websocket', 'polling', 'flashsocket'] });
+    const [inputBox, setinputBox] = useState(false);
+    const [changeSide,setchangeSide] = useState(true);
+    useEffect(() => {
+        document.title = 'IDE | Space';
+        if(!props.question){
+            setinputBox(true);
+        }
+        if(props.inInterview){
+            joinRoom();
+            socket.on('ide',(data)=>{
+                setchangeSide(false);
+                setValue(data);
+                
+            })
+            socket.on('language',(lann)=>{
+                setchangeSide(false);
+                setLanguage(lann);
+                let options = document.getElementById('language-dropdown');
+                if (lann === 'c_cpp') {
+                    options.selectedIndex = 0;
+                }
+                if (lann === 'python') {
+                    options.selectedIndex = 2;
+                }
+                if (lann === 'java') {
+                    options.selectedIndex = 1;
+                }
+                if (lann === 'kotlin') {
+                    options.selectedIndex = 3;
+                }
+                
+            })
+            socket.on('reset',(data)=>{
+                console.log(data);
+            })
+        }
+        // eslint-disable-next-line
+    }, []);
+    const joinRoom = ()=>{
+        var id = window.localStorage.getItem('ID');
+        socket.emit('joinRoom',id);
+    }
+
     const themeChange = (event) => {
         setTheme(event.target.value);
     }
@@ -61,26 +96,49 @@ return 0;
     const lanChange = (event) => {
         setLanguage(event.target.value);
         let lann = event.target.value;
+        if(props.inInterview){
+            socket.emit('language',lann);
+        }
         if (lann === 'c_cpp') {
             setValue(cDefault)
+            if(props.inInterview){
+                socket.emit('ide',cDefault);
+            }
         }
         if (lann === 'python') {
             setValue(pyDefault)
+            if(props.inInterview){
+                socket.emit('ide',pyDefault);
+            }
         }
         if (lann === 'java') {
             setValue(javaDefault)
+            if(props.inInterview){
+                socket.emit('ide',javaDefault);
+            }
         }
         if (lann === 'kotlin') {
             setValue(kotDefault)
+            if(props.inInterview){
+                socket.emit('ide',kotDefault);
+            }
         }
     }
 
     function onChange(newValue) {
         setValue(newValue);
+        setchangeSide(true);
+        if(props.inInterview){
+            socket.emit('ide',newValue);
+        }
     }
 
     function resetClicked() {
        
+        if(props.inInterview){
+            let reset = 1;
+            socket.emit('reset',reset);
+        }
         if (language === 'c_cpp') {
             setValue(cDefault);
         }
@@ -322,7 +380,7 @@ return 0;
                                     <text className="nav-link disabled">Language</text>
                                 </li>
                                 <li>
-                                    <select className="form-select" aria-label="Default select example" onChange={lanChange}>
+                                    <select id = "language-dropdown" className="form-select" aria-label="Default select example" onChange={lanChange}>
                                         <option selected value="c_cpp">C++</option>
                                         <option value="java">Java</option>
                                         <option value="python">Python</option>
