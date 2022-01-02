@@ -19,7 +19,7 @@ import PuzzlePage from './components/PuzzlePage/PuzzlePage.jsx'
 import Solution from './components/Solution/Solution.jsx'
 import Agora from './components/VideoCall/VideoCall.js'
 import Payment from './components/PaymentPage/Payment.jsx'
-import About from './components/About/About'
+import About from './components/About/src/index.js'
 import {
   BrowserRouter as Router,
   Routes,

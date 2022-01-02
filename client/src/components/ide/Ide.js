@@ -45,11 +45,7 @@ export default function Ide(props) {
     const [input, setInput] = useState('')
     const [spinner,setSpinner] = useState(false)
         
-<<<<<<< HEAD
-    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com",{ transports: ['websocket', 'polling', 'flashsocket'] });
-=======
     const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/",{ transports: ['websocket', 'polling', 'flashsocket'] });
->>>>>>> 4597efe2e3b4119ef13ddd3b4e06d1e15a688572
     const [inputBox, setinputBox] = useState(false);
     const [changeSide,setchangeSide] = useState(true);
     useEffect(() => {
@@ -86,9 +82,6 @@ export default function Ide(props) {
                 
             })
             socket.on('reset',(data)=>{
-<<<<<<< HEAD
-                resetClicked();
-=======
                 // console.log(data);
                 if (language === 'c_cpp') {
                     setValue(cDefault);
@@ -102,7 +95,6 @@ export default function Ide(props) {
                 if (language === 'kotlin') {
                     setValue(kotDefault);
                 }
->>>>>>> 4597efe2e3b4119ef13ddd3b4e06d1e15a688572
             })
         }
         // eslint-disable-next-line
