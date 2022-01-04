@@ -37,15 +37,15 @@ const Contact = () => {
       <div className="c-bg"></div>
       <div className="c-wrapper">
         <div className="c-left">
-          <h1 className="c-title">Let's discuss your project</h1>
-          <div className="c-info">
+          <h1 className="c-title">Contact Us</h1>
+          <div className="c-info ms-5">
             <div className="c-info-item">
               <img src={Phone} alt="" className="c-icon" />
               +1 1234 556 75
             </div>
             <div className="c-info-item">
               <img className="c-icon" src={Email} alt="" />
-              contact@lama.dev
+              space@gmail.com
             </div>
             <div className="c-info-item">
               <img className="c-icon" src={Address} alt="" />
@@ -54,13 +54,13 @@ const Contact = () => {
           </div>
         </div>
         <div className="c-right">
-          <p className="c-desc">
+          {/* <p className="c-desc">
             <b>What’s your story?</b> Get in touch. Always available for
             freelancing if the right project comes along. me.
-          </p>
-          <form ref={formRef} onSubmit={handleSubmit}>
-            <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Name" name="user_name" />
-            <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Subject" name="user_subject" />
+          </p> */}
+          <form ref={formRef} className="mt-5" onSubmit={handleSubmit}>
+            <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Name" name="user_name" /><br/>
+            <input style={{ backgroundColor: darkMode && "#333" }} type="text" placeholder="Subject" name="user_subject" /><br />
             <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Email" name="user_email" />
             <textarea style={{backgroundColor: darkMode && "#333"}} rows="5" placeholder="Message" name="message" />
             <button>Submit</button>

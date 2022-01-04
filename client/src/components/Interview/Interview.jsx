@@ -117,13 +117,13 @@ const Interview = () => {
           <h2 style={{ fontSize: '4vw', fontWeight: 'bold', color: '#263238' }}>Improve Your Skills</h2>
         </div>
         <div className="bottom_boxx" style={{ textAlign: 'center' }}>
-          <div className="imgContainer">
+          <div className="imgContainer mt-5">
             <img src={schedule} alt="Interview" className='imgg' />
             <h6>...</h6>
             <button type="button" onClick={toggle}  style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Schedule</button>
           </div>
           <div className="imgContainer pull mt-5">
-            <img src={join} alt="Problem" className='imgg mt-5' />
+            <img src={join} alt="Problem" className='imgg' />
             <h6>...</h6>
             <Link to="/interview"><button type="button" onClick={newTab} style={{ "fontSize": "18px" }} className="btn btn-dark my-4">Join</button></Link>
           </div>

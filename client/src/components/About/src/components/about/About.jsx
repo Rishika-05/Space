@@ -81,7 +81,7 @@ const About = (props) => {
     );
   }else{
     return (
-      <div className="a" style = {{"margin-left":"10%"}}>
+      <div className="a mt-5" style = {{"margin-left":"10%"}}>
         
         <div className="a-right">
           <h1 className="a-title">{title}</h1>

@@ -24,17 +24,17 @@ export default function Home(props) {
             <div className="bottom_boxx" style={{ textAlign: 'center' }}>
                 <div className="imgContainer">
                     <img src={inter} alt="Interview" className='imgg mb-4' />
-                    <h3 className='hh3 selectionColor mt-5'>Interview</h3>
+                    <h3 className='hh3 selectionColor mt-4'>Interview</h3>
                     <Link to='/interview' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Interview </button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={prob} alt="Problem" className='imgg  mb-4' />
-                    <h3 className='hh3 selectionColor mt-5'>Problem Solving</h3>
+                    <h3 className='hh3 selectionColor mt-4'>Problem Solving</h3>
                     <Link to='/problemset' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Problem Solving</button></Link>
                 </div>
                 <div className="imgContainer pull">
                     <img src={puz} alt="Puzzle" className='imgg  mb-4' />
-                    <h3 className='hh3 selectionColor mt-5'>Puzzles</h3>
+                    <h3 className='hh3 selectionColor mt-4'>Puzzles</h3>
                     <Link to='/puzzles' style={{ "textDecoration": "none" }}><button className="btn btn-dark btn-sm">Puzzles</button></Link>
                 </div>
             </div>

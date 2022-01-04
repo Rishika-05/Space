@@ -1,7 +1,7 @@
 .maincontent{
     position:absolute !important;
     width: 100vw;
-    margin-top: 3.5%;
+    margin-top: 2.5%;
 }
 
 .selectionColor::selection{
@@ -24,7 +24,7 @@
     display: flex;
     justify-content: space-evenly;
     width: 100vw;
-    margin-top: 13.6%;
+    margin-top: 11.6%;
     height: auto;
 
     align-items: center;

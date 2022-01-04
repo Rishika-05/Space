@@ -1,7 +1,7 @@
 .main_content {
    position: absolute !important;
    width: 100vw;
-   margin-top: 3.2%;
+   margin-top: 2.5%;
 }
 
 .bottom_boxx {
@@ -9,7 +9,7 @@
    display: flex;
    justify-content: space-evenly;
    width: 100vw;
-   margin-top: 17%;
+   margin-top: 14%;
    height: auto;
    align-items: center;
 }
