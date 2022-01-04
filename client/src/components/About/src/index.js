@@ -12,10 +12,17 @@ import App from './App.jsx';
 const About = () => {
   const ref = useRef();
   const text = document.querySelector("#about-logo");
-        
+  const scroll = (x)=>{
+    if(x>1400){
+      window.scrollTo(0,2135);
+      return;
+    }
+    window.scrollTo(0,x);
+      let scrollDelay = setTimeout(()=>{scroll(x+5)},70);
+  }
   
   useEffect(() => {
-    // const textAnim = gsap.fromTo(text,{ opacity: 1 }, { opacity: 0,duration:2});
+    scroll(0);  
      
   })
   return (

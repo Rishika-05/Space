@@ -2,18 +2,7 @@ import { AirPods } from "../images";
 import { useImage } from "../hooks";
 
 const AirpodsArray = () => {
-  const [AA0, AA0S] = useImage(AirPods[0]);
-  const [AA1, AA1S] = useImage(AirPods[1]);
-  const [AA2, AA2S] = useImage(AirPods[2]);
-  const [AA3, AA3S] = useImage(AirPods[3]);
-  const [AA4, AA4S] = useImage(AirPods[4]);
-  const [AA5, AA5S] = useImage(AirPods[5]);
-  const [AA6, AA6S] = useImage(AirPods[6]);
-  const [AA7, AA7S] = useImage(AirPods[7]);
-  const [AA8, AA8S] = useImage(AirPods[8]);
-  const [AA9, AA9S] = useImage(AirPods[9]);
-
-  const [AA10, AA10S] = useImage(AirPods[10]);
+  
   const [AA11, AA11S] = useImage(AirPods[11]);
   const [AA12, AA12S] = useImage(AirPods[12]);
   const [AA13, AA13S] = useImage(AirPods[13]);
@@ -229,17 +218,7 @@ const [AA206, AA206S] = useImage(AirPods[206]);
 
 
   const newImages = Array.of(
-    [AA0, AA0S],
-    [AA1, AA1S],
-    [AA2, AA2S],
-    [AA3, AA3S],
-    [AA4, AA4S],
-    [AA5, AA5S],
-    [AA6, AA6S],
-    [AA7, AA7S],
-    [AA8, AA8S],
-    [AA9, AA9S],
-    [AA10, AA10S],
+    
     [AA11, AA11S],
     [AA12, AA12S],
     [AA13, AA13S],

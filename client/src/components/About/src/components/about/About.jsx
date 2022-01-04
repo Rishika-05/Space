@@ -17,27 +17,40 @@ import problemLogo from '../../img/problemLogo.jpg'
 const About = (props) => {
   const [image,setImage] = useState({});
   const [logo,setLogo] = useState({});
+  const [title,setTitle] = useState("Title");
+  const [aboutContent,setContent] = useState("Content");
   useEffect(() => {
     setLogo(Award);
     if(props.currImg === 1){
       setImage(Interview);
-      setLogo(agora)
+      setLogo(agora);
+      setTitle("Seamless 1:1 audio and video interview experience");
+      setContent("AgoraRTC powered audio-video  interface for low latency connections");
+      
     }
     if(props.currImg === 2){
       setImage(whiteboard);
-      setLogo(white)
+      setLogo(white);
+      setTitle("Collaborative whiteboard to share your thoughts");
+      setContent("Real-time drawing and sharing with space whiteboard");
     }
     if(props.currImg === 3){
       setImage(chat);
       setLogo(chatLogo);
+      setTitle("Share your professional handles and links with space chat");
+      setContent("Want to share something use space chat")
     }
     if(props.currImg === 4){
       setImage(problemset);
       setLogo(problemLogo);
+      setTitle("Practice with our problemset and be interview ready");
+      setContent("Easy-Hard, implementation-dp we have it all")
     }
     if(props.currImg === 5){
       setImage(IDE);
-      setLogo(google)
+      setLogo(google);
+      setTitle("Code and test it with intergrated IDE and Judge ");
+      setContent("GCP powered IDE and online Judge")
     }
   })
   if(props.position === 1){
@@ -54,26 +67,14 @@ const About = (props) => {
           </div>
         </div>
         <div className="a-right">
-          <h1 className="a-title">About Me</h1>
+          <h1 className="a-title">{title}</h1>
           <p className="a-sub">
-            It is a long established fact that a reader will be distracted by the
-            readable content.
+            {aboutContent}
           </p>
-          <p className="a-desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat duis aute irure dolor in reprehende.
-          </p>
+         
           <div className="a-award">
             <img src={logo} alt="" className="a-award-img" />
-            <div className="a-award-texts">
-              <h4 className="a-award-title">International Design Awards 2021</h4>
-              <p className="a-award-desc">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur autodit
-                and fugit.
-              </p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -83,26 +84,14 @@ const About = (props) => {
       <div className="a" style = {{"margin-left":"10%"}}>
         
         <div className="a-right">
-          <h1 className="a-title">About Me</h1>
+          <h1 className="a-title">{title}</h1>
           <p className="a-sub">
-            It is a long established fact that a reader will be distracted by the
-            readable content.
+           {aboutContent}
           </p>
-          <p className="a-desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat duis aute irure dolor in reprehende.
-          </p>
+          
           <div className="a-award">
             <img src={logo} alt="" className="a-award-img" />
-            <div className="a-award-texts">
-              <h4 className="a-award-title">International Design Awards 2021</h4>
-              <p className="a-award-desc">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur autodit
-                and fugit.
-              </p>
-            </div>
+            
           </div>
         </div>
         <div className="a-left">

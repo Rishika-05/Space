@@ -1,15 +1,4 @@
-import A0 from "./1.png";
-import A1 from "./1.png";
-import A2 from "./2.png";
-import A3 from "./3.png";
-import A4 from "./4.png";
-import A5 from "./5.png";
-import A6 from "./6.png";
-import A7 from "./7.png";
-import A8 from "./8.png";
-import A9 from "./9.png";
 
-import A10 from "./10.png";
 import A11 from "./11.png";
 import A12 from "./12.png";
 import A13 from "./13.png";
@@ -216,18 +205,7 @@ import A207 from "./207.png";
 
 
 export const AirPods = Array.of(
-  A0,
-  A1,
-  A2,
-  A3,
-  A4,
-  A5,
-  A6,
-  A7,
-  A8,
-  A9,
-
-  A10,
+ 
   A11,
   A12,
   A13,
