@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
     using namespace std;
     int main(){
-     hh
+     cout << "2\n0";
     return 0;
     }

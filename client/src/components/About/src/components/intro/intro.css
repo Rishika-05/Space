@@ -74,11 +74,12 @@
 }
 
 .i-img {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   margin-top:10vw;
   object-fit: cover;
   position: absolute;
+  margin-left: -160px;
 }
 
 .i-bg {

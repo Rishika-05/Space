@@ -1,6 +1,5 @@
-
 .App {
-  font-family: sans-serif;
+    font-family: sans-serif;
   text-align: center;
 }
 
@@ -14,7 +13,7 @@
     rgba(240, 240, 240, 1),
     rgba(240, 240, 240, 1)
   );
-  background-size: 200px 100%;
+  background-size: 200px 100vw;
   background-repeat: no-repeat;
   border-radius: 2px;
   display: inline-block;
