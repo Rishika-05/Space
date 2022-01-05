@@ -25,11 +25,12 @@ const Room = (props) => {
    const {setStart, setInCall } = props;
    const { show_video, show_chat, show_board, show_code, show_git } = UseUtils();
    setInterview(false);
-   let f = 0;
    const { users, tracks } = props;
    
    const navigate = useNavigate();
-   const [aud,setAud] = useState(audi);
+   // eslint-disable-next-line
+   const [aud, setAud] = useState(audi);
+   // eslint-disable-next-line
    const [vid,setVid] = useState(vidi);
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);

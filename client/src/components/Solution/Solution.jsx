@@ -13,7 +13,7 @@ export default function Solution(props) {
         var editor = document.getElementsByClassName('ace_content');
         editor = editor[0];
         console.log(editor);
-        
+        // eslint-disable-next-line
     },[id])
     const getSolution = async ()=>{
         let res = await fetch(`http://localhost:9002/solution/${id}`, {

@@ -7,11 +7,7 @@ const Repository = ({ repo, user }) => (
     <div>
       <div className="title">
         <i className="fa fa-book pr-1" />
-        <a
-          href={`https://github.com/${repo.full_name}`}
-          target="_blank"
-          rel="noopener norefferer"
-        >
+        <a href={`https://github.com/${repo.full_name}`} rel="noreferrer" target="_blank">
           <span>{repo.name}</span>
         </a>
       </div>

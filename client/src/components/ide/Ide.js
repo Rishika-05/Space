@@ -47,6 +47,7 @@ export default function Ide(props) {
         
     const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/",{ transports: ['websocket', 'polling', 'flashsocket'] });
     const [inputBox, setinputBox] = useState(false);
+    // eslint-disable-next-line 
     const [changeSide,setchangeSide] = useState(true);
     useEffect(() => {
         document.title = 'IDE | Space';

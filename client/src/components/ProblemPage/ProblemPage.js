@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom'
 import './problemPage.css'
 import Ide from '../ide/Ide';
 import Loading from '../Loading/Loading';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 
 export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
+    // eslint-disable-next-line
     const [userProfile,setuserProfile] = useState({solutions:[]});
     const getQuestion = async () => {
         let res = await fetch(`http://localhost:9002/problemPage/${id}`, {

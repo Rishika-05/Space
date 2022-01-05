@@ -99,7 +99,7 @@ export default function Problemset(props) {
         if(data.status.solved && !data.status.unsolved){
             let appliedFilter = [];
             for(let i=0;i<data2.questions.length;i++){
-                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) != -1){
+                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) !== -1){
                     appliedFilter.push(data2.questions[i]);
                 }
             }
@@ -108,7 +108,7 @@ export default function Problemset(props) {
         if(!data.status.solved && data.status.unsolved){
             let appliedFilter = [];
             for(let i=0;i<data2.questions.length;i++){
-                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) == -1){
+                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) === -1){
                     appliedFilter.push(data2.questions[i]);
                 }
             }
@@ -140,7 +140,7 @@ export default function Problemset(props) {
                         {
 
                             questions && questions.map((question) => {
-                                return <Problem question={question} key={question._id} isSolved = {props.user.questionsSolved.indexOf(question._id) != -1} />
+                                return <Problem question={question} key={question._id} isSolved = {props.user.questionsSolved.indexOf(question._id) !== -1} />
                             })
                         }
                     </div>
