@@ -4,11 +4,11 @@ import "./Repositories.css";
 import Repository from "./Repository";
 
 const Repositories = ({ repos, user }) => (
-  <section className="repositories">
+  <div className="repositories">
     {repos.map((repo) => (
       <Repository key={repo.id} repo={repo} user={user} />
     ))}
-  </section>
+  </div>
 );
 
 export default Repositories;

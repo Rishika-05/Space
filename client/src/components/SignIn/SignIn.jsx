@@ -83,17 +83,17 @@ export default function SignIn(props) {
 
     return (
         <div>
-            <div>
+            <div className="login-parent">
                 <div className="container upperBox">
                     <div className="container left">
                         <img src={logo} className="gif_left phone" alt="logo"></img>
                         <img src={logoText} className="gif_left pull" alt="main_logo"></img>
-                        <p className="text">A Space to practice and achieve DREAMS</p>
+                        <p className="text mb-4">A Space to practice and achieve DREAMS</p>
                     </div>
                     <div className="container right">
                         <div className="container box">
                             <div className="form-group">
-                                <input name="email" type="email" value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"
+                                <input name="email" type="email" value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Work Email"
                                     onChange={handleChange} />
 
                             </div>

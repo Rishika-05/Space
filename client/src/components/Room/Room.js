@@ -13,10 +13,9 @@ import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
 } from "reactstrap"
 
-var audi = window.localStorage.getItem('audio');
-var vidi = window.localStorage.getItem('video');
-audi = (audi === "true");
-vidi = (vidi === "true");
+
+
+
 
 
 const Room = (props) => {
@@ -28,19 +27,16 @@ const Room = (props) => {
    const { users, tracks } = props;
    
    const navigate = useNavigate();
-   // eslint-disable-next-line
-   const [aud, setAud] = useState(audi);
-   // eslint-disable-next-line
-   const [vid,setVid] = useState(vidi);
+   
    const [modal, setModal] = useState(false);
    const [modalw, setModalW] = useState(false);
-   const [trackState, setTrackState] = useState({ video: !vidi, audio: !audi });
+   const [trackState, setTrackState] = useState({ video: JSON.parse(localStorage.getItem('video')), audio: JSON.parse(window.localStorage.getItem('audio')) });
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
-
    
-   const [micr, setMicr] = useState(!aud);
-   const [camr, setCamr] = useState(!vid);
+   
+   const [micr, setMicr] = useState(JSON.parse(window.localStorage.getItem('audio')));
+   const [camr, setCamr] = useState(JSON.parse(localStorage.getItem('video')));
 
    
 
@@ -48,13 +44,11 @@ const Room = (props) => {
       if (window.localStorage.getItem('Type') === 'IE') {
          toggle();
       }
-      toggleCamera();
-      toggleMic();
-      // setTrackState({audio:!aud,video:!vid});
-      console.log("Video",trackState.video);
-      console.log("Audio",trackState.audio);
       
-      // console.log("Changed");
+     
+     
+      
+      
       document.title = 'Room | Space'
       
       window.addEventListener('beforeunload', onUnload);
@@ -101,6 +95,8 @@ const Room = (props) => {
    }
 
    const toggleCamera = async () => {
+      console.log(trackState);
+      console.log("trackVid",!trackState.video);
       await tracks[1].setEnabled(!trackState.video);
       setTrackState((ps) => {
         return { ...ps, video: !ps.video };
@@ -162,7 +158,9 @@ const Room = (props) => {
                         <div id="videos">
                            {users.length > 0 &&
                               users.map((user) => {
+                                 console.log("user",user);
                                  if (user.videoTrack) {
+                                    
                                  return (
                                        <div id = "remote_Video">
                                        <AgoraVideoPlayer
@@ -207,17 +205,17 @@ const Room = (props) => {
             </div>
 
             <div className="footer row " id="setting_space">
-               <div className="col-md-4 my-auto">
+               <div className="my-auto">
                   <button id="toggleCamera" onClick={toggleCamera}>
                      <i id="toggleCameraIcon" className={camr ? "fa fa-video" : "fa fa-video-slash"} aria-hidden="true"></i>
                   </button>
                </div>
-               <div className="col-md-4 my-auto">
+               <div className="my-auto">
                   <button id="toggleMic" onClick={toggleMic}>
                      <i id="toggleMicIcon" className={micr ? "fa fa-microphone" : "fa fa-microphone-slash"} aria-hidden="true"></i>
                   </button>
                </div>
-               <div className="col-md-4 my-auto">
+               <div className="my-auto">
                   <button id="hangupBtn" onClick={hangUpRe}>
                      <i className="fa fa-phone" aria-hidden="true"></i>
                   </button>

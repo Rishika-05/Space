@@ -113,8 +113,8 @@ const Interview = () => {
         <Particles
           params={patriclesConfig} />
         <div className="main_content" style={{ textAlign: 'center' }}>
-          <h1 style={{ fontSize: '4vw', fontWeight: 'lighter', color: '#263238' }}>Space Helps You</h1>
-          <h2 style={{ fontSize: '4vw', fontWeight: 'bold', color: '#263238' }}>Improve Your Skills</h2>
+          <h1 style={{ fontSize: '50px', fontWeight: 'lighter', color: '#263238' }}>Space Helps You</h1>
+          <h2 style={{ fontSize: '50px', fontWeight: 'bold', color: '#263238' }}>Improve Your Skills</h2>
         </div>
         <div className="bottom_boxx" style={{ textAlign: 'center' }}>
           <div className="imgContainer mt-5">

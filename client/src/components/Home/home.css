@@ -1,10 +1,11 @@
-.maincontent{
-    position:absolute !important;
+.main_content {
+   
     width: 100vw;
-    margin-top: 2.5%;
+    padding: 3%;
+    
 }
 
-.selectionColor::selection{
+.selectionColor::selection {
     color: #ffffff;
     background-color: #2b586d;
 }
@@ -19,56 +20,68 @@
     padding: 0;
 }
 
-.bottom_boxx{
-    position:absolute !important;
+.bottom_boxx {
+    
     display: flex;
     justify-content: space-evenly;
     width: 100vw;
-    margin-top: 11.6%;
+    
     height: auto;
-
     align-items: center;
 }
-.pull{
+
+.pull {
     margin-top: 0%;
 }
+
 @media screen and (max-width:700px) {
-    .bottom_boxx{
+    .bottom_boxx {
         flex-direction: column;
         justify-content: space-around !important;
+       
     }
-    .imgContainer{
-        height: 60vh !important;
-        width: 60vw !important;
+
+    .imgContainer {
+        height: 55vh !important;
+        width: 55vw !important;
+        margin-bottom: 10%;
+        
     }
-    .pull{
-        margin-top: -15%;
+    .maincontent h1,h2{
+        font-size:40px!important;
     }
-    .imgg{
-        height: 50vh !important;
-        width: 50vw !important;
+    
+
+    .imgg {
+        height: 30vh !important;
+        width: 65vw !important;
     }
-    .hh3{
+
+    .hh3 {
         font-size: 1.4rem !important;
-        margin-top: -20% !important;
+        
     }
-    .btnn{
+
+    .btnn {
         font-size: 1rem !important;
     }
 }
 
-.hh3{
+.hh3 {
     font-size: 2vw;
     color: #263238;
     font-weight: bold;
 }
 
-.imgg{
+.imgg {
     height: 35vh;
     width: 30vw;
+    /* height: 50vh !important;
+    width: 50vw !important; */
     object-fit: contain;
 }
-.home1{
+
+.home1 {
     display: flex;
     flex-direction: column;
 }
@@ -76,16 +89,22 @@
 .infoo {
     border-color: #263238;
     color: #263238
-  }
-  
-  .infoo:hover {
+}
+
+.infoo:hover {
     background: #263238;
     color: white;
-  }
-  .btnn {
+}
+
+.btnn {
     border: 1px solid #263238;
     background-color: white;
     color: black;
     font-size: 1vw;
     cursor: pointer;
-  }
+}
+
+.btn-dark:hover {
+    background-color: white !important;
+    color: black !important;
+}

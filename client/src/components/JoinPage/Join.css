@@ -1,11 +1,11 @@
 .join {
-   width: 99%;
+   width: 100%;
 }
 
 .button {
    width: 50px;
    height: 50px;
-   border-radius: 25px;
+   border-radius:50%;
    border-color: #ffffff;
    border-style: solid;
    border-width: 1px;
@@ -18,6 +18,9 @@
    transition: all .25s linear;
    outline: none;
 }
+.button i{
+   
+}
 
 .button:hover {
    background: rgba(255, 255, 255, 0.3);
@@ -29,7 +32,8 @@
 
 .boxmeet {
    z-index: 3;
-   width: 20rem;
+   width: 80%;
+   
    padding: 2.3rem;
    box-sizing: border-box;
    background: rgba(196, 196, 196, 0.7);
@@ -113,7 +117,7 @@
 
 .video-mask {
    top: 18.5%;
-   left: 5%;
+   
    width: 55vw;
    height: 30vw;
    border-radius: 20px;
@@ -129,4 +133,14 @@
    z-index: 12;
    width: 100%;
    text-align: center;
+}
+@media screen and (max-width: 768px) {
+   .video-mask {
+     width:75vw;
+     height:50vw;
+   }
+}
+@media screen and (max-width: 500px) {
+   
+   
 }

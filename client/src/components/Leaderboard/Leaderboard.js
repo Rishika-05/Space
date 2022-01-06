@@ -52,7 +52,7 @@ const Leaderboard = (props) => {
                         count++;
                         
                         return ((props.user._id === ele.id)?
-                           <li className="table-row" style = {{"backgroundColor":"#bbebff"}}>
+                           <li className="table-row" style = {{"backgroundColor":"rgb(189 194 196)"}}>
                               <div className="col col-1" data-label="rank">{count} </div>
                               <div className="col col-2" id="lead_user" onClick={() => navigate(`/profile/${ele.id}`)} data-label="name">{ele.name} </div> 
                               <div className="col col-3" data-label="qs">{ ele.quesSolved }</div>

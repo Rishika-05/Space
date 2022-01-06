@@ -48,7 +48,9 @@
       height: 60vh !important;
       width: 60vw !important;
    }
-
+   .main_content h1,h2{
+      font-size:40px!important;
+   }
    .pull {
       margin-top: -15%;
    }

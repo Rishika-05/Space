@@ -1,0 +1,17 @@
+.board{
+    background-color: white;
+    width:99vw;
+    height:99vh;
+    margin:auto;
+    border:3px solid #DADCE0;
+    position:relative;
+   
+    
+}
+/* @media screen and (max-width:600px) {
+    .board{
+
+       
+        
+    }
+} */

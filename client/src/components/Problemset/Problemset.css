@@ -53,3 +53,12 @@
         max-height: 75vw;
     }
 }
+@media screen and (max-width:500px){
+    #tag-form-container{
+        display: none;
+    }
+    #problems-container{
+        max-height: 100vw;
+        flex-basis:100%;
+    }
+}

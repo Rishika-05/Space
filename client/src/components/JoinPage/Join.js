@@ -121,7 +121,7 @@ const Join = (props) => {
             </nav>
             <div className="join mt-3">
                <div className="row d-flex">
-                  <div className="col-sm-8 mx-auto">
+                  <div className="col-sm-8 col-xs-12 d-flex justify-content-center">
                      <div className="video-mask">
                         <video id="localVideo" muted autoPlay playsInline ></video>
                         <div className="buttons">
@@ -134,7 +134,7 @@ const Join = (props) => {
                         </div>
                      </div>
                   </div>
-                  <div className="col-sm-4 mx-auto mt-4">
+                  <div className="col-sm-4 col-xs-12 mt-5 d-flex justify-content-center ">
                      <div className="boxmeet mt-5">
                         <h2 className="mb-5" >Join Meeting</h2>
                         <form id="form" className="valid">

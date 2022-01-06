@@ -1,5 +1,5 @@
 .cardN {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(129, 129, 129, 0.2);
     max-width: 410px;
     
     text-align: center;
@@ -12,8 +12,9 @@
   
 .git-brief{
     height:fit-content;
-    padding: 3px!important;
+    padding: 4px!important;
     margin-right: 2%;
+    margin:3px;
     
 }
 .git-info-box{
@@ -21,12 +22,15 @@
   border-radius:5px;  
   
 }
-.git-info-box div{
-  
+@media screen and (max-width:600px){
+  .cardN{
+    max-width: 85%;
+  }
+  .git-search{
+    margin:0px!important;
+  }
 }
-.search-div{
-  width:100vw;
-  display: flex;
-  justify-content: center;
-  
+.s-div{
+  height:100vh;
+  width:90vw;
 }

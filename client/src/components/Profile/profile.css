@@ -11,7 +11,7 @@
 #left-profile-data{
     
     flex-basis: 23%;
-    margin-left: 2%;
+    
     display: flex;
     
     flex-direction: column;
@@ -109,7 +109,7 @@
     box-shadow: 0 3px 9px 0 rgb(226, 225, 225);
     border-radius:10px;
     min-height:175px;
-    width:100%;
+    width:90%;
     margin-bottom:5%;
     /* border:1px solid black; */
     background-color:#FFF;
@@ -147,6 +147,8 @@
 @media screen and (max-width:740px){
     #outer-div{
         flex-direction: column;
+        /* justify-content: center;
+        align-items: center; */
     }
     .right-card{
         width:95%;

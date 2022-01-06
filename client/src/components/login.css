@@ -1,8 +1,18 @@
+.login-parent {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../assets/images/bg.jpg');
+    background-size: cover;
+}
+
 .upperBox {
     background-color: #171C3D;
-    height: 78vh;
+    background-size: cover;
+    height: 35vw;
     width: 65vw;
-    margin: 12.5vh 15vw 9vh 16vw;
     border-radius: 2%;
     display: flex;
     align-items: center;
@@ -26,13 +36,9 @@
     margin-top: 5%;
 }
 
-.pull {
-    margin-top: -10%;
-}
-
 .box {
     background-color: #F5F2FB;
-    height: 63vh;
+    height: 26vw;
     width: 22vw;
     border-radius: 5%;
 }
@@ -59,16 +65,73 @@
     margin: 1.5em 0.75rem;
 }
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:969px) {
+    .view-log {
+        height: 100vh;
+        width: 100vw;
+        background-image: url('../assets/images/bg1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
     .upperBox {
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-        margin: 0%;
+        height: 50vw;
+        width: 90vw;
+        margin-top: 10vh;
     }
 
     .box {
         width: 90%;
+        height: 40vw;
+    }
+
+    .gif_left {
+        margin-top: 10%;
+    }
+
+}
+
+@media screen and (max-width:700px) {
+    .view-log {
+        height: 100vh;
+        width: 100vw;
+        background-image: url('../assets/images/bg1.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .login-parent {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .upperBox {
+        border-radius: 0px;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        margin: 0%;
+        margin-top: 20%;
+        padding: 15% 6% 20%;
+        padding-top: 15%;
+        margin-bottom: 20%;
+    }
+
+    .box {
+        width: 100%;
+        height: 80vw;
+        margin-top: 15%;
+    }
+
+    .phone {
+        display: none;
+    }
+
+    .left p {
+        display: none;
     }
 
 }
@@ -86,26 +149,4 @@
 .back:hover {
     color: #098cb4;
     transition: 0.5s;
-}
-
-@media screen and (max-width:700px) {
-    .upperBox {
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-        margin: 0%;
-        border-radius: 0%;
-    }
-
-    .box {
-        width: 90%;
-    }
-
-    .phone {
-        display: none;
-    }
-
-    .pull {
-        margin-top: 0%;
-    }
 }

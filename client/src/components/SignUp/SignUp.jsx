@@ -127,38 +127,40 @@ export default function SignUp() {
     }
 
     return (
-        <div>
-            <div className="container upperBox">
-                <div className="container left">
-                    <img src={logo} className="gif_left phone" alt="logo"></img>
-                    <img src={logoText} className="gif_left pull" alt="main_logo"></img>
-                    <p className="text">A Space to practice and achieve DREAMS</p>
-                </div>
-                <div className="container right">
-                    <div className="container box">
-                        <div className="form-group">
-                            <input type="text" value={user.name} className="form-control" name="name" placeholder="Full Name" onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <input type="email" value={user.email} className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Email"
-                                onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <Tippy content={passInfo()} placement='right'>
-                                <input type="password" value={user.password} className="form-control" id="show_hide_password" name="password" placeholder="Password"
+        <div className="view-log">
+            <div className="login-parent">
+                <div className="container upperBox mt-5">
+                    <div className="container left">
+                        <img src={logo} className="gif_left phone" alt="logo"></img>
+                        <img src={logoText} className="gif_left pull" alt="main_logo"></img>
+                        <p className="text mb-4">A Space to practice and achieve DREAMS</p>
+                    </div>
+                    <div className="container right">
+                        <div className="container box">
+                            <div className="form-group">
+                                <input type="text" value={user.name} className="form-control" name="name" placeholder="Full Name" onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <input type="email" value={user.email} className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Work Email"
                                     onChange={handleChange} />
-                            </Tippy>
+                            </div>
+                            <div className="form-group">
+                                <Tippy content={passInfo()} placement='right'>
+                                    <input type="password" value={user.password} className="form-control" id="show_hide_password" name="password" placeholder="Password"
+                                        onChange={handleChange} />
+                                </Tippy>
+                            </div>
+                            <div className="form-group">
+                                <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
+                                    onChange={handleChange} />
+                            </div>
+                            <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
+                            <Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link>
                         </div>
-                        <div className="form-group">
-                            <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
-                                onChange={handleChange} />
-                        </div>
-                        <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
-                        <Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
-            <ToastContainer />
         </div>
     )
 }
