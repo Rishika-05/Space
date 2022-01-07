@@ -42,6 +42,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
+    <li><a href="#team">Our Team</a></li>
   </ol>
 </details>
 
@@ -191,3 +192,9 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
+### Our Team
+  - **Team Name** : PBX1
+  - **Team Members** : 
+      * [Ratul Dawar](https://github.com/RatulDawar)
+      * [Rishika Raj](https://github.com/Rishika-05)
+      * [Vinamra Mishra](https://github.com/Vinamra7)
