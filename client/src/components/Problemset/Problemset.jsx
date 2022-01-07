@@ -55,7 +55,7 @@ export default function Problemset(props) {
     }
     const filterData = async () => {
         setSpinner(true);
-        let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(filter) + parseTag(filter)}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemset/filter/?${parseDifficulty(filter) + parseTag(filter)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
@@ -82,7 +82,7 @@ export default function Problemset(props) {
         let data = { status: status, tag: tag, difficulty: difficulty }
         setFilter(data);
         setSpinner(true);
-        let res = await fetch(`http://localhost:9002/problemset/filter/?${parseDifficulty(data) + parseTag(data)}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemset/filter/?${parseDifficulty(data) + parseTag(data)}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },

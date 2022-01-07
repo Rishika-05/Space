@@ -83,7 +83,7 @@ export default function SignUp() {
 
     const loggin = () => {
         if (random === code) {
-            axios.post("http://localhost:9002/signUp", user)
+            axios.post("${process.env.REACT_APP_SERVER_URL}/signUp", user)
                 .then(res => {
                     toast(res.data.message, {
                         position: "top-center",
@@ -123,7 +123,7 @@ export default function SignUp() {
                     email,
                     r
                 }
-                axios.post("http://localhost:9002/code", sender)
+                axios.post("${process.env.REACT_APP_SERVER_URL}/code", sender)
                     .then(res => {
                         if (res.data.done === 1) {
                             toast("Verification code Sent to your Email", {

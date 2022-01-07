@@ -194,7 +194,7 @@ export default function Ide(props) {
     const questionSolved = async () => {
         let data = { user: props.user._id, question: props.question._id };
         // eslint-disable-next-line
-        let res = await fetch(`http://localhost:9002/problemPage/solved`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/solved`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -241,7 +241,7 @@ export default function Ide(props) {
             userID: uID
         }
         setSpinner(true);
-        let res = await fetch(`http://localhost:9002/run`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/run`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -259,7 +259,7 @@ export default function Ide(props) {
     }
     const soluLog = async (solution) => {
         // eslint-disable-next-line
-        let res = await fetch(`http://localhost:9002/solution`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/solution`, {
             method: "POST", body: JSON.stringify(solution), headers: {
                 'Content-Type': 'application/json'
             },

@@ -11,7 +11,7 @@ export default function ProblemPage(props) {
     // eslint-disable-next-line
     const [userProfile,setuserProfile] = useState({solutions:[]});
     const getQuestion = async () => {
-        let res = await fetch(`http://localhost:9002/problemPage/${id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/${id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
@@ -22,7 +22,7 @@ export default function ProblemPage(props) {
         setQuestion(questionData.question);
     }
     const getUser = async()=>{
-        let res = await fetch(`http://localhost:9002/profile/${props.user._id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${props.user._id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },

@@ -16,7 +16,7 @@ export default function Solution(props) {
         // eslint-disable-next-line
     },[id])
     const getSolution = async ()=>{
-        let res = await fetch(`http://localhost:9002/solution/${id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/solution/${id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },

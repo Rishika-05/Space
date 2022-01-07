@@ -15,13 +15,13 @@ module.exports.getFilterData = async (req, res) => {
     try {
         for (let i = 0; i < difficulty.length; i++) {
             for (let j = 0; j < tag.length; j++) {
-                let tempQuestion = await Question.find({ difficulty: difficulty[i], tag: tag[j] });
+                let tempQuestion = await Question.find({ difficulty: difficulty[i], tag: tag[j] },{title:1,tag:1,difficulty:1 ,_id:1});
                 for (let i = 0; i < tempQuestion.length; i++) {
                     questionsArray.push(tempQuestion[i]);
                 }
             }
         }
-
+        
         res.send({ questions: questionsArray });
     } catch (err) {
         console.log(err);

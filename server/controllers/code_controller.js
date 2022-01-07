@@ -5,6 +5,8 @@ const Solution = require('../models/Solution');
 const fs = require('fs')
 const { NodeSSH } = require('node-ssh')
 const ssh = new NodeSSH()
+const dotenv = require('dotenv')
+dotenv.config({ path: './config.env' });
 
 // client id  :   7eaec65631d56c14ef7463193fc91eb2
 // client secret : fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a
@@ -17,8 +19,8 @@ module.exports.getResult = async (req, res) => {
         const { script, language, stdin, versionIndex } = req.body;
         let assign = {
             fileName: "",
-            command: "",
-        }
+            command: "", 
+        } 
         if (language === 'cpp17') {
             assign.fileName = "main.cpp"
             assign.command = "g++ main.cpp -o main"
@@ -45,9 +47,9 @@ module.exports.getResult = async (req, res) => {
             }
         })
         ssh.connect({
-            host: '34.131.26.25',
-            username: 'user',
-            port: '22',
+            host: process.env.VM_HOST_IP,
+            username: process.env.SSH_CONNECTOR_USERNAME,
+            port: process.env.SSH_CONNECTION_PORT,
             privateKey: fs.readFileSync('./id_rsa', 'utf8'),
         }).then(function () {
 
