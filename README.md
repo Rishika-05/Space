@@ -54,7 +54,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src = './gifs/home_.png' alt = "Home" >
 
 Space, a new way to learn and practice! Space is the best integrated platform to enhance your technical skills and practice for you interviews.
 
@@ -101,15 +101,17 @@ Technologies used -
 2. **Problemset and Puzzles** :
     * Users can view problems on our website and filter them on the basis of difficulty,topic and solved-unsolved.
     * Users can also brain storm on our mind-bending puzzles.
-    * <img src = './gifs/Problem.gif' alt = "Solving Problem" width="710" height="348">
+    * <img src = './gifs/problem_.png' alt = "Problems" width="660" height="348">
 3. **IDE** :
     * Users can code solutions on our website using Space IDE.
-    * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered IDE.
+    * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered       IDE.
+    *  <img src = './gifs/Problem.gif' alt = "Solving Problem" width="710" height="348">
 4. **Interview** :
     * Automatic scheduling of interviews via email with room ID, date and time.
     * Conduct and give interactive interviews using audio-video interface.
     * Share important links and handles using Space real-time chat.
     * Users can also share their ideas via drawings using Space real-time collaborative whiteboard.
+    *  <img src = './gifs/whitboard_.png' alt = "whiteboard" width="660" height="348">
     * Users can showcase thier coding skills to the interviewer using Space collaborative IDE.
     * Users can look up their github profiles via space github viewer.
     * <img src = "./gifs/VideoCall.gif" alt = "Video Call" width="710" height="348">
