@@ -127,7 +127,7 @@ export default function SignUp() {
     }
 
     return (
-        <div className="view-log">
+        <div className="">
             <div className="login-parent">
                 <div className="container upperBox mt-5">
                     <div className="container left">
@@ -141,7 +141,7 @@ export default function SignUp() {
                                 <input type="text" value={user.name} className="form-control" name="name" placeholder="Full Name" onChange={handleChange} />
                             </div>
                             <div className="form-group">
-                                <input type="email" value={user.email} className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Work Email"
+                                <input type="email" value={user.email} className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Email"
                                     onChange={handleChange} />
                             </div>
                             <div className="form-group">
@@ -149,6 +149,10 @@ export default function SignUp() {
                                     <input type="password" value={user.password} className="form-control" id="show_hide_password" name="password" placeholder="Password"
                                         onChange={handleChange} />
                                 </Tippy>
+                            </div>
+                            <div className="form-group">
+                                <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
+                                    onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"

@@ -91,9 +91,9 @@ export default function SignIn(props) {
                         <p className="text mb-4">A Space to practice and achieve DREAMS</p>
                     </div>
                     <div className="container right">
-                        <div className="container box">
+                        <div className="container box pb-4">
                             <div className="form-group">
-                                <input name="email" type="email" value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Work Email"
+                                <input name="email" type="email" value={user.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"
                                     onChange={handleChange} />
 
                             </div>
