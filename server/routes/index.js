@@ -7,6 +7,7 @@ const solutionController = require('../controllers/solution_controller');
 
 router.post('/login', userController.login);
 router.post('/signUp', userController.signUp);
+router.post('/code', userController.code);
 router.post('/check', userController.check);
 router.get('/leaderboard', allUserController.leaderboard);
 router.use('/profile', require('./profile'));
@@ -16,7 +17,7 @@ router.use('/problemPage', require('./problemPage'));
 router.use('/puzzlePage', require('./puzzlePage'));
 router.post('/run', codeController.getResult);
 router.post('/solution', codeController.solutionLog)
-router.get('/solution/:id', solutionController.getSolution) 
+router.get('/solution/:id', solutionController.getSolution)
 
 
 module.exports = router;

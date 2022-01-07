@@ -11,6 +11,9 @@ import 'tippy.js/dist/tippy.css';
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const [veri, setVeri] = useState(false);
+    const [code, setCode] = useState("");
+    const [random, setRandom] = useState();
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -41,6 +44,10 @@ export default function SignUp() {
                 1 number
             </>
         )
+    }
+
+    const veriCode = e => {
+        setCode(e.target.value)
     }
 
     let chkpass = (password) => {
@@ -74,24 +81,67 @@ export default function SignUp() {
         }
     }
 
-    const register = () => {
+    const loggin = () => {
+        if (random === code) {
+            axios.post("http://localhost:9002/signUp", user)
+                .then(res => {
+                    toast(res.data.message, {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    navigate('/')
+                })
+        }
+        else {
+            toast("Incorrect Code", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+    const register = async () => {
+        let r = "";
+        r = await Math.floor(Math.random() * 16777215).toString(16);
         const { name, email, password, reEnterPassword } = user
         console.log(user);
         if (name && email && password && (password === reEnterPassword)) {
 
             if (chkpass(password)) {
-                axios.post("http://localhost:9002/signUp", user)
+                setVeri(true);
+                const sender = {
+                    email,
+                    r
+                }
+                axios.post("http://localhost:9002/code", sender)
                     .then(res => {
-                        toast(res.data.message, {
-                            position: "top-center",
-                            autoClose: 2000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
-                        navigate('/')
+                        if (res.data.done === 1) {
+                            toast("Verification code Sent to your Email", {
+                                position: "top-center",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                            setRandom(r);
+                            console.log("qwerty " + random);
+                        }
+                        else {
+                            console.log(res.data.detail);
+                            console.log('alert')
+                        }
                     })
             }
             else {
@@ -154,11 +204,16 @@ export default function SignUp() {
                                 <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
                                     onChange={handleChange} />
                             </div>
-                            <div className="form-group">
-                                <input type="password" value={user.reEnterPassword} className="form-control" id="show_hide_password" name="reEnterPassword" placeholder="Confirm Password"
-                                    onChange={handleChange} />
-                            </div>
-                            <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
+
+                            {
+                                veri ? <div className="form-group">
+                                    <input maxLength='16' type="text" value={code} className="form-control" name="code" placeholder="Verification Code" onChange={veriCode} />
+                                </div> : <></>
+                            }
+                            {!veri ? <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
+                                : <button type="submit" className="btn btn-primary push" onClick={loggin}>verify</button>
+                            }
+
                             <Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link>
                         </div>
                     </div>

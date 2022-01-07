@@ -1,6 +1,17 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'team.space.793@gmail.com',
+        pass: 'space.793'
+    }
+});
 
 module.exports.check = (req, res) => {
     const { token } = req.body;
@@ -66,4 +77,26 @@ module.exports.signUp = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+}
+
+module.exports.code = async (req, res) => {
+
+    const { email, r } = req.body
+    var mailOptions = {
+        from: 'team.space.793@gmail.com',
+        to: email,
+        subject: "Space Login Verification Code",
+        text: `Your Code is ${r}`
+    }
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            res.send({ done: 0, detail: error });
+            console.log(error);
+        }
+        else {
+            res.send({ done: 1, detail: info });
+            console.log(info);
+        }
+    })
+
 }
