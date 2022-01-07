@@ -98,7 +98,7 @@ const Interview = () => {
   const subForm = (e) => {
     e.preventDefault();
     // console.log(IRname + IEname + IRmail + IEmail + DateTime);
-    document.getElementById("schedule-submit-btn").innerHTML = `Sending...`;
+    document.getElementById("schedule-submit-btn").innerHTML = `Sending`;
     SendMail();
   }
 
