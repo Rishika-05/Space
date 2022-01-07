@@ -42,7 +42,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -69,31 +68,31 @@ Here's why:
 ### Built With
 
 Technologies used - 
-<br/>
-<span align="left" style="background-color:white"> 
-<a href="ttps://reactjs.org/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"  alt="react" width="60" height="60"/> </a> 
+
+<p align="left" style="background-color:white"> 
+<a href="ttps://reactjs.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"  alt="react" width="60" height="60"/> </a> 
 &nbsp;&nbsp;
-<a href="https://reactjs.org/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="express" width="60" height="60"/> </a> 
+<a href="" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="100" height="100"/> </a>  
 &nbsp;&nbsp;
-<a href="https://www.w3schools.com/cpp/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original-wordmark.svg" alt="mongoDB" width="60" height="60"/> </a> 
+<a href="" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original-wordmark.svg" alt="mongoDB" width="60" height="60"/> </a> 
 &nbsp;&nbsp;
-<a href="https://www.w3schools.com/css/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" alt="Nodejs" width="100" height="100"/> </a> 
+<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original-wordmark.svg" alt="socket.io" width="100" height="100"/> </a>
 &nbsp;&nbsp;
-<a href="https://golang.org" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original-wordmark.svg" alt="gcp"   width="100" height="100"/> </a> 
+<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="express" width="60" height="60"/> </a>
 &nbsp;&nbsp;
-<a href="https://www.w3.org/html/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original-wordmark.svg" alt="socket.io"  width="100" height="100"/> </a>
+<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original-wordmark.svg" alt="gcp"   width="100" height="100"/> </a> 
 &nbsp;&nbsp;
-<a href="https://www.w3.org/html/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain-wordmark.svg" alt="firebase"  width="60" height="60"/> </a>
+<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain-wordmark.svg" alt="firebase" width="60" height="60"/> </a>
 &nbsp;&nbsp;
-<a href="https://www.w3.org/html/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original-wordmark.svg" alt="ssh"  width="60" height="60"/> </a>
-</span>
+<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original-wordmark.svg" alt="ssh"  width="60" height="60"/> </a>
+&nbsp;&nbsp;
+</p>
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
 
 <!-- ACHIEVEMENTS -->
 ## Achievements
-
 
 
 <!-- GETTING STARTED -->
@@ -124,20 +123,47 @@ _Below is an example of how you can instruct your audience on installing and set
    npm install
    ```
 2. Create a .env file and add following data - 
-   ```js
-   // Add emailjs credentials
+   ```sh
+   # Add emailjs credentials
    REACT_APP_SERVICE_KEY="YOUR_SERVICE_KEY"
    REACT_APP_IR_KEY="YOUR_TEMPLATE_ID"
    REACT_APP_IE_KEY="YOUR_TEMPLATE_ID"
    REACT_APP_USER_KEY="YOUR_USER_KEY"
-   // Add Firebase Config 
+   # Add Firebase Config 
    REACT_APP_API_KEY="FIREBASE_API_KEY"
    REACT_APP_AUTHD="FIREBASE_AUTH_DOMAIN"
    REACT_APP_PRO_ID="FIREBASE_PROJECT_ID"
    REACT_APP_STOREB="FIREBASE_STORAGE_BUCKET"
    REACT_APP_MSG_ID="FIREBASE_MESSENGING_SENDER_ID"
    REACT_APP_ID="FIREBASE_APP_ID"
+   # Add the server
+   REACT_APP_SERVER_URL="SERVER_URL"
    ```
+   
+3. To run the frontend -
+   ```sh 
+   npm start
+   ```
+   
+#### For Server
+1. Install NPM packages
+   ```sh
+   npm install
+   ```
+2. Create a .env file and add following data - 
+   ```sh
+   PORT="ANY_ PORT" || 9000
+   DATABASE="MONGODB_URL"
+   # Agora credentials
+   APP_CERTIFICATE="YOUR_AGORA_APP_CERTIFICATE"
+   APP_ID="YOUR_AGORA_APP_ID"
+   ```
+   
+3. To run the backend -
+   ```sh 
+   npm start
+   ```
+   
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
