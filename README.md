@@ -101,9 +101,10 @@ Technologies used -
 2. **Problemset and Puzzles** :
     * Users can view problems on our website and filter them on the basis of difficulty,topic and solved-unsolved.
     * Users can also brain storm on our mind-bending puzzles.
+    <img src = './gifs/Problem.gif' alt = "Solving Problem">
 3. **IDE** :
     * Users can code solutions on our website using Space IDE.
-    * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered       IDE.
+    * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered IDE.
 4. **Interview** :
     * Automatic scheduling of interviews via email with room ID, date and time.
     * Conduct and give interactive interviews using audio-video interface.
@@ -111,10 +112,14 @@ Technologies used -
     * Users can also share their ideas via drawings using Space real-time collaborative whiteboard.
     * Users can showcase thier coding skills to the interviewer using Space collaborative IDE.
     * Users can look up their github profiles via space github viewer.
+    <img src = "./gifs/VideoCall.gif" alt = "Video Call">
 5. **Admin Portal** :
     * Space admins can login and create problems and puzzles for users.
     * Admins can also track the problems that they have created.
+
+    <p align="right">(<a href="#top">Back to top</a>)</p>
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
