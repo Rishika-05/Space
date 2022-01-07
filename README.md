@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://=github.com/Rishika-05/Space">
-    <img src="./client/src/assets/images/Space.png" alt="Logo" width="150" height="150">
+    <img src="./gifs/Space.png" alt="Logo" width="150" height="150">
   </a>
 <!--
   <h3 align="center">Space/h3>
