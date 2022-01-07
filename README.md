@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://=github.com/Rishika-05/Space">
-    <img src="./gifs/Space.png" alt="Logo" width="150" height="150">
+    <img src="./gifs/Spacee.png" alt="Logo" width="170" height="170">
   </a>
 <!--
   <h3 align="center">Space/h3>
@@ -101,7 +101,7 @@ Technologies used -
 2. **Problemset and Puzzles** :
     * Users can view problems on our website and filter them on the basis of difficulty,topic and solved-unsolved.
     * Users can also brain storm on our mind-bending puzzles.
-    <img src = './gifs/Problem.gif' alt = "Solving Problem">
+    * <img src = './gifs/Problem.gif' alt = "Solving Problem" width="710" height="348">
 3. **IDE** :
     * Users can code solutions on our website using Space IDE.
     * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered IDE.
@@ -112,7 +112,7 @@ Technologies used -
     * Users can also share their ideas via drawings using Space real-time collaborative whiteboard.
     * Users can showcase thier coding skills to the interviewer using Space collaborative IDE.
     * Users can look up their github profiles via space github viewer.
-    <img src = "./gifs/VideoCall.gif" alt = "Video Call">
+    * <img src = "./gifs/VideoCall.gif" alt = "Video Call" width="710" height="348">
 5. **Admin Portal** :
     * Space admins can login and create problems and puzzles for users.
     * Admins can also track the problems that they have created.
@@ -186,7 +186,7 @@ _Below is an example of how you can instruct your audience on installing and set
    # SSH credentials
    SSH_CONNECTOR_USERNAME="YOUR_SSH_USERNAME"
    SSH_CONNECTION_PORT="ANY_SSH_PORT" 
-   SSH_KEY="YOUR_SSH_KEY" # SSH key must without BEGIN HEADER and END HEADER
+   SSH_KEY="YOUR_SSH_KEY" # SSH key must be without BEGIN HEADER and END HEADER
    ```
    
 3. To run the backend -
