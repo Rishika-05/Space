@@ -1,6 +1,6 @@
 import React,{ useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import Particles from 'react-particles-js'
+import Particles from 'react-tsparticles'
 import patriclesConfig from './config/particle-config'
 import './home.css'
 import inter from './inter.png'
