@@ -98,5 +98,27 @@ module.exports.code = async (req, res) => {
             console.log(info);
         }
     })
+}
 
+module.exports.feedback = (req, res) => {
+    const { name, subject, email, message } = req.body
+    var maillist = [
+        'vinamramishra2011@gmail.com',
+        'ratuldawar11@gmail.com',
+        'rishikaraj7263@gmail.com'
+    ]
+    var mail = {
+        from: 'team.space.793@gmail.com',
+        to: 'team.space.793@gmail.com',
+        subject: `${name}'s Feedback`,
+        cc: maillist,
+        text: `From: ${name}\nEmail of user: ${email}\nsubject: ${subject}\n\nmessage:\n${message}`
+    }
+    transporter.sendMail(mail, function (error, info) {
+        if (error) {
+            res.send({ done: 0 });
+        }
+        else
+            res.send({ done: 1 });
+    })
 }

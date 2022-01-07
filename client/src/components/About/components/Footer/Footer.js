@@ -7,7 +7,9 @@ const Footer = () =>
          <div className="row">
             <div className="col-md-6 mt-md-0 mt-3">
                <h5 className="text-uppercase">Space</h5>
-               <p>Here you can use rows and columns to organize your footer content.</p>
+               <p>Made with {"💖"} by <a style={{ textDecoration: 'none' }} href="mailto: team.space.793@gmail.com">Vinamra Mishra</a>
+                  {" | "}<a style={{ textDecoration: 'none' }} href="mailto: team.space.793@gmail.com">Ratul Dawar</a>
+                  {" | "}<a style={{ textDecoration: 'none' }} href="mailto: team.space.793@gmail.com">Rishika Raj</a></p>
             </div>
 
             <hr className="clearfix w-100 d-md-none pb-0" />

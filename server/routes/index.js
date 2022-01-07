@@ -8,6 +8,7 @@ const solutionController = require('../controllers/solution_controller');
 router.post('/login', userController.login);
 router.post('/signUp', userController.signUp);
 router.post('/code', userController.code);
+router.post('/feedback', userController.feedback);
 router.post('/check', userController.check);
 router.get('/leaderboard', allUserController.leaderboard);
 router.use('/profile', require('./profile'));
