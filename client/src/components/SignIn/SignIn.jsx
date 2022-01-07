@@ -45,7 +45,7 @@ export default function SignIn(props) {
         if (localStorage.getItem('user')) {
             let token = localStorage.getItem('user');
             const passer = { token: token }
-            axios.post("http://localhost:9002/check", passer)
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/check`, passer)
                 .then(res => {
                     if (res.data.message === 200) {
                         console.log(res.data.user);
@@ -184,7 +184,7 @@ export default function SignIn(props) {
     const signin = () => {
         const { email, password } = user
         if (email && password) {
-            axios.post("http://localhost:9002/login", user)
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, user)
                 .then(res => {
                     toast(res.data.message, {
                         position: "top-center",

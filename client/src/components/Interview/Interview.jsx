@@ -3,7 +3,7 @@ import {
   Modal, ModalHeader, ModalBody
 } from "reactstrap"
 import { Link } from 'react-router-dom'
-import Particles from 'react-particles-js'
+import Particles from 'react-tsparticles'
 import patriclesConfig from './config/particle-config'
 import './Interview.css'
 import './Form.css'
@@ -98,12 +98,12 @@ const Interview = () => {
   const subForm = (e) => {
     e.preventDefault();
     // console.log(IRname + IEname + IRmail + IEmail + DateTime);
-    document.getElementById("schedule-submit-btn").innerHTML = `Sending...`;
+    document.getElementById("schedule-submit-btn").innerHTML = `Sending`;
     SendMail();
   }
 
   const newTab = () => {
-    window.open('http://localhost:3000/join', "_blank");
+    window.open(`https://space-dun-one.vercel.app/join`, "_blank");
   }
 
 

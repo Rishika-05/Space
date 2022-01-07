@@ -6,14 +6,14 @@ export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
     const getQuestion = async () => {
-        let res = await fetch(`http://localhost:9002/puzzlePage/${id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/puzzlePage/${id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
         });
-        console.log(res);
+        
         const questionData = await res.json();
-        console.log(questionData);
+        
         setQuestion(questionData.question);
     }
     useLayoutEffect(() => {
@@ -30,7 +30,7 @@ export default function ProblemPage(props) {
                         <h3 className='mt-4'>{qquestion.title}</h3>
                         <div className='problem-container p-3 mt-4'>
                             <h5 className='mb-2'>Puzzle Statement</h5>
-                            <p className='mb-4'>{qquestion.problem}</p>
+                            <p className='mb-4'>{qquestion.problem.problemStatement}</p>
 
                             <div className="accordion" id="accordionExample">
                                 <div className="accordion-item">

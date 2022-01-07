@@ -45,7 +45,7 @@ export default function Profile(props) {
     }
     const getUserProfile = async () => {
 
-        let res = await fetch(`http://localhost:9002/profile/${id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
@@ -69,7 +69,7 @@ export default function Profile(props) {
         event.preventDefault()
         let data = { name: event.target.name.value, country: event.target.country.value, loggedIn: props.user._id }
 
-        fetch(`http://localhost:9002/update/summary/${id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/update/summary/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
@@ -96,7 +96,7 @@ export default function Profile(props) {
 
         let data = { about: event.target.about.value, institute: event.target.institute.value, graduation: event.target.graduation.value, degree: event.target.degree.value, loggedIn: props.user._id }
 
-        fetch(`http://localhost:9002/update/about/${id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/update/about/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },

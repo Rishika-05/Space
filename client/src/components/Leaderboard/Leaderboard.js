@@ -18,7 +18,7 @@ const Leaderboard = (props) => {
 
    const getAllUser = async () => {
       // eslint-disable-next-line
-      let res = await fetch(`http://localhost:9002/leaderboard`, {
+      let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/leaderboard`, {
          method: "GET", headers: {
             'Content-Type': 'application/json'
          },
