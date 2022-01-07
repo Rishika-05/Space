@@ -86,7 +86,7 @@ module.exports.code = async (req, res) => {
         from: 'team.space.793@gmail.com',
         to: email,
         subject: "Space Login Verification Code",
-        text: `Your Code is ${r}`
+        text: `Your Code is: ${r}\nUse it to verify your email in Space.\n\nIf you didn't request this, simply ignore this message.\n\nYours,\nThe Space Team`
     }
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
