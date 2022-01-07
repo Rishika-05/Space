@@ -22,7 +22,7 @@ connectToMongo();
 app.use(express.json());
 app.use('/', require('./routes'));
 
-ideServer.listen(9001,()=>{
+ideServer.listen(9001, () => {
     console.log("Started");
 })
 app.listen(port, () => {

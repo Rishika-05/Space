@@ -21,42 +21,30 @@ import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
 import io from "socket.io-client";
 export default function Ide(props) {
-    const cDefault = `#include<bits/stdc++.h>
-    using namespace std;
-    int main(){
-     
-    return 0;
-    }`
-        const javaDefault = `import java.util.*;
-        public class main {
-        public static void main(String[] args) {
-    
-        }
-    } `
-        const kotDefault = `fun main(){
-        println("Hello world!")
-    } `
-        const pyDefault = `print('Hello! World')`
-    
+    const cDefault = `#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\treturn 0;\n}`
+    const javaDefault = `import java.util.*;\npublic class main {\n\tpublic static void main(String[] args) {\n\n\t}\n}`
+    const kotDefault = `fun main(){\n\tprintln("Hello world!")\n}`
+    const pyDefault = `print('Hello! World')`
+
     const [theme, setTheme] = useState('nord_dark')
     const [language, setLanguage] = useState('c_cpp')
     const [value, setValue] = useState(cDefault)
     const [output, setOutput] = useState('')
     const [input, setInput] = useState('')
-    const [spinner,setSpinner] = useState(false)
-        
-    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/",{ transports: ['websocket', 'polling', 'flashsocket'] });
+    const [spinner, setSpinner] = useState(false)
+
+    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
     const [inputBox, setinputBox] = useState(false);
     // eslint-disable-next-line 
-    const [changeSide,setchangeSide] = useState(true);
+    const [changeSide, setchangeSide] = useState(true);
     useEffect(() => {
         document.title = 'IDE | Space';
-        if(!props.question){
+        if (!props.question) {
             setinputBox(true);
         }
-        if(props.inInterview){
+        if (props.inInterview) {
             joinRoom();
-            socket.on('ide',(data)=>{
+            socket.on('ide', (data) => {
                 // setchangeSide(false);
                 if (data !== value) {
                     // setchangeSide(true);
@@ -64,7 +52,7 @@ export default function Ide(props) {
                 }
                 // console.log("changeSide");
             })
-            socket.on('language',(lann)=>{
+            socket.on('language', (lann) => {
                 // setchangeSide(false);
                 setLanguage(lann);
                 let options = document.getElementById('language-dropdown');
@@ -80,9 +68,9 @@ export default function Ide(props) {
                 if (lann === 'kotlin') {
                     options.selectedIndex = 3;
                 }
-                
+
             })
-            socket.on('reset',(data)=>{
+            socket.on('reset', (data) => {
                 // console.log(data);
                 if (language === 'c_cpp') {
                     setValue(cDefault);
@@ -100,9 +88,9 @@ export default function Ide(props) {
         }
         // eslint-disable-next-line
     }, []);
-    const joinRoom = ()=>{
+    const joinRoom = () => {
         var id = window.localStorage.getItem('ID');
-        socket.emit('joinRoom',id);
+        socket.emit('joinRoom', id);
     }
 
     const themeChange = (event) => {
@@ -112,31 +100,31 @@ export default function Ide(props) {
     const lanChange = (event) => {
         setLanguage(event.target.value);
         let lann = event.target.value;
-        if(props.inInterview){
-            socket.emit('language',lann);
+        if (props.inInterview) {
+            socket.emit('language', lann);
         }
         if (lann === 'c_cpp') {
             setValue(cDefault)
-            if(props.inInterview){
-                socket.emit('ide',cDefault);
+            if (props.inInterview) {
+                socket.emit('ide', cDefault);
             }
         }
         if (lann === 'python') {
             setValue(pyDefault)
-            if(props.inInterview){
-                socket.emit('ide',pyDefault);
+            if (props.inInterview) {
+                socket.emit('ide', pyDefault);
             }
         }
         if (lann === 'java') {
             setValue(javaDefault)
-            if(props.inInterview){
-                socket.emit('ide',javaDefault);
+            if (props.inInterview) {
+                socket.emit('ide', javaDefault);
             }
         }
         if (lann === 'kotlin') {
             setValue(kotDefault)
-            if(props.inInterview){
-                socket.emit('ide',kotDefault);
+            if (props.inInterview) {
+                socket.emit('ide', kotDefault);
             }
         }
     }
@@ -146,7 +134,7 @@ export default function Ide(props) {
         setValue(newValue);
         // setchangeSide(true);
         if (props.inInterview) {
-            if (timeout != null) { 
+            if (timeout != null) {
                 clearTimeout(timeout);
             }
             timeout = setTimeout(() => {
@@ -157,10 +145,10 @@ export default function Ide(props) {
     }
 
     function resetClicked() {
-       
-        if(props.inInterview){
+
+        if (props.inInterview) {
             let reset = 1;
-            socket.emit('reset',reset);
+            socket.emit('reset', reset);
         }
         if (language === 'c_cpp') {
             setValue(cDefault);
@@ -231,7 +219,7 @@ export default function Ide(props) {
             uID = "";
         }
         console.log("in " + inn);
-        
+
         var data = {
             script: value,
             language: passlanguage(language),
@@ -248,9 +236,9 @@ export default function Ide(props) {
         });
         let res2 = await res.json();
         res2.cloudOut = res2.cloudOut.trim();
-        if(inputBox)
+        if (inputBox)
             setOutput(res2.cloudOut);
-        
+
         setSpinner(false);
         checkerToast(res2, data);
 
@@ -383,7 +371,7 @@ export default function Ide(props) {
         }
     }
 
-    
+
     if (props.user._id === undefined) {
         return (<Unauthorized />)
     }
@@ -395,7 +383,7 @@ export default function Ide(props) {
                     <div className="container-fluid">
                         <text className="navbar-brand">Space Online IDE</text>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bullseye"></i>
+                            <i class="fas fa-bullseye"></i>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent-1">
                             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -403,7 +391,7 @@ export default function Ide(props) {
                                     <text className="nav-link disabled">Language</text>
                                 </li>
                                 <li>
-                                    <select id = "language-dropdown" className="form-select" aria-label="Default select example" onChange={lanChange}>
+                                    <select id="language-dropdown" className="form-select" aria-label="Default select example" onChange={lanChange}>
                                         <option selected value="c_cpp">C++</option>
                                         <option value="java">Java</option>
                                         <option value="python">Python</option>
@@ -459,7 +447,7 @@ export default function Ide(props) {
                         tabSize: 2,
                     }} />
                 <br />
-                {props.question?<div className="form-check">
+                {props.question ? <div className="form-check">
                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => {
                         setinputBox(!inputBox);
                         console.log("box " + inputBox);
@@ -467,36 +455,36 @@ export default function Ide(props) {
                     <label className="form-check-label" for="flexCheckDefault">
                         Test against custom input
                     </label>
-                </div>:<></>}
-                
-                <div className = "d-flex justify-content-end my-3">
-                    <button type="button" className="btn btn-primary mx-3" id = "run-button" onClick={submitter}>{spinner?<Loader id = "spinner"
+                </div> : <></>}
+
+                <div className="d-flex justify-content-end my-3">
+                    <button type="button" className="btn btn-primary mx-3" id="run-button" onClick={submitter}>{spinner ? <Loader id="spinner"
                         type="Bars"
                         color="white"
                         height={25}
-                        width={25   }
-                        visible = {spinner}
-                    />:(inputBox ? <>Run code</> : <>Submit</>)}</button>
+                        width={25}
+                        visible={spinner}
+                    /> : (inputBox ? <>Run code</> : <>Submit</>)}</button>
                 </div>
-                <div className = "d-flex justify-content-around">
+                <div className="d-flex justify-content-around">
                     <div>
                         <h5 className="ms-3 mb-3">{inputBox ? <>Input</> : <></>}</h5>
-                        {inputBox ? <textarea className="inputBox mb-4 ms-3 p-2" id= "input-run-box" style={{ width: '25vw', height: '25vh' }} onChange={() => {
+                        {inputBox ? <textarea className="inputBox mb-4 ms-3 p-2" id="input-run-box" style={{ width: '25vw', height: '25vh' }} onChange={() => {
                             let currInput = document.getElementById('input-run-box');
                             setInput(currInput.value);
                         }}></textarea> : <></>}
                     </div>
                     <div>
-                        <h5 className="ms-3 d-flex mb-3">{inputBox ? <>Output &nbsp;</> : <></>}{spinner && inputBox?<Loader id = "spinner"
-                        type="Bars"
-                        color="black"
-                        height={25}
-                        width={25}
-                        visible = {spinner}
-                    />:<></>}</h5>
+                        <h5 className="ms-3 d-flex mb-3">{inputBox ? <>Output &nbsp;</> : <></>}{spinner && inputBox ? <Loader id="spinner"
+                            type="Bars"
+                            color="black"
+                            height={25}
+                            width={25}
+                            visible={spinner}
+                        /> : <></>}</h5>
                         {inputBox ? <textarea className="outputBox mb-4 ms-3 p-2" style={{ width: '25vw', height: '25vh' }} value={output}></textarea> : <></>}
                     </div>
-                    
+
                 </div>
                 <ToastContainer />
             </>

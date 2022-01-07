@@ -86,7 +86,7 @@ module.exports.code = async (req, res) => {
         from: 'team.space.793@gmail.com',
         to: email,
         subject: "Space Login Verification Code",
-        text: `Your Code is ${r}`
+        text: `Your Code is: ${r}\nUse it to verify your email in Space.\n\nIf you didn't request this, simply ignore this message.\n\nYours,\nThe Space Team`
     }
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -98,5 +98,27 @@ module.exports.code = async (req, res) => {
             console.log(info);
         }
     })
+}
 
+module.exports.feedback = (req, res) => {
+    const { name, subject, email, message } = req.body
+    var maillist = [
+        'vinamramishra2011@gmail.com',
+        'ratuldawar11@gmail.com',
+        'rishikaraj7263@gmail.com'
+    ]
+    var mail = {
+        from: 'team.space.793@gmail.com',
+        to: 'team.space.793@gmail.com',
+        subject: `${name}'s Feedback`,
+        cc: maillist,
+        text: `From: ${name}\nEmail of user: ${email}\nsubject: ${subject}\n\nmessage:\n${message}`
+    }
+    transporter.sendMail(mail, function (error, info) {
+        if (error) {
+            res.send({ done: 0 });
+        }
+        else
+            res.send({ done: 1 });
+    })
 }

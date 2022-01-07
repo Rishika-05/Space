@@ -4,7 +4,6 @@ import Contact from "./components/contact/Contact";
 import Intro from "./components/intro/Intro";
 import ProductList from "./components/productList/ProductList";
 import FooterPage from "./components/Footer/Footer";
-import Toggle from "./components/toggle/Toggle";
 import { ThemeContext } from "./context";
 import Fade from 'react-reveal/Fade';
 import Zoom from 'react-reveal/Zoom';
@@ -44,7 +43,7 @@ const App = () => {
       <Fade right>
         <Contact />
       </Fade>
-      <FooterPage/>
+      <FooterPage />
     </div>
   );
 };

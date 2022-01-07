@@ -3,8 +3,8 @@ import Phone from "../../img/phone.png";
 import Email from "../../img/email.png";
 import Address from "../../img/address.png";
 import { useContext, useRef, useState } from "react";
-import emailjs from "emailjs-com";
 import { ThemeContext } from "../../context";
+import axios from 'axios'
 
 const Contact = () => {
   const formRef = useRef();
@@ -12,59 +12,66 @@ const Contact = () => {
   const theme = useContext(ThemeContext);
   const darkMode = theme.state.darkMode;
 
+  const [feedback, setFeedback] = useState({
+    name: "",
+    subject: "",
+    email: "",
+    message: "",
+  })
+
+
+  const handleCchange = e => {
+    const { name, value } = e.target
+    setFeedback({
+      ...feedback,
+      [name]: value
+    })
+    console.log(feedback);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    emailjs
-      .sendForm(
-        "service_rrvnzco",
-        "template_3v5nih4",
-        formRef.current,
-        "user_DrriDPTGKO2Zj4RDXCA6W"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setDone(true)
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    const { name, subject, email, message } = feedback;
+    if (name && subject && email && message) {
+      axios.post("http://localhost:9002/feedback", feedback)
+        .then(res => {
+          if (res.data.done === 1)
+            setDone(true);
+        })
+    }
   };
 
   return (
     <div className="c">
-      <div className="c-bg"></div>
       <div className="c-wrapper">
         <div className="c-left">
           <h1 className="c-title">Contact Us</h1>
           <div className="c-info ms-5">
             <div className="c-info-item">
               <img src={Phone} alt="" className="c-icon" />
-              +1 1234 556 75
+              +91 6376 819 421
             </div>
             <div className="c-info-item">
               <img className="c-icon" src={Email} alt="" />
-              space@gmail.com
+              <a style={{ textDecoration: 'none' }} href="mailto: team.space.793@gmail.com">team.space.793@gmail.com</a>
             </div>
             <div className="c-info-item">
               <img className="c-icon" src={Address} alt="" />
-              245 King Street, Touterie Victoria 8520 Australia
+              BIT Mesra, Ranchi, India
             </div>
           </div>
         </div>
         <div className="c-right">
-          {/* <p className="c-desc">
-            <b>What’s your story?</b> Get in touch. Always available for
-            freelancing if the right project comes along. me.
-          </p> */}
-          <form ref={formRef} className="mt-5" onSubmit={handleSubmit}>
-            <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Name" name="user_name" /><br/>
-            <input style={{ backgroundColor: darkMode && "#333" }} type="text" placeholder="Subject" name="user_subject" /><br />
-            <input style={{backgroundColor: darkMode && "#333"}} type="text" placeholder="Email" name="user_email" />
-            <textarea style={{backgroundColor: darkMode && "#333"}} rows="5" placeholder="Message" name="message" />
-            <button>Submit</button>
-            {done && "Thank you..."}
+          <form ref={formRef} className="mt-5">
+            <input style={{ backgroundColor: darkMode && "#333" }} value={feedback.name} type="text" placeholder="Name" name="name" onChange={handleCchange} /><br />
+            <input style={{ backgroundColor: darkMode && "#333" }} value={feedback.subject} type="text" placeholder="Subject" name="subject" onChange={handleCchange} /><br />
+            <input style={{ backgroundColor: darkMode && "#333" }} value={feedback.email} type="text" placeholder="Email" name="email" onChange={handleCchange} />
+            <textarea style={{ backgroundColor: darkMode && "#333" }} value={feedback.message} rows="5" placeholder="Message" name="message" onChange={handleCchange} />
+            <button onClick={handleSubmit}>Submit</button>
+            {done ? <>
+              <br />
+              <h6>Thanks for the feedback</h6>
+            </> : <></>}
           </form>
         </div>
       </div>
