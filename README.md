@@ -19,6 +19,7 @@
     <br />
     <a href="https://space-dun-one.vercel.app">Live Website</a>
   </h3>
+  <i>PS - Don't try to compile code because we won't be bearing hefty cloud charges😪 </i>
 </div>
 
 
