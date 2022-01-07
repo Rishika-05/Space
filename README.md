@@ -70,22 +70,23 @@ Here's why:
 Technologies used - 
 
 <p align="left" style="background-color:white"> 
-<a href="ttps://reactjs.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"  alt="react" width="60" height="60"/> </a> 
+<a href="https://reactjs.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"  alt="react" width="60" height="60"/> </a> 
 &nbsp;&nbsp;
-<a href="" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="100" height="100"/> </a>  
+<a href="https://nodejs.org/en/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="100" height="100"/> </a>  
 &nbsp;&nbsp;
-<a href="" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original-wordmark.svg" alt="mongoDB" width="60" height="60"/> </a> 
+<a href="https://www.mongodb.com/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original-wordmark.svg" alt="mongoDB" width="60" height="60"/> </a> 
 &nbsp;&nbsp;
-<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original-wordmark.svg" alt="socket.io" width="100" height="100"/> </a>
+<a href="https://socket.io/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original-wordmark.svg" alt="socket.io" width="100" height="100"/> </a>
 &nbsp;&nbsp;
-<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="express" width="60" height="60"/> </a>
+<a href="https://expressjs.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="express" width="60" height="60"/> </a>
 &nbsp;&nbsp;
-<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original-wordmark.svg" alt="gcp"   width="100" height="100"/> </a> 
+<a href="https://cloud.google.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original-wordmark.svg" alt="gcp"   width="100" height="100"/> </a> 
 &nbsp;&nbsp;
-<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain-wordmark.svg" alt="firebase" width="60" height="60"/> </a>
+<a href="https://firebase.google.com/" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain-wordmark.svg" alt="firebase" width="60" height="60"/> </a>
 &nbsp;&nbsp;
-<a href="" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original-wordmark.svg" alt="ssh"  width="60" height="60"/> </a>
+<a href="https://www.ssh.com/academy/ssh" target="_blank"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ssh/ssh-original-wordmark.svg" alt="ssh"  width="60" height="60"/> </a>
 &nbsp;&nbsp;
+  <a href="https://www.agora.io/en/" target="_blank"> <img src="./client/src/components/About/img/agora.png" alt="ssh"  width="60" height="60"/> </a>
 </p>
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
@@ -93,8 +94,25 @@ Technologies used -
 
 <!-- ACHIEVEMENTS -->
 ## Achievements
-
-
+1. **User Profile** :
+    * Users can create account and verify themselves using email.
+    * Verified users can login, edit their profile summary, see their progress using progress calender and also track the questions they have solved.
+2. **Problemset and Puzzles** :
+    * Users can view problems on our website and filter them on the basis of difficulty,topic and solved-unsolved.
+    * Users can also brain storm on our mind-bending puzzles.
+3. **IDE** :
+    * Users can code solutions on our website using Space IDE.
+    * Users can submit their solutions and get judgement verdicts like - Accepted, Rejected, Compilation Error and Time Limit Exceeded with our Google Cloud Platform powered       IDE.
+4. **Interview** :
+    * Automatic scheduling of interviews via email with room ID, date and time.
+    * Conduct and give interactive interviews using audio-video interface.
+    * Share important links and handles using Space real-time chat.
+    * Users can also share their ideas via drawings using Space real-time collaborative whiteboard.
+    * Users can showcase thier coding skills to the interviewer using Space collaborative IDE.
+    * Users can look up their github profiles via space github viewer.
+5. **Admin Portal** :
+    * Space admins can login and create problems and puzzles for users.
+    * Admins can also track the problems that they have created.
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -157,6 +175,12 @@ _Below is an example of how you can instruct your audience on installing and set
    # Agora credentials
    APP_CERTIFICATE="YOUR_AGORA_APP_CERTIFICATE"
    APP_ID="YOUR_AGORA_APP_ID"
+   # Virtual machine host IP
+   VM_HOST_IP="YOUR_HOST_MACHINE_IP"
+   # SSH credentials
+   SSH_CONNECTOR_USERNAME="YOUR_SSH_USERNAME"
+   SSH_CONNECTION_PORT="ANY_SSH_PORT" 
+   SSH_KEY="YOUR_SSH_KEY" # SSH key must without BEGIN HEADER and END HEADER
    ```
    
 3. To run the backend -
