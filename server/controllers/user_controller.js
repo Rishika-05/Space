@@ -26,6 +26,22 @@ module.exports.check = (req, res) => {
     }
 }
 
+module.exports.checkMail = (req, res) => {
+    const { email } = req.body
+    //console.log(email);
+    User.findOne({ email: email }, async function (err, user) {
+        try {
+            if (user)
+                res.send({ exist: 1 });
+            else
+                res.send({ exist: 0 });
+        }
+        catch (err) {
+            console.log(err);
+        }
+    })
+}
+
 module.exports.login = (req, res) => {
     const { email, password } = req.body
     User.findOne({ email: email }, async function (err, user) {
@@ -121,4 +137,38 @@ module.exports.feedback = (req, res) => {
         else
             res.send({ done: 1 });
     })
+}
+
+module.exports.resetPass = (req, res) => {
+    const { email, code } = req.body
+    var deliver = {
+        from: 'team.space.793@gmail.com',
+        to: email,
+        subject: 'Password Reset Code',
+        text: `Code for password reset of your space account is ${code}`
+    }
+    transporter.sendMail(deliver, function (error, info) {
+        if (error) {
+            res.send({ done: 0, detail: error });
+            console.log(error);
+        }
+        else {
+            res.send({ done: 1, detail: info });
+            console.log(info);
+        }
+    })
+}
+
+module.exports.updatePassword = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        let user = await User.findOne({ email: email });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+        user.save();
+        res.send({ status: 200 });
+
+    } catch (err) {
+        console.log(err);
+    }
 }
