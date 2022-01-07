@@ -103,7 +103,7 @@ const Interview = () => {
   }
 
   const newTab = () => {
-    window.open('http://localhost:3000/join', "_blank");
+    window.open(`https://space-dun-one.vercel.app/join`, "_blank");
   }
 
 

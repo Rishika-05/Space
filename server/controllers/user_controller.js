@@ -122,3 +122,18 @@ module.exports.feedback = (req, res) => {
             res.send({ done: 1 });
     })
 }
+module.exports.updatePassword = async (req,res)=>{
+    const {email,password} = req.body;
+    try{
+        let user = await User.findOne({ email: email});
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+        user.save();
+        res.send({status:200});
+
+    }catch(err){
+        console.log(err);
+    }
+
+
+}
