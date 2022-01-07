@@ -192,9 +192,13 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
-### Our Team
+### Team
   - **Team Name** : PBX1
   - **Team Members** : 
       * [Ratul Dawar](https://github.com/RatulDawar)
       * [Rishika Raj](https://github.com/Rishika-05)
       * [Vinamra Mishra](https://github.com/Vinamra7)
+
+
+
+<p align="right">(<a href="#top">Back to top</a>)</p>
