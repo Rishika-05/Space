@@ -33,7 +33,7 @@ export default function Ide(props) {
     const [input, setInput] = useState('')
     const [spinner, setSpinner] = useState(false)
 
-    const socket = io.connect("https://airport-male-forget-rescue.trycloudflare.com/", { transports: ['websocket', 'polling', 'flashsocket'] });
+    
     const [inputBox, setinputBox] = useState(false);
     // eslint-disable-next-line 
     const [changeSide, setchangeSide] = useState(true);
@@ -42,56 +42,10 @@ export default function Ide(props) {
         if (!props.question) {
             setinputBox(true);
         }
-        if (props.inInterview) {
-            joinRoom();
-            socket.on('ide', (data) => {
-                // setchangeSide(false);
-                if (data !== value) {
-                    // setchangeSide(true);
-                    setValue(data);
-                }
-                // console.log("changeSide");
-            })
-            socket.on('language', (lann) => {
-                // setchangeSide(false);
-                setLanguage(lann);
-                let options = document.getElementById('language-dropdown');
-                if (lann === 'c_cpp') {
-                    options.selectedIndex = 0;
-                }
-                if (lann === 'python') {
-                    options.selectedIndex = 2;
-                }
-                if (lann === 'java') {
-                    options.selectedIndex = 1;
-                }
-                if (lann === 'kotlin') {
-                    options.selectedIndex = 3;
-                }
-
-            })
-            socket.on('reset', (data) => {
-                // console.log(data);
-                if (language === 'c_cpp') {
-                    setValue(cDefault);
-                }
-                if (language === 'python') {
-                    setValue(pyDefault);
-                }
-                if (language === 'java') {
-                    setValue(javaDefault);
-                }
-                if (language === 'kotlin') {
-                    setValue(kotDefault);
-                }
-            })
-        }
+        
         // eslint-disable-next-line
     }, []);
-    const joinRoom = () => {
-        var id = window.localStorage.getItem('ID');
-        socket.emit('joinRoom', id);
-    }
+    
 
     const themeChange = (event) => {
         setTheme(event.target.value);
@@ -100,55 +54,36 @@ export default function Ide(props) {
     const lanChange = (event) => {
         setLanguage(event.target.value);
         let lann = event.target.value;
-        if (props.inInterview) {
-            socket.emit('language', lann);
-        }
+        
         if (lann === 'c_cpp') {
             setValue(cDefault)
-            if (props.inInterview) {
-                socket.emit('ide', cDefault);
-            }
+            
         }
         if (lann === 'python') {
             setValue(pyDefault)
-            if (props.inInterview) {
-                socket.emit('ide', pyDefault);
-            }
+            
         }
         if (lann === 'java') {
             setValue(javaDefault)
-            if (props.inInterview) {
-                socket.emit('ide', javaDefault);
-            }
+            
         }
         if (lann === 'kotlin') {
             setValue(kotDefault)
-            if (props.inInterview) {
-                socket.emit('ide', kotDefault);
-            }
+            
         }
     }
     let timeout = null;
-
     function onChange(newValue) {
         setValue(newValue);
         // setchangeSide(true);
-        if (props.inInterview) {
-            if (timeout != null) {
-                clearTimeout(timeout);
-            }
-            timeout = setTimeout(() => {
-                socket.emit('ide', newValue);
-                console.log("yoyo");
-            }, 500);
-        }
+       
     }
 
     function resetClicked() {
 
         if (props.inInterview) {
             let reset = 1;
-            socket.emit('reset', reset);
+            
         }
         if (language === 'c_cpp') {
             setValue(cDefault);
