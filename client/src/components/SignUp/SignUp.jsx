@@ -21,6 +21,9 @@ export default function SignUp() {
         reEnterPassword: "",
     });
     useEffect(() => {
+        if (localStorage.getItem('user')) {
+            navigate('/');
+        }
         document.title = 'Sign Up| Space';
         // eslint-disable-next-line
     }, []);
