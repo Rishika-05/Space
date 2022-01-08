@@ -57,6 +57,9 @@ export default function Navbar(props) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-5 " style={{ "fontSize": "18px" }}>
                             <li className="nav-item me-4">
+                                <Link className={`nav-link ${loc.pathname === '/about' ? "active" : ""}`} aria-current="page" to="/about">About</Link>
+                            </li>
+                            <li className="nav-item me-4">
                                 <Link className={`nav-link ${loc.pathname === '/ide' ? "active" : ""}`} aria-current="page" to="/ide">Online IDE</Link>
                             </li>
                             <li className="nav-item me-4 dropdown">

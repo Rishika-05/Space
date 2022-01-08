@@ -2,17 +2,17 @@ export const products = [
   {
     id: 1,
     img: "",
-    link: "http://lama.dev",
+    link: "/",
   },
   {
     id: 2,
     img: "",
-    link: "http://lama.dev",
+    link: "/",
   },
   {
     id: 3,
     img: "",
-    link: "http://lama.dev",
+    link: "/",
   },
   
 ];
