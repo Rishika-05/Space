@@ -18,23 +18,23 @@ const Footer = () =>
             <div className="col-md-3 mb-md-0 mb-3">
                <h5 className="text-uppercase">Links</h5>
                <ul className="list-unstyled">
-                  <li><a href="#!">About</a></li>
-                  <li><a href="#!">Home</a></li>
+                  <li><a href="https://space-dun-one.vercel.app/about">About</a></li>
+                  <li><a href="https://space-dun-one.vercel.app/">Home</a></li>
                </ul>
             </div>
 
             <div className="col-md-3 mb-md-0 mb-3">
                <h5 className="text-uppercase">Links</h5>
                <ul className="list-unstyled">
-                  <li><a href="#!">Practice</a></li>
-                  <li><a href="#!">Interview</a></li>
+                  <li><a href="https://space-dun-one.vercel.app/problemset">Practice</a></li>
+                  <li><a href="https://space-dun-one.vercel.app/interview">Interview</a></li>
                </ul>
             </div>
          </div>
       </div>
 
       <div className="footer-copyright text-center py-3">© 2022 Copyright:
-         <span href="#!"> Space</span>
+         <a href="https://space-dun-one.vercel.app/" style={{textDecoration:'none'}}> Space</a>
       </div>
 
    </footer>

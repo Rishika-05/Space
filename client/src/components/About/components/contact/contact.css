@@ -1,5 +1,5 @@
 .c {
-  height: 530px;
+  height: fit-content;
   position: relative;
 }
 
@@ -66,9 +66,9 @@ input {
 
 textarea {
   width: 100%;
-  margin: 25px 0px 10px;
+  margin: 30px 5px 10px;
   font-size: 14px;
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 
 button {
@@ -106,7 +106,7 @@ button {
   }
 
   input {
-    width: 60vw;
+    width: 100%;
     height: 40px;
     margin: 10px;
     margin-left: 0;

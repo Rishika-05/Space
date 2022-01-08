@@ -1,6 +1,6 @@
 .i {
   display: flex;
-  height: 80vh;
+  height: 75vh;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -18,7 +18,7 @@
 }
 
 .i-left-wrapper {
-  padding: 50px;
+  padding:5px 50px;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@
 }
 
 .i-title {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
 }
 
@@ -66,7 +66,6 @@
   color: #171C3D;
   display: flex;
   align-items: center;
-  
 }
 
 .i-scroll {
@@ -77,11 +76,8 @@
 }
 
 .i-img {
-  width: 24vw;
+  width: 26vw;
   height: 20vw;
-  
-  
-  
 }
 
 .i-bg {
@@ -133,7 +129,6 @@
   }
 
   .i-left-wrapper {
-  
     padding: 10px;
     align-items: center;
     justify-content: center;
@@ -159,6 +154,6 @@
 }
 
 .about-btn{
-  max-width:20vh;
+  width:200px;
   margin:0;
 }

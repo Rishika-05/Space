@@ -22,7 +22,7 @@ const Intro = () => {
               <div className="i-title-item">Progress Tracker</div>
             </div>
           </div>
-          <a href = "/login" className = "mt-4"><button className="btn btn-primary about-btn">Get Started</button></a>
+          <a href = "/login" className = "mt-2"><button className="btn btn-primary about-btn">Get Started</button></a>
         </div>
         
       </div>

@@ -55,7 +55,7 @@ const About = (props) => {
   })
   if(props.position === 1){
     return (
-      <div className="a">
+      <div className="a mt-5 mb-5">
         <div className="a-left">
           <div className="a-card bg"></div>
           <div className="a-card">
@@ -81,7 +81,7 @@ const About = (props) => {
     );
   }else{
     return (
-      <div className="a mt-5" style = {{"margin-left":"10%"}}>
+      <div className="a mt-5 mb-5" >
         
         <div className="a-right">
           <h1 className="a-title">{title}</h1>
