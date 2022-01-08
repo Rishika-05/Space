@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom'
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useEffect,useState} from 'react'
+import $ from 'jquery'
 
 export default function Navbar(props) {
-
+    const [user,setUser] = useState(props.user);
     const navigate = useNavigate();
     let loc = useLocation();
-   
+    
     
     const userProfile = () => {
-        navigate(`/profile/${props.user._id}`)
+        navigate(`/profile/${user._id}`)
     }
     
     const logOut = () => {
@@ -30,10 +32,23 @@ export default function Navbar(props) {
             progress: undefined,
         });
     }
+    const navUtil = ()=>{
+        let u = JSON.parse(localStorage.getItem('userMain'));
+        setUser(u);
+    }
+    useEffect(() => {
+        if (window.localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+        }
+        
+        
+        
+    },[])
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg  sticky-top navbar-light" style={{ "backgroundColor": "white", "zIndex": '1000', "boxShadow": "0px 2px 10px #EAEAEA" }}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "zIndex": '1000', "boxShadow": "0px 2px 10px #EAEAEA" }}>
                 <div className="container-fluid">
                     <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="Space Logo" /> </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +77,7 @@ export default function Navbar(props) {
                             </li>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src={UserPic} alt="" style={{ "height": "25px", "marginRight": "10px" }} />{props.user.name}
+                                    <img src={UserPic} alt="" style={{ "height": "25px", "marginRight": "10px" }} />{user.name}
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ "fontSize": "18px" }}>
                                     <li><div className="dropdown-item" onClick={userProfile}>Profile</div></li>

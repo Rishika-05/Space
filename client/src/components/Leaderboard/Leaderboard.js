@@ -8,9 +8,14 @@ const Leaderboard = (props) => {
 
    const navigate = useNavigate();
    const [Users, setUsers] = useState();
+   const [user,setUser] = useState(props.user);
    let data = [];
    let count = 0;
    useEffect(() => {
+      if (localStorage.getItem('userMain')) {
+         let u = JSON.parse(localStorage.getItem('userMain'));
+         setUser(u);
+       }
       getAllUser();
       document.title = 'Leaderboard | Space';
       // eslint-disable-next-line
@@ -51,7 +56,7 @@ const Leaderboard = (props) => {
                      Users.map((ele) => {
                         count++;
                         
-                        return ((props.user._id === ele.id)?
+                        return ((user._id === ele.id)?
                            <li className="table-row" style = {{"backgroundColor":"rgb(189 194 196)"}}>
                               <div className="col col-1" data-label="rank">{count} </div>
                               <div className="col col-2" id="lead_user" onClick={() => navigate(`/profile/${ele.id}`)} data-label="name">{ele.name} </div> 

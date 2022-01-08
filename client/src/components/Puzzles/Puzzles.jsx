@@ -7,11 +7,16 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 export default function Problemset(props) {
     const [spinner,setSpinner] = useState(false);
+    const [user,setUser] = useState(props.user);
     const [filter, setFilter] = useState({
         difficulty: { easy: true, medium: true, hard: true },
     });
     const [questions, setQuestions] = useState();
     useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         filterData();
         document.title = 'Practice | Space'
         // eslint-disable-next-line
@@ -67,7 +72,7 @@ export default function Problemset(props) {
         setSpinner(false);
         setQuestions(data2.puzzles);
     }
-    if (props.user === undefined) {
+    if (user === undefined) {
         return (
             <Unauthorized />
         )

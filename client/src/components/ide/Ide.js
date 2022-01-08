@@ -21,6 +21,7 @@ import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
 import io from "socket.io-client";
 export default function Ide(props) {
+    const [user,setUser] = useState(props.user);
     const cDefault = `#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\treturn 0;\n}`
     const javaDefault = `import java.util.*;\npublic class main {\n\tpublic static void main(String[] args) {\n\n\t}\n}`
     const kotDefault = `fun main(){\n\tprintln("Hello world!")\n}`
@@ -32,12 +33,16 @@ export default function Ide(props) {
     const [output, setOutput] = useState('')
     const [input, setInput] = useState('')
     const [spinner, setSpinner] = useState(false)
-
+    
     
     const [inputBox, setinputBox] = useState(false);
     // eslint-disable-next-line 
     const [changeSide, setchangeSide] = useState(true);
     useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         document.title = 'IDE | Space';
         if (!props.question) {
             setinputBox(true);
@@ -73,6 +78,7 @@ export default function Ide(props) {
         }
     }
     let timeout = null;
+
     function onChange(newValue) {
         setValue(newValue);
         // setchangeSide(true);
@@ -115,7 +121,7 @@ export default function Ide(props) {
         }
     }
     const questionSolved = async () => {
-        let data = { user: props.user._id, question: props.question._id };
+        let data = { user: user._id, question: props.question._id };
         // eslint-disable-next-line
         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/solved`, {
             method: "POST", body: JSON.stringify(data), headers: {
@@ -141,19 +147,18 @@ export default function Ide(props) {
     const submitter = async () => {
 
         let inn, qID, uID;
-        console.log(inputBox);
-        console.log(input);
+        
         if (props.question) {
             inn = inputBox ? input : props.question.testCase;
             qID = props.question._id;
-            uID = props.user._id;
+            uID = user._id;
         }
         else {
             inn = input;
             qID = "";
             uID = "";
         }
-        console.log("in " + inn);
+        
 
         var data = {
             script: value,
@@ -171,6 +176,7 @@ export default function Ide(props) {
         });
         let res2 = await res.json();
         res2.cloudOut = res2.cloudOut.trim();
+        
         if (inputBox)
             setOutput(res2.cloudOut);
 
@@ -195,7 +201,7 @@ export default function Ide(props) {
             code: codeObj.script,
             language: codeObj.language,
             question: props.question ? props.question._id : "",
-            user: props.user ? props.user._id : "",
+            user: user ? user._id : "",
             verdict: res.verdict,
         }
         if (props.question === undefined || inputBox === true) {
@@ -236,6 +242,7 @@ export default function Ide(props) {
         }
         if (solution.verdict === 1) {
             // console.log(props.question.answer)
+
             if (res.cloudOut === props.question.answer) {
                 //correct Answer
                 questionSolved();
@@ -307,13 +314,13 @@ export default function Ide(props) {
     }
 
 
-    if (props.user._id === undefined) {
+    if (user._id === undefined) {
         return (<Unauthorized />)
     }
     else {
-        // console.log(props.user)
+        // console.log(user)
         return (
-            <>
+            <div id = "ide-div">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ 'boxShadow': '0px 2px 10px #cecece' }} >
                     <div className="container-fluid">
                         <text className="navbar-brand">Space Online IDE</text>
@@ -422,7 +429,7 @@ export default function Ide(props) {
 
                 </div>
                 <ToastContainer />
-            </>
+            </div>
         )
     }
 }

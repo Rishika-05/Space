@@ -7,8 +7,12 @@ import AceEditor from 'react-ace';
 export default function Solution(props) {
     const {id} = useParams();
     const [solution,setSolution] = useState({});
-    
+    const [user,setUser] = useState(props.user);
     useEffect(()=>{
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         getSolution();
         var editor = document.getElementsByClassName('ace_content');
         editor = editor[0];

@@ -5,7 +5,7 @@
 #problemset-container{
     /* border: 1px solid black; */
     height:fit-content;
-    height:80vw;
+    
 
 
 }
@@ -58,7 +58,10 @@
         display: none;
     }
     #problems-container{
-        max-height: 100vw;
+        max-height: 120vh;
         flex-basis:100%;
+    }
+    #problemset-container{
+
     }
 }

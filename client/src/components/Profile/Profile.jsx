@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
 import Unauthorized from '../unauthorized/Unauthorized';
@@ -18,7 +18,7 @@ export default function Profile(props) {
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
     const [submissions, setSubmissions] = useState(0);
-
+    const [user,setUser] = useState(props.user);
     const { id } = useParams();
 
     const toggle = () => {
@@ -27,12 +27,16 @@ export default function Profile(props) {
     const toggle1 = () => {
         setModal1(!modal1);
     }
-    useLayoutEffect(() => {
-
+    useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         getUserProfile();
-        document.title = `${props.user.name} | Space`;
+        console.log("Here");
+        document.title = `${user.name} | Space`;
         // eslint-disable-next-line
-    }, [id, props.user]);
+    }, [id]);
 
 
     const countSubmissions = (user) => {
@@ -53,32 +57,34 @@ export default function Profile(props) {
 
         let userData = await res.json();
         setuserProfile(userData.user);
-        
         const fullName = userData.user.name.split(' ');
         const nameString = fullName[0] + '+' + fullName[fullName.length - 1]
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
         setAvatar(av);
         countSubmissions(userData.user);
-        if(userData.user._id === props.user._id){
-            localStorage.setItem('userMain',JSON.stringify(userData.user));
-            
-        }
+       
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         event.preventDefault()
-        let data = { name: event.target.name.value, country: event.target.country.value, loggedIn: props.user._id }
+        let data = { name: event.target.name.value, country: event.target.country.value, loggedIn: user._id }
 
-        fetch(`${process.env.REACT_APP_SERVER_URL}/update/summary/${id}`, {
+        let wait =  await fetch(`${process.env.REACT_APP_SERVER_URL}/update/summary/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
         });
+         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${id}`, {
+            method: "GET", headers: {
+                'Content-Type': 'application/json'
+            },
+        });
         
+        let userData = await res.json();
         
+        setuserProfile(userData.user);
         
-        getUserProfile();
-        window.location.reload(false);
+        window.localStorage.setItem('userMain', JSON.stringify(userData.user));
 
         toast.success('Details Updated Successfully', {
             position: "top-center",
@@ -94,7 +100,7 @@ export default function Profile(props) {
 
         event.preventDefault()
 
-        let data = { about: event.target.about.value, institute: event.target.institute.value, graduation: event.target.graduation.value, degree: event.target.degree.value, loggedIn: props.user._id }
+        let data = { about: event.target.about.value, institute: event.target.institute.value, graduation: event.target.graduation.value, degree: event.target.degree.value, loggedIn: user._id }
 
         fetch(`${process.env.REACT_APP_SERVER_URL}/update/about/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
@@ -126,8 +132,13 @@ export default function Profile(props) {
             return <h6 style={{ "color": "blue" }}>{element.verdict}</h6>
         }
     }
-
-    if (props.user._id === undefined) {
+    const rumn = ()=>{
+        return <div id="profile-submissions" className="d-flex">
+            <a href = "/problemset">No problems to show start solving....</a>
+        </div>
+        
+    }
+    if (user._id === undefined) {
         return (
             <Unauthorized />
         )
@@ -142,7 +153,7 @@ export default function Profile(props) {
                             <div id="profile-summary-card">
                                 <span id="initials-avatar" className="d-flex justify-content-between">
                                     <img src={(avatar) ? avatar.url : ""} alt="Avatar" />
-                                    {(props.user._id !== userProfile._id) ? null : <button onClick={toggle} type="button" className="summary-edit-button">
+                                    {(user._id !== userProfile._id) ? null : <button onClick={toggle} type="button" className="summary-edit-button">
                                         <i class="fas fa-edit"></i>
                                     </button>}
                                 </span>
@@ -155,7 +166,7 @@ export default function Profile(props) {
                         <hr></hr>
                         <div className="left-card">
                             <h4 className="d-flex justify-content-between">About
-                                {(props.user._id !== userProfile._id) ? null : <button onClick={toggle1} type="button" className="summary-edit-button">
+                                {(user._id !== userProfile._id) ? null : <button onClick={toggle1} type="button" className="summary-edit-button">
                                     <i class="fas fa-edit"></i>
                                 </button>}
                             </h4>
@@ -182,18 +193,20 @@ export default function Profile(props) {
                             <h6 className="px-3 pt-2"><i class="fas fa-clipboard-check"></i> &nbsp; Submissions</h6>
                             <hr></hr>
                             <div id = "submissions-box">
+
                                 {
-                                    userProfile.solutions.slice(0).reverse().map((element) => {
+                                    (userProfile.solutions.length>0)?(userProfile.solutions.slice(0).reverse().map((element) => {
 
                                         return <><div id="profile-submissions" className="d-flex">
                                             <Link id="ques-link" to={`/problemPage/${element.question._id}`}><h6>{element.question.title}</h6></Link>
-                                            <Link id="solu-link" to={`/solution/${element._id}`}><h6>Your Solution</h6></Link>
+                                            <Link id="solu-link" to={`/solution/${element._id}`}><h6>Solution</h6></Link>
                                             <div id="verdict-text">{verdictColor(element)}</div>
                                         </div>
                                             {/* <hr></hr>   */}
                                         </>
                                         // console.log(element);
                                     })
+                                    ):rumn()
                                 }
                             </div>
                         </div>

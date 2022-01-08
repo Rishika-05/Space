@@ -6,6 +6,7 @@ import Unauthorized from '../unauthorized/Unauthorized.js'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 export default function Problemset(props) {
+    const [user,setUser] = useState(props.user);
     const [filter, setFilter] = useState({
         status: { solved: true, unsolved: true },
         difficulty: { easy: true, medium: true, hard: true },
@@ -14,6 +15,10 @@ export default function Problemset(props) {
     const [spinner,setSpinner] = useState(false);
     const [questions, setQuestions] = useState();
     useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         filterData();
         document.title = 'Practice | Space'
         // eslint-disable-next-line
@@ -99,7 +104,7 @@ export default function Problemset(props) {
         if(data.status.solved && !data.status.unsolved){
             let appliedFilter = [];
             for(let i=0;i<data2.questions.length;i++){
-                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) !== -1){
+                if(user.questionsSolved.indexOf(data2.questions[i]._id) !== -1){
                     appliedFilter.push(data2.questions[i]);
                 }
             }
@@ -108,7 +113,7 @@ export default function Problemset(props) {
         if(!data.status.solved && data.status.unsolved){
             let appliedFilter = [];
             for(let i=0;i<data2.questions.length;i++){
-                if(props.user.questionsSolved.indexOf(data2.questions[i]._id) === -1){
+                if(user.questionsSolved.indexOf(data2.questions[i]._id) === -1){
                     appliedFilter.push(data2.questions[i]);
                 }
             }
@@ -117,7 +122,7 @@ export default function Problemset(props) {
         setSpinner(false);
         
     }
-    if (props.user === undefined) {
+    if (user === undefined) {
         return (
             <Unauthorized />
         )
@@ -140,30 +145,13 @@ export default function Problemset(props) {
                         {
 
                             questions && questions.map((question) => {
-                                return <Problem question={question} key={question._id} isSolved = {props.user.questionsSolved.indexOf(question._id) !== -1} />
+                                return <Problem question={question} key={question._id} solved = {user.questionsSolved} />
                             })
                         }
                     </div>
                     <div id="tag-form-container">
                         <form id="tags-form" onSubmit={handleTags}>
-                            <h6>STATUS</h6>
-                            <div id="status-input">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" name="status" value="solved" id="status-solved" />
-                                    <label className="form-check-label" htmlFor="status-solved">
-                                        Solved
-                                    </label>
-
-                                </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="solved" id="status-unsolved" />
-                                    <label className="form-check-label" htmlFor="status-unsolved">
-                                        Unsolved
-                                    </label>
-
-                                </div>
-                            </div>
-                            <hr></hr>
+                            
                             <h6>DIFFICULTY</h6>
                             <div id="difficulty-input">
                                 <div className="form-check">

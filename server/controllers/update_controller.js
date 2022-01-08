@@ -14,6 +14,7 @@ module.exports.updateSummary = async (req,res)=>{
                 user.country = updateData.country
             }
             user.save();
+            res.send({message: 'Success'});
         }
         
         
@@ -42,6 +43,7 @@ module.exports.updateAbout = async (req,res)=>{
         }
         
         user.save();
+        res.send({message: 'Success'});
         
         
     }catch(err){

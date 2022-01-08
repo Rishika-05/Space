@@ -7,6 +7,10 @@ export default function Problem(props) {
     const problemPage = () => {
         navTo(`/problemPage/${props.question._id}`)
     }
+    const isSolved = ()=>{
+        return false;
+        
+    }
 
     return (
 
@@ -17,7 +21,7 @@ export default function Problem(props) {
                     <h6 className="card-subtitle mb-2 text-muted">{props.question.difficulty}, {props.question.tag}</h6>
                 </div>
                 <div id="button-container">
-                    {props.isSolved?<button type="button" className="btn btn-secondary but-c" onClick={problemPage}>Try Again</button>:<button type="button" className="btn btn-dark but-c" onClick={problemPage}>Solve</button>}
+                    {isSolved()?<button type="button" className="btn btn-secondary but-c" onClick={problemPage}>Try Again</button>:<button type="button" className="btn btn-dark but-c" onClick={problemPage}>Solve</button>}
                 </div>
             </div>
         </div>

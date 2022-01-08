@@ -7,3 +7,12 @@
    z-index: 10 !important;
    background-color: #fff !important;
 }
+body {
+   padding-top: 50px;
+   position: relative;
+}
+
+pre {
+   tab-size: 8;
+}
+

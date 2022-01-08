@@ -149,11 +149,14 @@
 
 .back {
     color: blue;
-    margin-left: 27%;
+    
     text-decoration: underline;
 }
 
 .back:hover {
     color: #098cb4;
     transition: 0.5s;
+}
+#forgot{
+    text-align: center;
 }

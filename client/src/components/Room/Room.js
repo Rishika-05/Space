@@ -34,13 +34,17 @@ const Room = (props) => {
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
    
-   
+   const [user,setUser] = useState(user);
    const [micr, setMicr] = useState(JSON.parse(window.localStorage.getItem('audio')));
    const [camr, setCamr] = useState(JSON.parse(localStorage.getItem('video')));
 
    
 
    useEffect(() => {
+      if (localStorage.getItem('userMain')) {
+         let u = JSON.parse(localStorage.getItem('userMain'));
+         setUser(u);
+       }
       if (window.localStorage.getItem('Type') === 'IE') {
          toggle();
       }
@@ -123,14 +127,14 @@ const Room = (props) => {
    }
 
 
-   if (props.user === undefined) {
+   if (user === undefined) {
       return (
          <Unauthorized />
       )
    }
    else {
    
-      props.user._id = username;
+      user._id = username;
       return (
          <>
             <div className="sidebar">
@@ -193,7 +197,7 @@ const Room = (props) => {
                   </div>
                   <div className="col-md-12 col-sm-12  d-none" id="code_space">
                      <div className="container-fluid">
-                        <Ide user={props.user} inInterview = {true} />
+                        <Ide user={user} inInterview = {true} />
                      </div>
                   </div>
                   <div className="col-md-12 col-sm-12 d-none" id="git_space">

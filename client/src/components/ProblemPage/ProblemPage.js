@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import './problemPage.css'
 import Ide from '../ide/Ide';
@@ -8,6 +8,7 @@ import Loading from '../Loading/Loading';
 export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
+    const [user,setUser] = useState(props.user);
     // eslint-disable-next-line
     const [userProfile,setuserProfile] = useState({solutions:[]});
     const getQuestion = async () => {
@@ -22,7 +23,7 @@ export default function ProblemPage(props) {
         setQuestion(questionData.question);
     }
     const getUser = async()=>{
-        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${props.user._id}`, {
+        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${user._id}`, {
             method: "GET", headers: {
                 'Content-Type': 'application/json'
             },
@@ -34,7 +35,11 @@ export default function ProblemPage(props) {
 
     }
    
-    useLayoutEffect(() => {
+    useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         getQuestion();
         getUser();
         // eslint-disable-next-line
@@ -45,7 +50,7 @@ export default function ProblemPage(props) {
         return (
             <>
                 <div className='container d-flex align-items-center justify-content-center '>
-                    <div className='col-sm-9 col-lg-9 col-xs-12'>
+                    <div className='col-sm-9 col-lg-9 col-xs-8 problem-statement'>
                         <h3 className='mt-4'>{qquestion.title}</h3>
                         <div className='problem-container p-3 mt-4'>
                             <h5 className='mb-2'>Problem Statement</h5>
@@ -64,7 +69,7 @@ export default function ProblemPage(props) {
                             <p className='mb-4'>{qquestion.problem.explanation}</p>
                         </div>
                         <div className='ide mt-5'>
-                            <Ide user={props.user} question={qquestion} />
+                            <Ide user={user} question={qquestion} />
                         </div>
                     </div>
                     

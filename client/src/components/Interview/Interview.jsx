@@ -15,7 +15,7 @@ import * as emailjs from 'emailjs-com'
 
 const SIZE = 10;
 
-const Interview = () => {
+const Interview = (props) => {
 
   const [modal, setModal] = useState(false);
   const [IRname, setIRName] = useState(" ");
@@ -23,8 +23,12 @@ const Interview = () => {
   const [IRmail, setIRmail] = useState(" ");
   const [IEmail, setIEmail] = useState(" ");
   const [DateTime, setDateTime] = useState();
-
+  const [user,setUser] = useState(props.user);
   useEffect(() => {
+    if (localStorage.getItem('userMain')) {
+      let u = JSON.parse(localStorage.getItem('userMain'));
+      setUser(u);
+    }
     document.title = 'Interview | Space';
     // eslint-disable-next-line
   }, []);

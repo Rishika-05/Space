@@ -20,7 +20,12 @@ const Join = (props) => {
    const [roomID, setRoomID] = useState('');
    const [mic, setMic] = useState(audio);
    const [cam, setCam] = useState(video);
+   const [user,setUser] = useState(user);
    useEffect(() => {
+      if (localStorage.getItem('userMain')) {
+         let u = JSON.parse(localStorage.getItem('userMain'));
+         props.setUser(u);
+       }
       getStream();
       document.title = 'Join Meeting | Space'
       // eslint-disable-next-line
@@ -98,7 +103,7 @@ const Join = (props) => {
       db.on("value", findKey);
 
    }
-   if (props.user === undefined) {
+   if (user === undefined) {
       return (<Unauthorized />)
    }
    else {

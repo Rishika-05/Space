@@ -28,7 +28,7 @@ import {
 import './App.css';
 import Puzzles from './components/Puzzles/Puzzles'
 function App() {
-
+  
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
   // eslint-disable-next-line
@@ -57,17 +57,17 @@ function App() {
             user && user._id ? <Interview /> : <SignIn setLoginUser={setLoginUser} />
           } />
           <Route path="/profile/:id" element={<Profile user={user} setLoginUser={setLoginUser} />} />
-          <Route exact path="/problemset" element={<Problemset user={user} />} />
-          <Route exact path="/problemPage/:id" element={<ProblemPage user={user} />} />
-          <Route exact path="/ide" element={<Ide user={user} />} />
-          <Route exact path="/join" element={<Join user={user} setInterview={setInterview} />} />
+          <Route exact path="/problemset" element={<Problemset user={user} setLoginUser={setLoginUser}/>} />
+          <Route exact path="/problemPage/:id" element={<ProblemPage user={user} setLoginUser={setLoginUser} />} />
+          <Route exact path="/ide" element={<Ide user={user} />}  setLoginUser={setLoginUser}/>
+          <Route exact path="/join" element={<Join user={user} setInterview={setInterview} setLoginUser={setLoginUser}/>} />
           <Route exact path="/leaderboard" element={<Leaderboard user={user} />} />
-          <Route exact path="/room/:id" element={<Agora setInterview={setInterview} user={user} setInCall={setInCall} />} />
+          <Route exact path="/room/:id" element={<Agora setInterview={setInterview} user={user} setInCall={setInCall} setLoginUser={setLoginUser}/>} />
           <Route exact path='/unauthorized' element={<Unauthorized />} />
           <Route path='*' element={<Error404 setInterview={setInterview} />} />
-          <Route exact path="/puzzles" element={<Puzzles user={user} />} />
-          <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} />} />
-          <Route exact path="/solution/:id" element={<Solution user={user} />} />
+          <Route exact path="/puzzles" element={<Puzzles user={user} setLoginUser={setLoginUser}/>} />
+          <Route exact path="/puzzlePage/:id" element={<PuzzlePage user={user} setLoginUser={setLoginUser}/>} />
+          <Route exact path="/solution/:id" element={<Solution user={user} setLoginUser={setLoginUser}/>} />
           
           <Route exact path="/about" element={<About />} />
         </Routes>

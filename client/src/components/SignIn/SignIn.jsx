@@ -1,10 +1,12 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../login.css'
 import logo from '../../assets/images/space1.gif'
 import logoText from '../../assets/images/Space.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 import axios from 'axios'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css';
@@ -13,7 +15,8 @@ export default function SignIn(props) {
 
     const navigate = useNavigate();
     const [forgot, setForgot] = useState(false)
-    const [cc, setcc] = useState()
+    const [cc, setcc] = useState();
+    const [spinner,setSpinner] = useState(false);
     const [fUser, setFuser] = useState({
         fEmail: "",
         fCode: "",
@@ -40,20 +43,22 @@ export default function SignIn(props) {
         )
     }
 
-    useLayoutEffect(() => {
-
+    useEffect(() => {
         if (localStorage.getItem('user')) {
             let token = localStorage.getItem('user');
             const passer = { token: token }
             axios.post(`${process.env.REACT_APP_SERVER_URL}/check`, passer)
                 .then(res => {
                     if (res.data.message === 200) {
-                        console.log(res.data.user);
+                        
                         props.setLoginUser(res.data.user);
                     }
                 })
         }
-    })
+        if (localStorage.getItem('user')) {
+            navigate('/');
+        }
+    },[true]);
 
     let tt = (value) => {
         toast(value, {
@@ -182,6 +187,7 @@ export default function SignIn(props) {
         }
     }
     const signin = () => {
+        setSpinner(true);
         const { email, password } = user
         if (email && password) {
             axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, user)
@@ -200,6 +206,7 @@ export default function SignIn(props) {
                     if (res.data.user) {
                         localStorage.setItem('userMain', JSON.stringify(res.data.user));
                         localStorage.setItem('user', res.data.token);
+                        setSpinner(false);
                         navigate('/')
                     }
                     else
@@ -273,8 +280,16 @@ export default function SignIn(props) {
                                         <input type="password" name="password" value={user.password} className="form-control" id="show_hide_password" placeholder="Password"
                                             onChange={handleChange} />
                                     </div>
-                                    <button type="submit" className="btn btn-primary" onClick={signin}>Log In</button>
-                                    <text style={{ textDecoration: 'none', marginTop: '3px', cursor: 'pointer' }} onClick={() => { setForgot(true) }} className='back'>Forgot your password?</text>
+                                    <button type="submit" className="btn btn-primary" onClick={signin}><Loader id = "spinner"
+                        type="Bars"
+                        color="white"
+                        height={30}
+                        width={30}
+                        visible = {spinner}
+                    />{!spinner?"Login":""}</button>
+                                    <div id ="forgot">
+                                    <text style={{ textDecoration: 'none',marginTop: '3px', cursor: 'pointer' }} onClick={() => { setForgot(true) }} className='back'>Forgot your password?</text>
+                                    </div>
                                     <div style={{ textAlign: "center" }}>or</div>
                                     <Link className="btn btn-primary newAcc" to="/SignUp">Sign Up</Link>
                                 </>}

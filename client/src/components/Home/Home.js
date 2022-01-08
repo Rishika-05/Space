@@ -1,4 +1,4 @@
-import React,{ useEffect} from 'react'
+import React,{ useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
 import Particles from 'react-tsparticles'
 import patriclesConfig from './config/particle-config'
@@ -8,8 +8,14 @@ import prob from './problem.png'
 import puz from './puzzle.png'
 
 export default function Home(props) {
+    const [user,setUser] = useState(props.user);
     useEffect(() => {
+        if (localStorage.getItem('userMain')) {
+            let u = JSON.parse(localStorage.getItem('userMain'));
+            setUser(u);
+          }
         document.title = 'Home | Space';
+        
         // eslint-disable-next-line
     }, []);
     props.setInterview(true);

@@ -20,6 +20,7 @@ const About = () => {
   }
   
   useEffect(() => {
+    
     scroll(0);  
      
   })

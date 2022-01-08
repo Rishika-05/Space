@@ -13,9 +13,19 @@
 #input-run-box{
    border-radius: 10px;
 }
+
 .outputBox{
    border-radius: 10px;
    border: none;
    box-shadow: 0px 1px 5px #bbbbbb !important;
    outline: none;
+}
+@media screen and (max-width:600px){
+   #run-button{
+      max-width:20vw;
+   }
+   #ide-div{
+      padding:50px;
+   }
+   
 }

@@ -8,3 +8,6 @@
 .accordion-button::after{
     color:white!important;
 }
+.puzzle-text{
+    overflow-wrap: break-word;
+}
