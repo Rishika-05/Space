@@ -174,6 +174,7 @@ module.exports.solved = async (req, res) => {
             }
         }
         user.save();
+        res.send(user);
     } catch (err) {
         console.log(err);
     }

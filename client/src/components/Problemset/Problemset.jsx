@@ -1,12 +1,14 @@
 import React from 'react'
 import Problem from './Problem.jsx'
 import './Problemset.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react';
 import Unauthorized from '../unauthorized/Unauthorized.js'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import {UserRepair} from '../../App.js';
 export default function Problemset(props) {
-    const [user,setUser] = useState(props.user);
+    const {user,setLoginUser} = useContext(UserRepair);
+    
     const [filter, setFilter] = useState({
         status: { solved: true, unsolved: true },
         difficulty: { easy: true, medium: true, hard: true },
@@ -17,7 +19,7 @@ export default function Problemset(props) {
     useEffect(() => {
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
-            setUser(u);
+            setLoginUser(u);
           }
         filterData();
         document.title = 'Practice | Space'
@@ -151,7 +153,24 @@ export default function Problemset(props) {
                     </div>
                     <div id="tag-form-container">
                         <form id="tags-form" onSubmit={handleTags}>
-                            
+                        <h6>STATUS</h6>
+                            <div id="status-input">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="status" value="solved" id="status-solved" />
+                                    <label className="form-check-label" htmlFor="status-solved">
+                                        Solved
+                                    </label>
+
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="solved" id="status-unsolved" />
+                                    <label className="form-check-label" htmlFor="status-unsolved">
+                                        Unsolved
+                                    </label>
+
+                                </div>
+                            </div>
+                            <hr></hr>
                             <h6>DIFFICULTY</h6>
                             <div id="difficulty-input">
                                 <div className="form-check">

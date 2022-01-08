@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import reset from './reset.png'
 import './Ide.css'
 import AceEditor from 'react-ace';
@@ -19,9 +19,10 @@ import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
+import {UserRepair} from '../../App.js';
 import io from "socket.io-client";
 export default function Ide(props) {
-    const [user,setUser] = useState(props.user);
+    const {user,setLoginUser} = useContext(UserRepair);
     const cDefault = `#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\treturn 0;\n}`
     const javaDefault = `import java.util.*;\npublic class main {\n\tpublic static void main(String[] args) {\n\n\t}\n}`
     const kotDefault = `fun main(){\n\tprintln("Hello world!")\n}`
@@ -41,7 +42,7 @@ export default function Ide(props) {
     useEffect(() => {
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
-            setUser(u);
+            setLoginUser(u);
           }
         document.title = 'IDE | Space';
         if (!props.question) {
@@ -128,6 +129,10 @@ export default function Ide(props) {
                 'Content-Type': 'application/json'
             },
         });
+        let changedUser = await res.json();
+        setLoginUser(changedUser);
+        window.localStorage.setItem('userMain', JSON.stringify(changedUser));
+
     }
     function passVersion(lan) {
         if (lan === 'c_cpp') {
