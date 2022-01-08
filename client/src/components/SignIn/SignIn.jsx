@@ -290,7 +290,7 @@ export default function SignIn(props) {
                         width={30}
                         visible = {spinner}
                     />{!spinner?"Login":""}</button>
-                                    <div id ="forgot">
+                                    <div id ="forgot" className = "mt-2">
                                     <text style={{ textDecoration: 'none',marginTop: '3px', cursor: 'pointer' }} onClick={() => { setForgot(true) }} className='back'>Forgot your password?</text>
                                     </div>
                                     <div style={{ textAlign: "center" }}>or</div>

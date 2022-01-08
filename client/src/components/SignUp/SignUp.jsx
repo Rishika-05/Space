@@ -211,10 +211,10 @@ export default function SignUp() {
                                 </div> : <></>
                             }
                             {!veri ? <button type="submit" className="btn btn-primary push" onClick={register}>Create Account</button>
-                                : <button type="submit" className="btn btn-primary push" onClick={loggin}>verify</button>
+                                : <button type="submit" className="btn btn-primary push" onClick={loggin}>Verify</button>
                             }
 
-                            <Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link>
+                            <div className="back-to"><Link className="back" style={{ 'textDecoration': 'none' }} to="/">Back to Login Page</Link></div>
                         </div>
                     </div>
                 </div>

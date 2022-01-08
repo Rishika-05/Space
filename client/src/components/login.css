@@ -149,10 +149,13 @@
 
 .back {
     color: blue;
-    
+    width:inherit;
+    text-align: center;
     text-decoration: underline;
 }
-
+.back-to{
+    text-align: center;
+}
 .back:hover {
     color: #098cb4;
     transition: 0.5s;
