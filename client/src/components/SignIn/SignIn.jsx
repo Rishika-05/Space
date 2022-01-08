@@ -128,7 +128,7 @@ export default function SignIn(props) {
                         email: fEmail,
                         password: fPass,
                     }
-                    axios.post("http://localhost:9002/updatePassword", dataSend)
+                    axios.post(`${process.env.REACT_APP_SERVER_URL}/updatePassword`, dataSend)
                         .then(res => {
                             if (res.data.status === 200) {
                                 tt("password reset successfull")
@@ -155,7 +155,7 @@ export default function SignIn(props) {
         }
         if (fEmail) {
             //console.log('aaa ' + fEmail);
-            axios.post("http://localhost:9002/checkMail", sender)
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/checkMail`, sender)
                 .then(res => {
                     if (res.data.exist === 1) {
                         setNewpass(true);
@@ -164,7 +164,7 @@ export default function SignIn(props) {
                             email: fEmail,
                             code: random,
                         }
-                        axios.post("http://localhost:9002/resetPass", sender1)
+                        axios.post(`${process.env.REACT_APP_SERVER_URL}/resetPass`, sender1)
                             .then(res => {
                                 if (res.data.done === 1) {
                                     setcc(random);
