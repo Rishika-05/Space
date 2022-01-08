@@ -129,7 +129,8 @@ const Join = (props) => {
                   <div className="col-sm-8 col-xs-12 d-flex justify-content-center">
                      <div className="video-mask">
                         <video id="localVideo" muted autoPlay playsInline ></video>
-                        <div className="buttons">
+                        
+                        <div className="buttons d-none">
                            <button className="button" id="toggleCamera" onClick={toggleCamera}>
                               <i className={cam ? "fa fa-video" : "fa fa-video-slash"} aria-hidden="true"></i>
                            </button>
@@ -138,7 +139,9 @@ const Join = (props) => {
                            </button>
                         </div>
                      </div>
+                     
                   </div>
+                  
                   <div className="col-sm-4 col-xs-12 mt-5 d-flex justify-content-center ">
                      <div className="boxmeet mt-5">
                         <h2 className="mb-5" >Join Meeting</h2>

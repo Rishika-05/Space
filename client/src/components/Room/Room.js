@@ -8,6 +8,7 @@ import Ide from '../ide/Ide'
 import { UseUtils } from '../utils/roomUtils';
 import { useClient } from "../VideoCall/settings.js";
 import { AgoraVideoPlayer } from "agora-rtc-react";
+import placeholder from "../../assets/images/user.png"
 
 import {
    Modal, ModalHeader, ModalBody, Button, ModalFooter
@@ -34,7 +35,7 @@ const Room = (props) => {
    var username = window.localStorage.getItem('Name');
    var roomid = window.localStorage.getItem('ID');
    
-   const [user,setUser] = useState(user);
+   const [user,setUser] = useState(props.user);
    const [micr, setMicr] = useState(JSON.parse(window.localStorage.getItem('audio')));
    const [camr, setCamr] = useState(JSON.parse(localStorage.getItem('video')));
 
@@ -125,7 +126,14 @@ const Room = (props) => {
       setInCall(false);
       window.close();
    }
-
+   const place = (length)=>{
+      console.log(length);
+      if(length === 0){
+         return <img src = {placeholder} height="150px" width="150px"style = {{"position": "absolute","top":"50%","left":"50%","transform": "translate(-50%,-50%)"}}></img>
+      }else{
+         return null;
+      }
+   }
 
    if (user === undefined) {
       return (
@@ -160,25 +168,27 @@ const Room = (props) => {
                            <span id="currentRoom"></span>
                         </div>
                         <div id="videos">
+                           {place(users.length)}
                            {users.length > 0 &&
                               users.map((user) => {
-                                 console.log("user",user);
+                                 
                                  if (user.videoTrack) {
-                                    
                                  return (
                                        <div id = "remote_Video">
-                                       <AgoraVideoPlayer
-                                       videoTrack={user.videoTrack}
-                                       key={user.uid}
-                                       style={{height: '100%', width: '100%'}}
-                                       />
+                                          
+                                          <AgoraVideoPlayer
+                                          videoTrack={user.videoTrack}
+                                          key={user.uid}
+                                          style={{height: '100%', width: '100%'}}
+                                          />
                                        </div>
                                     
                                  );
-                                 } else return null;
+                                 } 
                            })}
                            <Draggable bounds="parent" grid={[25, 25]} >
                               <div id = "local_Video">
+                                 
                                  <AgoraVideoPlayer videoTrack={tracks[1]} style={{height: '100%', width: '100%',borderRadius:'25px'}} />
                               </div>
                            </Draggable>
@@ -232,7 +242,7 @@ const Room = (props) => {
                <ModalBody className='modal-col'>
                   <p> You would be entering the full screen mode for this meeting.</p>
                   <p className="text-warning"><small>If you don't agree to go full screen, you can't continue using the meeting features.</small></p>
-                  <p className="text-info"><small><strong>Note:</strong> Whenever you try exiting the fullscreen mode in-between the meeting, the interviewer would be notified. You will only be exiting the full screen mode after your interview is finished.</small></p>
+                  {/* <p className="text-info"><small><strong>Note:</strong> Whenever you try exiting the fullscreen mode in-between the meeting, the interviewer would be notified. You will only be exiting the full screen mode after your interview is finished.</small></p> */}
                </ModalBody>
                <ModalFooter className="modal-cen">
                   <div style={{ "margin": "auto" }}>

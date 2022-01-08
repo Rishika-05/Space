@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-  cout<<"asd";
+while(true){
+  
+}
 	return 0;
 }
