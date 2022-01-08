@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,createContext } from 'react'
 import './components/login.css'
 import SignIn from './components/SignIn/SignIn.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
@@ -27,12 +27,14 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Puzzles from './components/Puzzles/Puzzles'
+const UserRepair = createContext();
 function App() {
   
   const [user, setLoginUser] = useState({});
   const [interview, setInterview] = useState(true);
   // eslint-disable-next-line
   const [inCall, setInCall] = useState(false);
+  
 
   useEffect(() => {
     if (localStorage.getItem('userMain')) {
@@ -43,6 +45,7 @@ function App() {
 
   return (
     <>
+    <UserRepair.Provider value = {{user,setLoginUser}}> 
       <Router>
         {
           (user && user._id) && interview ? <Navbar user={user} setLoginUser={setLoginUser} /> : <></>
@@ -73,8 +76,10 @@ function App() {
         </Routes>
         <ToastContainer />
       </Router>
+      </UserRepair.Provider>
     </>
   );
 }
 
 export default App;
+export {UserRepair};

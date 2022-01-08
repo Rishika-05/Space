@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Calender from '../Calender/Calender'
 import Unauthorized from '../unauthorized/Unauthorized';
@@ -11,6 +11,7 @@ import {
 import './profile.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {UserRepair} from "../../App.js"
 
 export default function Profile(props) {
     const [userProfile, setuserProfile] = useState();
@@ -18,9 +19,9 @@ export default function Profile(props) {
     const [modal, setModal] = useState(false);
     const [modal1, setModal1] = useState(false);
     const [submissions, setSubmissions] = useState(0);
-    const [user,setUser] = useState(props.user);
+    // const [user,setUser] = useState(props.user);
     const { id } = useParams();
-
+    const {user,setLoginUser} = useContext(UserRepair);
     const toggle = () => {
         setModal(!modal);
     }
@@ -30,11 +31,13 @@ export default function Profile(props) {
     useEffect(() => {
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
-            setUser(u);
+            setLoginUser(u);
           }
-        getUserProfile();
-        console.log("Here");
-        document.title = `${user.name} | Space`;
+        let temp = getUserProfile();
+          temp.then((result)=>{
+            document.title = `${result.name} | Space`;
+          })
+        
         // eslint-disable-next-line
     }, [id]);
 
@@ -62,6 +65,7 @@ export default function Profile(props) {
         let av = await fetch(`https://ui-avatars.com/api/?name=${nameString}&background=171C3D&color=FFFFFF`)
         setAvatar(av);
         countSubmissions(userData.user);
+        return userData.user;
        
     }
     const handleSubmit = async (event) => {
@@ -85,7 +89,7 @@ export default function Profile(props) {
         setuserProfile(userData.user);
         
         window.localStorage.setItem('userMain', JSON.stringify(userData.user));
-
+        setLoginUser(userData.user);
         toast.success('Details Updated Successfully', {
             position: "top-center",
             autoClose: 2000,
@@ -95,20 +99,31 @@ export default function Profile(props) {
             draggable: true,
             progress: undefined,
         });
+        
     }
-    const handleSubmit1 = (event) => {
+    const handleSubmit1 = async (event) => {
 
         event.preventDefault()
 
         let data = { about: event.target.about.value, institute: event.target.institute.value, graduation: event.target.graduation.value, degree: event.target.degree.value, loggedIn: user._id }
 
-        fetch(`${process.env.REACT_APP_SERVER_URL}/update/about/${id}`, {
+        let wait =  await fetch(`${process.env.REACT_APP_SERVER_URL}/update/about/${id}`, {
             method: "POST", body: JSON.stringify(data), headers: {
                 'Content-Type': 'application/json'
             },
         });
-
-        getUserProfile();
+         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${id}`, {
+            method: "GET", headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        
+        let userData = await res.json();
+        
+        setuserProfile(userData.user);
+        
+        window.localStorage.setItem('userMain', JSON.stringify(userData.user));
+        setLoginUser(userData.user);
         toast.success('Details Updated Successfully', {
             position: "top-center",
             autoClose: 2000,
@@ -118,7 +133,7 @@ export default function Profile(props) {
             draggable: true,
             progress: undefined,
         });
-        window.location.reload(false);
+        
     }
 
     const year = (new Date()).getFullYear();

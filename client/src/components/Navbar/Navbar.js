@@ -5,14 +5,15 @@ import { Link } from 'react-router-dom'
 import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useContext} from 'react';
+import {UserRepair} from '../../App.js'
 import $ from 'jquery'
 
 export default function Navbar(props) {
-    const [user,setUser] = useState(props.user);
+    //onst [user,setUser] = useState(props.user);
     const navigate = useNavigate();
     let loc = useLocation();
-    
+    const {user} = useContext(UserRepair);
     
     const userProfile = () => {
         navigate(`/profile/${user._id}`)
@@ -32,15 +33,12 @@ export default function Navbar(props) {
             progress: undefined,
         });
     }
-    const navUtil = ()=>{
-        let u = JSON.parse(localStorage.getItem('userMain'));
-        setUser(u);
-    }
+   
     useEffect(() => {
-        if (window.localStorage.getItem('userMain')) {
-            let u = JSON.parse(localStorage.getItem('userMain'));
-            setUser(u);
-        }
+        // if (window.localStorage.getItem('userMain')) {
+        //     let u = JSON.parse(localStorage.getItem('userMain'));
+        //     setUser(u);
+        // }
         
         
         
@@ -48,6 +46,8 @@ export default function Navbar(props) {
 
     return (
         <>
+            
+                
             <nav className="navbar navbar-expand-lg navbar-light" style={{ "backgroundColor": "white", "zIndex": '1000', "boxShadow": "0px 2px 10px #EAEAEA" }}>
                 <div className="container-fluid">
                     <Link className="navbar-brand ms-5" to="/" style={{ "marginLeft": "10px" }}><img src={Logo} alt="Space Logo" /> </Link>
@@ -90,6 +90,7 @@ export default function Navbar(props) {
                 </div>
             </nav>
             <ToastContainer />
+            
         </>
     )
 }

@@ -13,21 +13,24 @@ const Intro = () => {
             Space is a platform that gives you ability to conduct real one-to-one interviews with low latency collaborative whiteboard and IDE with real time chat.
             It also powers you with the ability to practice problems and code it right in here with our google cloud powered IDE. 
           </p>
-          <div className="i-title d-flex justify-content-center ">
+          <div className="i-title d-flex justify-content-center m-2">
             <div className="i-title-wrapper">
-              <div className="i-title-item text-center">Interview</div>
+              <div className="i-title-item">Interview</div>
               <div className="i-title-item">Problems</div>
               <div className="i-title-item">Puzzles</div>
               <div className="i-title-item">IDE</div>
               <div className="i-title-item">Progress Tracker</div>
             </div>
           </div>
+          <a href = "/login" className = "mt-4"><button className="btn btn-primary about-btn">Get Started</button></a>
         </div>
         
       </div>
       <div className="i-right">
-        <div className="i-bg"></div>
+        <div className="i-bg">
         <img src={Me} alt="" className="i-img" />
+        </div>
+        
       </div>
     </div>
   );

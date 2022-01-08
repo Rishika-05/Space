@@ -209,11 +209,14 @@ export default function SignIn(props) {
                         setSpinner(false);
                         navigate('/')
                     }
-                    else
+                    else{
+                        setSpinner(false);
                         navigate('/login')
+                    }
                 });
         }
         else {
+            setSpinner(false);
             toast('invalid input', {
                 position: "top-center",
                 autoClose: 2000,
