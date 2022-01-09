@@ -40,6 +40,7 @@ export default function Ide(props) {
     // eslint-disable-next-line 
     const [changeSide, setchangeSide] = useState(true);
     useEffect(() => {
+        console.log(user);
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
             setLoginUser(u);
@@ -122,6 +123,7 @@ export default function Ide(props) {
         }
     }
     const questionSolved = async () => {
+        
         let data = { user: user._id, question: props.question._id };
         // eslint-disable-next-line
         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/solved`, {
@@ -180,13 +182,27 @@ export default function Ide(props) {
             },
         });
         let res2 = await res.json();
-        res2.cloudOut = res2.cloudOut.trim();
-        
-        if (inputBox)
-            setOutput(res2.cloudOut);
+        if(res2.message === 400){
+            setSpinner(false);
+            toast.error('Something Went wrong', {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            
+        }else{
+            res2.cloudOut = res2.cloudOut.trim();
+            
+            if (inputBox)
+                setOutput(res2.cloudOut);
 
-        setSpinner(false);
-        checkerToast(res2, data);
+            setSpinner(false);
+            checkerToast(res2, data);
+        }
 
 
 

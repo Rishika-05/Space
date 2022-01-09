@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import './problemPage.css'
 import Ide from '../ide/Ide';
 import Loading from '../Loading/Loading';
 // import {Link} from 'react-router-dom';
+import {UserRepair} from '../../App.js';
 
 export default function ProblemPage(props) {
     const { id } = useParams();
     const [qquestion, setQuestion] = useState();
-    const [user,setUser] = useState(props.user);
+    const {user,setLoginUser} = useContext(UserRepair);
     // eslint-disable-next-line
-    const [userProfile,setuserProfile] = useState({solutions:[]});
+    
     const getQuestion = async () => {
         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/${id}`, {
             method: "GET", headers: {
@@ -22,26 +23,15 @@ export default function ProblemPage(props) {
         
         setQuestion(questionData.question);
     }
-    const getUser = async()=>{
-        let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/profile/${user._id}`, {
-            method: "GET", headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-        let userData = await res.json();
-        setuserProfile(userData.user);
-        console.log(userData.user);
-        
-
-    }
+    
    
     useEffect(() => {
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
-            setUser(u);
+            setLoginUser(u);
           }
         getQuestion();
-        getUser();
+        
         // eslint-disable-next-line
     }, [])
 
