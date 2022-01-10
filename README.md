@@ -113,7 +113,6 @@ Technologies used -
     * Share important links and handles using Space real-time chat.
     * Users can also share their ideas via drawings using Space real-time collaborative whiteboard.
     *  <img src = './gifs/whitboard_.png' alt = "whiteboard" width="660" height="348">
-    * Users can showcase thier coding skills to the interviewer using Space collaborative IDE.
     * Users can look up their github profiles via space github viewer.
     * <img src = "./gifs/VideoCall.gif" alt = "Video Call" width="710" height="348">
 5. **Admin Portal** :
