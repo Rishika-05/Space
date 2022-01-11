@@ -122,7 +122,7 @@ export default function Ide(props) {
             return 'kotlin';
         }
     }
-    const questionSolved = async () => {
+    const questionSolved = async (solution) => {
         
         let data = { user: user._id, question: props.question._id };
         // eslint-disable-next-line
@@ -132,8 +132,10 @@ export default function Ide(props) {
             },
         });
         let changedUser = await res.json();
+        
         setLoginUser(changedUser);
         window.localStorage.setItem('userMain', JSON.stringify(changedUser));
+        soluLog(solution);
 
     }
     function passVersion(lan) {
@@ -163,7 +165,7 @@ export default function Ide(props) {
         else {
             inn = input;
             qID = "";
-            uID = "";
+            uID = user._id;
         }
         
 
@@ -266,9 +268,10 @@ export default function Ide(props) {
 
             if (res.cloudOut === props.question.answer) {
                 //correct Answer
-                questionSolved();
                 solution.verdict = "Accepted";
-                soluLog(solution);
+                questionSolved(solution);
+                
+                
                 toast.success('Correct Answer', {
                     position: "top-center",
                     autoClose: 2000,

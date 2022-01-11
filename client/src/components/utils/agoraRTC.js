@@ -22,7 +22,7 @@ let joinAndDisplayLocalStream = async () => {
         video:true,
         screen:false
     });
-    console.log("Hello",localTracks);
+    
     localTracks.init();
 
     localTracks.play('local_Video');

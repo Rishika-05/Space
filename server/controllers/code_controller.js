@@ -169,25 +169,28 @@ module.exports.solved = async (req, res) => {
     try {
         let user = await User.findById(solData.user);
         let index = user.questionsSolved.indexOf(solData.question);
-        if (index == -1) {
+        if (index === -1) {
             user.questionsSolved.push(solData.question);
-
+            user.save((err, result) => {
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                
+                res.send(result);
+            });
             var a = dayOfYear(new Date());
             // console.log(a);
-            if (a == 1) {
-                for (let i = 0; i < user.calender.length; i++) {
-                    user.calender[i].value = 0;
-                }
-            }
+           
             for (let i = 0; i < user.calender.length; i++) {
-                if (user.calender[i].day == a) {
+                if (user.calender[i].day === a) {
                     user.calender[i].value++;
                     break;
                 }
             }
         }
-        user.save();
-        res.send(user);
+        
+        
     } catch (err) {
         console.log(err);
     }
