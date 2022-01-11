@@ -17,11 +17,11 @@ module.exports.getResult = async (req, res) => {
     let output;
     let error;
     try {
-        const { script, language, stdin, versionIndex,userID } = req.body;
+        const { script, language, stdin, versionIndex, userID } = req.body;
         let assign = {
             fileName: ``,
-            command: ``, 
-        } 
+            command: ``,
+        }
         if (language === 'cpp17') {
             assign.fileName = `${userID}.cpp`
             assign.command = `g++ ${userID}.cpp -o ${userID}`
@@ -31,8 +31,8 @@ module.exports.getResult = async (req, res) => {
             assign.command = `timeout 1 python3 ${userID}.py < input.txt && echo $? || echo $?`
         }
         else if (language === 'java') {
-            assign.fileName = `${userID}.java`
-            assign.command = `javac ${userID}.java`
+            assign.fileName = `main.java`
+            assign.command = `javac main.java`
         }
         fs.writeFile(assign.fileName, script, function (err) {
             if (err) {
@@ -57,18 +57,20 @@ module.exports.getResult = async (req, res) => {
             ssh.putFile(`./${assign.fileName}`, `/home/user/cloud/${assign.fileName}`).then(function () {
                 console.log(`The File thing is done`)
             })
-            .catch(function (err) {
-                res.send({message:400});
-                console.log(err);
-            })
+                .catch(function (err) {
+                    res.send({ message: 400 });
+                    console.log(err);
+                })
             ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
                 console.log(`The File thing is done`)
                 //compile
                 ssh.execCommand(assign.command, { cwd: '/home/user/cloud' }).then(function (result) {
                     output = result.stdout;
                     error = result.stderr;
-                    if (error.length > 0)
+                    if (error.length > 0) {
+                        error = error.replaceAll(`${userID}`, `main`);
                         res.send({ cloudOut: error, cloudErr: error, verdict: 0 });
+                    }
                     else if (language === `python3`) {
                         console.log(`ou ` + output);
                         let verdict;
@@ -95,8 +97,14 @@ module.exports.getResult = async (req, res) => {
                                 output1 = output1.slice(0, output1.length - 1);
                             }
                             else if (output1.charAt(output1.length - 1) === `4`) {
-                                verdict = -1;
-                                output1 = ``;
+                                if (output1.charAt(output1.length - 2) === '2') {
+                                    verdict = -1;
+                                    output1 = ``;
+                                }
+                                else if (output1.charAt(output1.length - 2) === '3') {
+                                    verdict = -2;
+                                    output1 = ``;
+                                }
                             }
                             else {
                                 verdict = -2;
@@ -107,13 +115,13 @@ module.exports.getResult = async (req, res) => {
                             }
                             res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
                         })
-                        .catch(function (err) {
-                            res.send({message:400});
-                            console.log(err);
-                        })
+                            .catch(function (err) {
+                                res.send({ message: 400 });
+                                console.log(err);
+                            })
                     }
                     else if (language === 'java') {
-                        ssh.execCommand(`timeout 1 java ${userID} < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then(function (resultE) {
+                        ssh.execCommand(`timeout 1 java main < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then(function (resultE) {
                             let output1 = resultE.stdout;
                             let error1 = resultE.stderr;
                             console.log(`ou ` + output1);
@@ -124,8 +132,14 @@ module.exports.getResult = async (req, res) => {
                                 output1 = output1.slice(0, output1.length - 1);
                             }
                             else if (output1.charAt(output1.length - 1) === `4`) {
-                                verdict = -1;
-                                output1 = ``;
+                                if (output1.charAt(output1.length - 2) === '2') {
+                                    verdict = -1;
+                                    output1 = ``;
+                                }
+                                else if (output1.charAt(output1.length - 2) === '3') {
+                                    verdict = -2;
+                                    output1 = ``;
+                                }
                             }
                             else {
                                 verdict = -2;
@@ -133,29 +147,29 @@ module.exports.getResult = async (req, res) => {
                             }
                             res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
                         }).catch(function (err) {
-                            res.send({message:400});
+                            res.send({ message: 400 });
                             console.log(err);
                         })
                     }
 
                 }).catch(function (err) {
-                    res.send({message:400});
+                    res.send({ message: 400 });
                     console.log(err);
                 })
             })
-            .catch(function (err) {
-                res.send({message:400});
+                .catch(function (err) {
+                    res.send({ message: 400 });
+                    console.log(err);
+                })
+        })
+            .catch((err) => {
+                console.log(`Promise rejected`);
                 console.log(err);
+                res.send({ message: 400 });
             })
-        })
-        .catch((err)=> {
-            console.log(`Promise rejected`);
-            console.log(err);
-            res.send({message:400});
-        })
     }
     catch (err) {
-        res.send({message:400});
+        res.send({ message: 400 });
         console.log(err)
     }
 }
@@ -172,16 +186,16 @@ module.exports.solved = async (req, res) => {
         if (index === -1) {
             user.questionsSolved.push(solData.question);
             user.save((err, result) => {
-                if(err){
+                if (err) {
                     console.log(err);
                     return;
                 }
-                
+
                 res.send(result);
             });
             var a = dayOfYear(new Date());
             // console.log(a);
-           
+
             for (let i = 0; i < user.calender.length; i++) {
                 if (user.calender[i].day === a) {
                     user.calender[i].value++;
@@ -189,8 +203,8 @@ module.exports.solved = async (req, res) => {
                 }
             }
         }
-        
-        
+
+
     } catch (err) {
         console.log(err);
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import reset from './reset.png'
 import './Ide.css'
 import AceEditor from 'react-ace';
@@ -19,10 +19,10 @@ import "ace-builds/src-noconflict/theme-nord_dark";
 import "ace-builds/src-noconflict/theme-chrome";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import "ace-builds/src-noconflict/ext-language_tools"
-import {UserRepair} from '../../App.js';
+import { UserRepair } from '../../App.js';
 import io from "socket.io-client";
 export default function Ide(props) {
-    const {user,setLoginUser} = useContext(UserRepair);
+    const { user, setLoginUser } = useContext(UserRepair);
     const cDefault = `#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\treturn 0;\n}`
     const javaDefault = `import java.util.*;\npublic class main {\n\tpublic static void main(String[] args) {\n\n\t}\n}`
     const kotDefault = `fun main(){\n\tprintln("Hello world!")\n}`
@@ -34,8 +34,8 @@ export default function Ide(props) {
     const [output, setOutput] = useState('')
     const [input, setInput] = useState('')
     const [spinner, setSpinner] = useState(false)
-    
-    
+
+
     const [inputBox, setinputBox] = useState(false);
     // eslint-disable-next-line 
     const [changeSide, setchangeSide] = useState(true);
@@ -44,15 +44,15 @@ export default function Ide(props) {
         if (localStorage.getItem('userMain')) {
             let u = JSON.parse(localStorage.getItem('userMain'));
             setLoginUser(u);
-          }
+        }
         document.title = 'IDE | Space';
         if (!props.question) {
             setinputBox(true);
         }
-        
+
         // eslint-disable-next-line
     }, []);
-    
+
 
     const themeChange = (event) => {
         setTheme(event.target.value);
@@ -61,22 +61,22 @@ export default function Ide(props) {
     const lanChange = (event) => {
         setLanguage(event.target.value);
         let lann = event.target.value;
-        
+
         if (lann === 'c_cpp') {
             setValue(cDefault)
-            
+
         }
         if (lann === 'python') {
             setValue(pyDefault)
-            
+
         }
         if (lann === 'java') {
             setValue(javaDefault)
-            
+
         }
         if (lann === 'kotlin') {
             setValue(kotDefault)
-            
+
         }
     }
     let timeout = null;
@@ -84,14 +84,14 @@ export default function Ide(props) {
     function onChange(newValue) {
         setValue(newValue);
         // setchangeSide(true);
-       
+
     }
 
     function resetClicked() {
 
         if (props.inInterview) {
             let reset = 1;
-            
+
         }
         if (language === 'c_cpp') {
             setValue(cDefault);
@@ -123,7 +123,7 @@ export default function Ide(props) {
         }
     }
     const questionSolved = async (solution) => {
-        
+
         let data = { user: user._id, question: props.question._id };
         // eslint-disable-next-line
         let res = await fetch(`${process.env.REACT_APP_SERVER_URL}/problemPage/solved`, {
@@ -132,7 +132,7 @@ export default function Ide(props) {
             },
         });
         let changedUser = await res.json();
-        
+
         setLoginUser(changedUser);
         window.localStorage.setItem('userMain', JSON.stringify(changedUser));
         soluLog(solution);
@@ -156,7 +156,7 @@ export default function Ide(props) {
     const submitter = async () => {
 
         let inn, qID, uID;
-        
+
         if (props.question) {
             inn = inputBox ? input : props.question.testCase;
             qID = props.question._id;
@@ -167,7 +167,7 @@ export default function Ide(props) {
             qID = "";
             uID = user._id;
         }
-        
+
 
         var data = {
             script: value,
@@ -184,7 +184,7 @@ export default function Ide(props) {
             },
         });
         let res2 = await res.json();
-        if(res2.message === 400){
+        if (res2.message === 400) {
             setSpinner(false);
             toast.error('Something Went wrong', {
                 position: "top-center",
@@ -195,10 +195,10 @@ export default function Ide(props) {
                 draggable: true,
                 progress: undefined,
             });
-            
-        }else{
+
+        } else {
             res2.cloudOut = res2.cloudOut.trim();
-            
+
             if (inputBox)
                 setOutput(res2.cloudOut);
 
@@ -270,8 +270,8 @@ export default function Ide(props) {
                 //correct Answer
                 solution.verdict = "Accepted";
                 questionSolved(solution);
-                
-                
+
+
                 toast.success('Correct Answer', {
                     position: "top-center",
                     autoClose: 2000,
@@ -344,7 +344,7 @@ export default function Ide(props) {
     else {
         // console.log(user)
         return (
-            <div id = "ide-div">
+            <div id="ide-div">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ 'boxShadow': '0px 2px 10px #cecece' }} >
                     <div className="container-fluid">
                         <text className="navbar-brand">Space Online IDE</text>
@@ -361,7 +361,6 @@ export default function Ide(props) {
                                         <option selected value="c_cpp">C++</option>
                                         <option value="java">Java</option>
                                         <option value="python">Python</option>
-                                        <option value="kotlin">Kotlin</option>
                                     </select>
                                 </li>
                                 <li className="nav-item">
