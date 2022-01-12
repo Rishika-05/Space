@@ -68,7 +68,8 @@ module.exports.getResult = async (req, res) => {
                     output = result.stdout;
                     error = result.stderr;
                     if (error.length > 0) {
-                        error = error.replaceAll(`${userID}`, `main`);
+                        error = error.replace(`${userID}`, `main`);
+                        error = error.replace(`${userID}`, `main`);
                         res.send({ cloudOut: error, cloudErr: error, verdict: 0 });
                     }
                     else if (language === `python3`) {
