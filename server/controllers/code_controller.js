@@ -4,7 +4,6 @@ const Solution = require('../models/Solution');
 // const fetch = require(`node-fetch`);
 const fs = require('fs')
 const { NodeSSH } = require('node-ssh')
-const ssh = new NodeSSH()
 const dotenv = require('dotenv')
 dotenv.config({ path: './config.env' });
 
@@ -12,8 +11,208 @@ dotenv.config({ path: './config.env' });
 // client secret : fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a
 // https://api.jdoodle.com/v1/execute
 
+let params = null
+let SSH = null 
+let queue = []
+
+const connect = () => new Promise((resolve, reject) => {
+    if (getConnectionParams()) {
+        let ssh = new NodeSSH()
+        ssh.connect(getConnectionParams()).then(() => {
+            setSSH(ssh)
+            resolve(true)
+        }).catch(err => {
+            console.log('SSH connection error:', err)
+            reject(err)
+        })
+    } else {
+        resolve(false)
+    }
+})
+ 
+
+const processQueue = async () => {
+    await connect()
+    queue = getQueue()
+ 
+    while (queue.length > 0) {
+        if (queue[0][0] === 'command') {
+            let command = queue[0][1];
+            console.log(command);
+            await getSSH().execCommand(command, { cwd: '/home/user/cloud' }).then( async (result) =>{
+
+                const { script, language, stdin, versionIndex, userID } = queue[0][4].body;
+                
+
+                let res = queue[0][3];
+                output = result.stdout;
+                error = result.stderr;
+                console.log(error);
+                if (error.length > 0) {
+                    error = error.replace(`${userID}`, `main`);
+                    error = error.replace(`${userID}`, `main`);
+                    res.send({ cloudOut: error, cloudErr: error, verdict: 0 });
+                }
+                else if (language === `python3`) {
+                    console.log(`ou ` + output);
+                    let verdict;
+                    if (output.charAt(output.length - 1) === `0`) {
+                        verdict = 1;
+                        output = output.slice(0, output.length - 1);
+                    }
+                    else if (output.charAt(output.length - 1) === `4`) {
+                        verdict = -1;
+                        output = ``;
+                    }
+                    res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
+                }
+                else if (language === `cpp17`) {
+                    //exec
+                    await getSSH().execCommand(`timeout 1 ./${userID} < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then(async (resultE)=> {
+
+                        let output1 = resultE.stdout;
+                        let error1 = resultE.stderr;
+                        console.log(`ou ` + output1);
+                        let verdict;
+                        if (output1.charAt(output1.length - 1) === `0`) {
+                            verdict = 1;
+                            output1 = output1.slice(0, output1.length - 1);
+                        }
+                        else if (output1.charAt(output1.length - 1) === `4`) {
+                            if (output1.charAt(output1.length - 2) === '2') {
+                                verdict = -1;
+                                output1 = ``;
+                            }
+                            else if (output1.charAt(output1.length - 2) === '3') {
+                                verdict = -2;
+                                output1 = ``;
+                            }
+                        }
+                        else {
+                            verdict = -2;
+                            resultE.stderr = resultE.stderr.replace(`timeout: the monitored command dumped core`, ``);
+                            resultE.stderr = resultE.stderr.replace(`timeout 1 ./${userID} < input.txt`, ``);
+                            resultE.stderr = resultE.stderr.replace(`bash: line 1:  `, ``);
+                            output1 = resultE.stderr;
+                        }
+                        res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
+                    })
+                        .catch(function (err) {
+                            res.send({ message: 400 });
+                            console.log(err);
+                        })
+                }
+                else if (language === 'java') {
+                    await getSSH().execCommand(`timeout 1 java main < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then( async (resultE)=> {
+                        let output1 = resultE.stdout;
+                        let error1 = resultE.stderr;
+                        console.log(`ou ` + output1);
+                        console.log(`err` + error1);
+                        let verdict;
+                        if (output1.charAt(output1.length - 1) === `0`) {
+                            verdict = 1;
+                            output1 = output1.slice(0, output1.length - 1);
+                        }
+                        else if (output1.charAt(output1.length - 1) === `4`) {
+                            if (output1.charAt(output1.length - 2) === '2') {
+                                verdict = -1;
+                                output1 = ``;
+                            }
+                            else if (output1.charAt(output1.length - 2) === '3') {
+                                verdict = -2;
+                                output1 = ``;
+                            }
+                        }
+                        else {
+                            verdict = -2;
+                            output1 = resultE.stderr;
+                        }
+                        res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
+                    }).catch(function (err) {
+                        res.send({ message: 400 });
+                        console.log(err);
+                    })
+                }
+
+
+
+            }).catch((err)=>{
+                console.log(err);
+            })
+        } else if (queue[0][0] === 'upload') {
+            let local = queue[0][1]
+            let remote = queue[0][2]
+            await getSSH().putFile(local, remote, null, { concurrency: 1 }).then((result)=>{
+                console.log("The file thing is done");
+
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        } else if (queue[0][0] === 'download') {
+            let local = queue[0][2]
+            let remote = queue[0][1]
+            await getSSH().getFile(local, remote, null, { concurrency: 1 })
+        }
+        queue.shift()
+        setQueue(queue)
+        queue = getQueue()
+    }
+    disconnect()
+}
+
+
+const disconnect = () => {
+    if (getSSH()) {
+        getSSH().dispose()
+        setSSH(null)
+        setQueue([])
+        return true
+    } else {
+        return false
+    }
+}
+
+const exec = (type, command, command2, res,req) => {
+    const connection = getConnectionParams()
+    if (connection) {
+        if (command2 === null) {
+            addToQueue([type, command, null, res, req])
+        } else {
+            addToQueue([type, command, command2, res, req])
+        }
+        return true
+    } else {
+        return false
+    }
+}
+
+const setConnectionParams = newParams => {
+    params = newParams
+}
+const setSSH = newSSH => {
+    SSH = newSSH
+}
+const setQueue = newQueue => {
+    queue = newQueue
+}
+const addToQueue = async (command) => {
+    let queue = getQueue()
+    queue.push(command)
+    setQueue(queue)
+    if (queue.length === 1) {
+        processQueue()
+    }
+}
+
+const getConnectionParams = () => params
+const getSSH = () => SSH
+const getQueue = () => queue
+const getQueueLength = () => queue.length
+
+
 module.exports.getResult = async (req, res) => {
-    console.log("Connection Initiated");
+    
     let output;
     let error;
     try {
@@ -34,7 +233,7 @@ module.exports.getResult = async (req, res) => {
             assign.fileName = `main.java`
             assign.command = `javac main.java`
         }
-        fs.writeFile(assign.fileName, script, function (err) {
+        fs.writeFile(assign.fileName, script, function (err) { 
             if (err) {
                 console.log(err);
             } else {
@@ -46,133 +245,25 @@ module.exports.getResult = async (req, res) => {
             else {
                 console.log('input file created');
             }
-        })
-        ssh.connect({
+        })   
+        setConnectionParams({
             host: process.env.VM_HOST_IP,
-            username: process.env.SSH_CONNECTOR_USERNAME,
+            username: process.env.SSH_CONNECTOR_USERNAME, 
             port: process.env.SSH_CONNECTION_PORT,
             privateKey: fs.readFileSync('./id_rsa', 'utf8'),
-        }).then(function () {
-            console.log("Connection Established");
-            ssh.putFile(`./${assign.fileName}`, `/home/user/cloud/${assign.fileName}`).then(function () {
-                console.log(`The File thing is done`)
-            })
-                .catch(function (err) {
-                    res.send({ message: 400 });
-                    console.log(err);
-                })
-            ssh.putFile('./input.txt', '/home/user/cloud/input.txt').then(function () {
-                console.log(`The File thing is done`)
-                //compile
-                ssh.execCommand(assign.command, { cwd: '/home/user/cloud' }).then(function (result) {
-                    output = result.stdout;
-                    error = result.stderr;
-                    if (error.length > 0) {
-                        error = error.replace(`${userID}`, `main`);
-                        error = error.replace(`${userID}`, `main`);
-                        res.send({ cloudOut: error, cloudErr: error, verdict: 0 });
-                    }
-                    else if (language === `python3`) {
-                        console.log(`ou ` + output);
-                        let verdict;
-                        if (output.charAt(output.length - 1) === `0`) {
-                            verdict = 1;
-                            output = output.slice(0, output.length - 1);
-                        }
-                        else if (output.charAt(output.length - 1) === `4`) {
-                            verdict = -1;
-                            output = ``;
-                        }
-                        res.send({ cloudOut: output, cloudErr: error, verdict: verdict });
-                    }
-                    else if (language === `cpp17`) {
-                        //exec
-                        ssh.execCommand(`timeout 1 ./${userID} < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then(function (resultE) {
+        });
+        getConnectionParams();
+        exec('upload', `./${assign.fileName}`, `/home/user/cloud/${assign.fileName}`,res,req)
+        exec('upload', './input.txt', '/home/user/cloud/input.txt',res,req)
+        exec('command', assign.command,null,res,req) 
 
-                            let output1 = resultE.stdout;
-                            let error1 = resultE.stderr;
-                            console.log(`ou ` + output1);
-                            let verdict;
-                            if (output1.charAt(output1.length - 1) === `0`) {
-                                verdict = 1;
-                                output1 = output1.slice(0, output1.length - 1);
-                            }
-                            else if (output1.charAt(output1.length - 1) === `4`) {
-                                if (output1.charAt(output1.length - 2) === '2') {
-                                    verdict = -1;
-                                    output1 = ``;
-                                }
-                                else if (output1.charAt(output1.length - 2) === '3') {
-                                    verdict = -2;
-                                    output1 = ``;
-                                }
-                            }
-                            else {
-                                verdict = -2;
-                                resultE.stderr = resultE.stderr.replace(`timeout: the monitored command dumped core`, ``);
-                                resultE.stderr = resultE.stderr.replace(`timeout 1 ./${userID} < input.txt`, ``);
-                                resultE.stderr = resultE.stderr.replace(`bash: line 1:  `, ``);
-                                output1 = resultE.stderr;
-                            }
-                            res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
-                        })
-                            .catch(function (err) {
-                                res.send({ message: 400 });
-                                console.log(err);
-                            })
-                    }
-                    else if (language === 'java') {
-                        ssh.execCommand(`timeout 1 java main < input.txt && echo $? || echo $?`, { cwd: '/home/user/cloud' }).then(function (resultE) {
-                            let output1 = resultE.stdout;
-                            let error1 = resultE.stderr;
-                            console.log(`ou ` + output1);
-                            console.log(`err` + error1);
-                            let verdict;
-                            if (output1.charAt(output1.length - 1) === `0`) {
-                                verdict = 1;
-                                output1 = output1.slice(0, output1.length - 1);
-                            }
-                            else if (output1.charAt(output1.length - 1) === `4`) {
-                                if (output1.charAt(output1.length - 2) === '2') {
-                                    verdict = -1;
-                                    output1 = ``;
-                                }
-                                else if (output1.charAt(output1.length - 2) === '3') {
-                                    verdict = -2;
-                                    output1 = ``;
-                                }
-                            }
-                            else {
-                                verdict = -2;
-                                output1 = resultE.stderr;
-                            }
-                            res.send({ cloudOut: output1, cloudErr: error1, verdict: verdict });
-                        }).catch(function (err) {
-                            res.send({ message: 400 });
-                            console.log(err);
-                        })
-                    }
 
-                }).catch(function (err) {
-                    res.send({ message: 400 });
-                    console.log(err);
-                })
-            })
-                .catch(function (err) {
-                    res.send({ message: 400 });
-                    console.log(err);
-                })
-        })
-            .catch((err) => {
-                console.log(`Promise rejected`);
-                console.log(err);
-                res.send({ message: 400 });
-            })
     }
     catch (err) {
         res.send({ message: 400 });
         console.log(err)
     }
+
 }
 const dayOfYear = function (today) {
     return Math.ceil((today - new Date(today.getFullYear(), 0, 1)) / 86400000);
@@ -230,19 +321,19 @@ module.exports.solutionLog = async (req, res) => {
 }
 
 
-// let data = {
-        //     clientId: `7eaec65631d56c14ef7463193fc91eb2`,
-        //     clientSecret: `fa768de84ea9ef5cd0e4fb7ef12d7a7c13f9e33d4e30dd411a8a6d4a94dba86a`,
-        //     script: script2,
-        //     language,
-        //     stdin,
-        //     versionIndex: versionIndex
-        // }
-        // // console.log(JSON.stringify(data));
-        // let output = await fetch(`https://api.jdoodle.com/v1/execute`, {
-        //     method: `POST`, body: JSON.stringify(data), headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        // });
-        // let apiOut = await output.json();
-        // res.send({ apiOut: apiOut });
+/*
+
+
+
+
+module.exports = {
+  setConnectionParams,
+  getConnectionParams,
+  connect,
+  disconnect,
+  exec,
+  getQueueLength
+}
+
+
+*/
