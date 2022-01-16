@@ -21,7 +21,7 @@ const About = () => {
   
   useEffect(() => {
     
-    scroll(0);  
+    // scroll(0);  
      
   })
   return (
